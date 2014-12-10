@@ -1,0 +1,29 @@
+    {% extends '::layout_admin.html.twig' %}
+
+
+    {% block page_title %}
+        {{ "crud.title.new"|trans([], 'admin') }}
+    {% endblock %}
+
+    {% block page_subtitle %}
+        {{ "admin.objecttype.entity_name"|trans([], "admin") }}
+    {% endblock %}
+
+    {% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <form role="form" method="POST" {{ form_enctype(form) }}>
+                    <div class="box-body">
+                        {% include 'DeusDBBundle:Admin/ObjectType:form.html.twig' %}
+                    </div>
+                    <div class="box-footer">
+                        {{ form_widget(form.create, { 'label': 'crud.form.new'|trans([], 'admin') }) }}
+                        <a href="{{ path('admin_objecttype_list') }}" class="btn btn-default">{{ 'crud.form.cancel'|trans([], 'admin') }}</a>
+                        {{ form_rest(form) }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

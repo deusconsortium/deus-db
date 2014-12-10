@@ -1,0 +1,58 @@
+crud:
+  form:
+    edit: Edition
+    list: Retour à la liste
+    save: Sauvegarde
+    new: Nouveau
+    cancel: Annuler
+    delete: Supprimer
+  message:
+    created: L'élément a été créé
+    deleted: L'élément a été supprimé
+    saved: L'élément a été mis à jour
+  title:
+    edit: Edition
+    index: Liste
+    new: Nouveau
+    show: Affichage
+
+admin:
+    edit_contents: Edition des contenus
+    cosmology:
+        entity_name: Cosmology
+        name: Name
+    simulation:
+        entity_name: Simulation
+        boxlen: Boxlen
+        npart: Npart
+        Supercomputer: Supercomputer
+        Project: Project
+        Cosmology: Cosmology
+    objectformat:
+        entity_name: Objectformat
+        name: Name
+    objecttype:
+        entity_name: Objecttype
+        name: Name
+    cone:
+        entity_name: Cone
+        name: Name
+    objectgroup:
+        entity_name: Objectgroup
+        name: Name
+    project:
+        entity_name: Project
+        name: Name
+    snapshot:
+        entity_name: Snapshot
+        name: Name
+    snapshotsample:
+        entity_name: Snapshotsample
+        name: Name
+    storage:
+        entity_name: Storage
+        name: Name
+    supercomputer:
+        entity_name: Supercomputer
+        name: Name
+        endianness: Endianness

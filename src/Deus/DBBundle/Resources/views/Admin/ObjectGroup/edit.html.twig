@@ -1,0 +1,30 @@
+    {% extends '::layout_admin.html.twig' %}
+
+
+    {% block page_title %}
+        {{ "crud.title.edit"|trans([], 'admin') }}
+    {% endblock %}
+
+    {% block page_subtitle %}
+        {{ "admin.objectgroup.entity_name"|trans([], "admin") }}
+    {% endblock %}
+
+    {% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <form role="form" method="POST" {{ form_enctype(form) }}>
+                <div class="box-body">
+                    {% include 'DeusDBBundle:Admin/ObjectGroup:form.html.twig' %}
+                </div>
+                <div class="box-footer">
+                    {{ form_widget(form.save, { 'label': 'crud.form.save'|trans([], 'admin') }) }}
+                    {{ form_widget(form.delete, { 'label': 'crud.form.delete'|trans([], 'admin') }) }}
+                    <a href="{{ path('admin_objectgroup_show', {id:entity.id}) }}" class="btn btn-default">{{ 'crud.form.cancel'|trans([], 'admin') }}</a>
+                    {{ form_rest(form) }}
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

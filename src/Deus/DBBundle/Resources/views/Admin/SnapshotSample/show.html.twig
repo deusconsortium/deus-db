@@ -1,0 +1,35 @@
+    {% extends '::layout_admin.html.twig' %}
+
+
+    {% block page_title %}
+        {{ "crud.title.show"|trans([], 'admin') }}
+    {% endblock %}
+
+    {% block page_subtitle %}
+        {{ "admin.snapshotsample.entity_name"|trans([], "admin") }}
+    {% endblock %}
+
+    {% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{{ entity.name }}</h3>
+                </div>
+                <div class="box-body">
+                    <table class="record_properties">
+                        <tbody>
+                            <tr>
+                                <th>{{ "admin.snapshotsample.name"|trans([], "admin") }}</th>
+                                    <td>{{ entity.name }}</td>
+                            </tr>                        </tbody>
+                    </table>
+                </div>
+                <div class="box-footer">
+                    <a href="{{ path('admin_snapshotsample_edit', { id:entity.id}) }}" class="btn btn-default">{{ 'crud.form.edit'|trans([], 'admin') }}</a>                    <a href="{{ path('admin_snapshotsample_list') }}" class="btn btn-default">{{ 'crud.form.list'|trans([], 'admin') }}</a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
