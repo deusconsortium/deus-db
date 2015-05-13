@@ -19,7 +19,6 @@ class Cosmology
      */
     private $name;
 
-
     /**
      * Get id
      *

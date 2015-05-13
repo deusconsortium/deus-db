@@ -3,11 +3,12 @@
 namespace Deus\DBBundle\Controller\Admin;
 
 use Symfony\Component\HttpFoundation\Request;
-use Sedona\SBOGeneratorBundle\Controller\BaseCrudController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Deus\DBBundle\Entity\ObjectType;
-use Deus\DBBundle\Form\ObjectTypeType;
+use Deus\DBBundle\Form\Admin\ObjectTypeType;
 
 /**
  * ObjectType controller.
@@ -53,6 +54,16 @@ class ObjectTypeController extends BaseCrudController
     }
 
     /**
+    * Edit a ObjectType.
+    *
+    * @Route("/{id}/edit", name="admin_objecttype_edit", options={"expose"=true})
+    */
+    public function editAction(ObjectType $entity, Request $request)
+    {
+        return $this->manageEdit($entity, $request, new ObjectTypeType());
+    }
+
+    /**
     * Show a ObjectType.
     *
     * @Route("/{id}", name="admin_objecttype_show", options={"expose"=true})
@@ -63,13 +74,6 @@ class ObjectTypeController extends BaseCrudController
         return $this->manageShow($entity);
     }
 
-    /**
-    * Edit a ObjectType.
-    *
-    * @Route("/{id}/edit", name="admin_objecttype_edit", options={"expose"=true})
-    */
-    public function editAction(ObjectType $entity, Request $request)
-    {
-        return $this->manageEdit($entity, $request, new ObjectTypeType());
-    }
+
+
 }

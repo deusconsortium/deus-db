@@ -19,6 +19,10 @@ class Storage
      */
     private $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Deus\DBBundle\Entity\Location")
+     */
+    private $Location;
 
     /**
      * Get id
@@ -39,7 +43,6 @@ class Storage
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -58,6 +61,29 @@ class Storage
      */
     public function __toString()
     {
-        return $this->getName();
+        return ($this->Location ? $this->Location->getName() : '?').' / '.$this->getName();
+    }
+
+    /**
+     * Set Location
+     *
+     * @param \Deus\DBBundle\Entity\Location $location
+     * @return Storage
+     */
+    public function setLocation(\Deus\DBBundle\Entity\Location $location = null)
+    {
+        $this->Location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get Location
+     *
+     * @return \Deus\DBBundle\Entity\Location 
+     */
+    public function getLocation()
+    {
+        return $this->Location;
     }
 }

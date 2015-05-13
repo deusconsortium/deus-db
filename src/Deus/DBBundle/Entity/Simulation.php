@@ -15,37 +15,31 @@ class Simulation
     private $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Deus\DBBundle\Entity\Boxlen")
      */
-    private $boxlen;
+    private $Boxlen;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Resolution")
      */
-    private $npart;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $comment;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Supercomputer")
-     */
-    private $Supercomputer;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Project")
-     */
-    private $Project;
+    private $Resolution;
 
     /**
      * @ORM\ManyToOne(targetEntity="Cosmology")
      */
     private $Cosmology;
 
-    private $baseDirectory;
-
+    /**
+     * @ORM\OneToMany(targetEntity="Geometry", mappedBy="Simulation")
+     */
+    private $geometries;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->geometries = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -58,72 +52,49 @@ class Simulation
     }
 
     /**
-     * Set boxlen
+     * Set Boxlen
      *
-     * @param string $boxlen
+     * @param \Deus\DBBundle\Entity\Boxlen $boxlen
      * @return Simulation
      */
-    public function setBoxlen($boxlen)
+    public function setBoxlen(\Deus\DBBundle\Entity\Boxlen $boxlen = null)
     {
-        $this->boxlen = $boxlen;
+        $this->Boxlen = $boxlen;
 
         return $this;
     }
 
     /**
-     * Get boxlen
+     * Get Boxlen
      *
-     * @return string 
+     * @return \Deus\DBBundle\Entity\Boxlen 
      */
     public function getBoxlen()
     {
-        return $this->boxlen;
+        return $this->Boxlen;
     }
 
     /**
-     * Set Supercomputer
+     * Set Resolution
      *
-     * @param \Deus\DBBundle\Entity\Supercomputer $supercomputer
+     * @param \Deus\DBBundle\Entity\Resolution $resolution
      * @return Simulation
      */
-    public function setSupercomputer(\Deus\DBBundle\Entity\Supercomputer $supercomputer = null)
+    public function setResolution(\Deus\DBBundle\Entity\Resolution $resolution = null)
     {
-        $this->Supercomputer = $supercomputer;
+        $this->Resolution = $resolution;
 
         return $this;
     }
 
     /**
-     * Get Supercomputer
+     * Get Resolution
      *
-     * @return \Deus\DBBundle\Entity\Supercomputer 
+     * @return \Deus\DBBundle\Entity\Resolution 
      */
-    public function getSupercomputer()
+    public function getResolution()
     {
-        return $this->Supercomputer;
-    }
-
-    /**
-     * Set Project
-     *
-     * @param \Deus\DBBundle\Entity\Project $project
-     * @return Simulation
-     */
-    public function setProject(\Deus\DBBundle\Entity\Project $project = null)
-    {
-        $this->Project = $project;
-
-        return $this;
-    }
-
-    /**
-     * Get Project
-     *
-     * @return \Deus\DBBundle\Entity\Project 
-     */
-    public function getProject()
-    {
-        return $this->Project;
+        return $this->Resolution;
     }
 
     /**
@@ -150,46 +121,40 @@ class Simulation
     }
 
     /**
-     * Set npart
+     * Add geometries
      *
-     * @param integer $npart
+     * @param \Deus\DBBundle\Entity\Geometry $geometries
      * @return Simulation
      */
-    public function setNpart($npart)
+    public function addGeometry(\Deus\DBBundle\Entity\Geometry $geometries)
     {
-        $this->npart = $npart;
+        $this->geometries[] = $geometries;
 
         return $this;
     }
 
     /**
-     * Get npart
+     * Remove geometries
      *
-     * @return integer 
+     * @param \Deus\DBBundle\Entity\Geometry $geometries
      */
-    public function getNpart()
+    public function removeGeometry(\Deus\DBBundle\Entity\Geometry $geometries)
     {
-        return $this->npart;
+        $this->geometries->removeElement($geometries);
+    }
+
+    /**
+     * Get geometries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGeometries()
+    {
+        return $this->geometries;
     }
 
     public function __toString()
     {
-        return 'boxlen'.$this->boxlen.'_n'.$this->getNpart().'_'.$this->getCosmology()->getName();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBaseDirectory()
-    {
-        return $this->baseDirectory;
-    }
-
-    /**
-     * @param mixed $baseDirectory
-     */
-    public function setBaseDirectory($baseDirectory)
-    {
-        $this->baseDirectory = $baseDirectory;
+        return $this->getBoxlen()->getValue()." Mpc/h ".$this->getResolution()->getValue()."^3 particles ".$this->getCosmology()->getName();
     }
 }

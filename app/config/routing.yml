@@ -3,5 +3,18 @@ deus_db:
     type:     annotation
     prefix:   /
 
+deus_db_public:
+    resource: "@DeusDBBundle/Controller"
+    type:     annotation
+    prefix:   /
+
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+avanzu_admin_profile:
+  path: /profile/{userid}/
+avanzu_admin_logout:
+  path: /logout

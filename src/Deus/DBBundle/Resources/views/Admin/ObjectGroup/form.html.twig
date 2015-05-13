@@ -1,3 +1,13 @@
 {{ form_errors(form) }}
 
 {{ form_row(form.name, {'label': 'admin.objectgroup.name'|trans([], 'admin')} ) }}
+{{ form_row(form.size, {'label': 'admin.objectgroup.size'|trans([], 'admin')} ) }}
+{{ form_row(form.nbFiles, {'label': 'admin.objectgroup.nbFiles'|trans([], 'admin')} ) }}
+
+{{ form_row(form.ObjectType, {'label': 'admin.objectgroup.ObjectType'|trans([], 'admin')} ) }}
+
+{{ form_row(form.ObjectFormat, {'label': 'admin.objectgroup.ObjectFormat'|trans([], 'admin')} ) }}
+
+{{ form_row(form.Geometry, {'label': 'admin.objectgroup.Geometry'|trans([], 'admin')} ) }}
+
+{{ form_row(form.Storage, {'label': 'admin.objectgroup.Storage'|trans([], 'admin')} ) }}

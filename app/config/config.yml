@@ -5,14 +5,15 @@ imports:
 
 framework:
     #esi:             ~
-    translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }  #  logging: false   -- Symfony 2.6 only
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
-    validation:      { enable_annotations: true }
+    validation:
+         enable_annotations: true
     templating:
         engines: ['twig']
         #assets_version: SomeVersionScheme
@@ -22,6 +23,7 @@ framework:
     session:
         # handler_id set to null will use default session handler from php.ini
         handler_id:  ~
+        name: sedonasbo_session
     fragments:       ~
     http_method_override: true
 
@@ -34,7 +36,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ "FOSUserBundle" ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -75,5 +77,10 @@ swiftmailer:
 jms_di_extra:
     locations:
         all_bundles: false
-        bundles: [SedonaSBOTestBundle]
+        bundles: [DeusDBBundle]
         directories: ["%kernel.root_dir%/../src"]
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Deus\DBBundle\Entity\User

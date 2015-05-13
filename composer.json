@@ -9,12 +9,12 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "http://git.sedona.fr/php/sedona-sbo.git"
+            "url": "https://git.sedona.fr/php/sedona-sbo.git"
         }
     ],
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.6.x-dev",
+        "symfony/symfony": "~2.5",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
@@ -25,7 +25,7 @@
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "sedona/sbo": "dev-master",
-        "sg/datatablesbundle": "dev-master",
+        "sg/datatablesbundle": "0.6.*",
         "datatables/datatables": "1.10.4",
         "moment/moment": "2.6.0",
         "friendsofsymfony/jsrouting-bundle": "@stable",

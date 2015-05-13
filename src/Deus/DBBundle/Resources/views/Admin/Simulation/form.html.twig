@@ -1,8 +1,9 @@
 {{ form_errors(form) }}
 
-{{ form_row(form.boxlen, {'label': 'admin.simulation.boxlen'|trans([], 'admin')} ) }}
-{{ form_row(form.npart, {'label': 'admin.simulation.npart'|trans([], 'admin')} ) }}
-{{ form_row(form.Supercomputer, {'label': 'admin.simulation.Supercomputer'|trans([], 'admin')} ) }}
-{{ form_row(form.Project, {'label': 'admin.simulation.Project'|trans([], 'admin')} ) }}
+
+{{ form_row(form.Boxlen, {'label': 'admin.simulation.Boxlen'|trans([], 'admin')} ) }}
+
+{{ form_row(form.Resolution, {'label': 'admin.simulation.Resolution'|trans([], 'admin')} ) }}
+
 {{ form_row(form.Cosmology, {'label': 'admin.simulation.Cosmology'|trans([], 'admin')} ) }}
-{{ form_row(form.baseDirectory, {'label': 'admin.simulation.baseDirectory'|trans([], 'admin')} ) }}
+{#{{ form_row(form.geometries, {'label': 'admin.simulation.geometries'|trans([], 'admin')} ) }}#}

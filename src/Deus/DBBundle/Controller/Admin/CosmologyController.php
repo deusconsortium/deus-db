@@ -3,11 +3,12 @@
 namespace Deus\DBBundle\Controller\Admin;
 
 use Symfony\Component\HttpFoundation\Request;
-use Sedona\SBOGeneratorBundle\Controller\BaseCrudController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Deus\DBBundle\Entity\Cosmology;
-use Deus\DBBundle\Form\CosmologyType;
+use Deus\DBBundle\Form\Admin\CosmologyType;
 
 /**
  * Cosmology controller.
@@ -53,6 +54,16 @@ class CosmologyController extends BaseCrudController
     }
 
     /**
+    * Edit a Cosmology.
+    *
+    * @Route("/{id}/edit", name="admin_cosmology_edit", options={"expose"=true})
+    */
+    public function editAction(Cosmology $entity, Request $request)
+    {
+        return $this->manageEdit($entity, $request, new CosmologyType());
+    }
+
+    /**
     * Show a Cosmology.
     *
     * @Route("/{id}", name="admin_cosmology_show", options={"expose"=true})
@@ -63,13 +74,6 @@ class CosmologyController extends BaseCrudController
         return $this->manageShow($entity);
     }
 
-    /**
-    * Edit a Cosmology.
-    *
-    * @Route("/{id}/edit", name="admin_cosmology_edit", options={"expose"=true})
-    */
-    public function editAction(Cosmology $entity, Request $request)
-    {
-        return $this->manageEdit($entity, $request, new CosmologyType());
-    }
+
+
 }

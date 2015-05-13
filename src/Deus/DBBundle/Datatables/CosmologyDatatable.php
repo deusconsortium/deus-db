@@ -11,40 +11,60 @@ use Sg\DatatablesBundle\Datatable\View\AbstractDatatableView;
  * @Service("admin_cosmology_datatable")
  * @Tag("sg.datatable.view")
  */
-class CosmologyDatatable extends AbstractDatatableView
+class CosmologyDatatable extends AbstractCrudDatatableView
 {
     /**
      * {@inheritdoc}
      */
     public function buildDatatableView()
     {
+        $this->setParameters();
+        $this->setColumns();
+
+        $this->getAjax()->setUrl($this->getRouter()->generate("admin_cosmology_datatable"));
+
+        //$this->setIndividualFiltering(true); // Uncomment it to have a search for each field
+
+        $actions = [];
+        if ($this->getRouter()->getRouteCollection()->get("admin_cosmology_show") != null) {
+            $actions[] = [
+                "route" => "admin_cosmology_show",
+                "route_parameters" => array("id" => "id"),
+                "label" => $this->getTranslator()->trans("crud.title.show", [], 'admin'),
+                "icon" => "glyphicon glyphicon-eye-open",
+                "attributes" => array(
+                    "rel" => "tooltip",
+                    "title" => "Show",
+                    "class" => "btn btn-default btn-xs",
+                    "role" => "button"
+                )
+            ];
+        }
+        if(count($actions)>0) {
+            $this->getColumnBuilder()
+                ->add(null, "action", array(
+                    "title" => "Actions",
+                    "actions" => $actions
+                ));
+        }
+    }
+
+    protected function setParameters() {
         $this->getFeatures()
             ->setServerSide(true)
             ->setProcessing(true)
         ;
-
-        $this->getAjax()->setUrl($this->getRouter()->generate("admin_cosmology_datatable"));
-
         $this->setStyle(self::BOOTSTRAP_3_STYLE);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function setColumns() {
 
         $this->getColumnBuilder()
             ->add("name", "column", array("title" => $this->getTranslator()->trans("admin.cosmology.name", [], 'admin')))
-            ->add(null, "action", array(
-                "title" => "Actions",
-                "actions" => array(
-                    array(
-                        "route" => "admin_cosmology_show",
-                        "route_parameters" => array("id" => "id"),
-                        "label" => $this->getTranslator()->trans("crud.title.show", [], 'admin'),
-                        "attributes" => array(
-                        "rel" => "tooltip",
-                        "title" => "Show",
-                        "class" => "btn btn-default btn-xs",
-                        "role" => "button"
-                        ),
-                    ),
-                )
-            ))
         ;
     }
 

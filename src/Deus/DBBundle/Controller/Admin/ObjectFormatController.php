@@ -3,11 +3,12 @@
 namespace Deus\DBBundle\Controller\Admin;
 
 use Symfony\Component\HttpFoundation\Request;
-use Sedona\SBOGeneratorBundle\Controller\BaseCrudController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Deus\DBBundle\Entity\ObjectFormat;
-use Deus\DBBundle\Form\ObjectFormatType;
+use Deus\DBBundle\Form\Admin\ObjectFormatType;
 
 /**
  * ObjectFormat controller.
@@ -53,6 +54,16 @@ class ObjectFormatController extends BaseCrudController
     }
 
     /**
+    * Edit a ObjectFormat.
+    *
+    * @Route("/{id}/edit", name="admin_objectformat_edit", options={"expose"=true})
+    */
+    public function editAction(ObjectFormat $entity, Request $request)
+    {
+        return $this->manageEdit($entity, $request, new ObjectFormatType());
+    }
+
+    /**
     * Show a ObjectFormat.
     *
     * @Route("/{id}", name="admin_objectformat_show", options={"expose"=true})
@@ -63,13 +74,6 @@ class ObjectFormatController extends BaseCrudController
         return $this->manageShow($entity);
     }
 
-    /**
-    * Edit a ObjectFormat.
-    *
-    * @Route("/{id}/edit", name="admin_objectformat_edit", options={"expose"=true})
-    */
-    public function editAction(ObjectFormat $entity, Request $request)
-    {
-        return $this->manageEdit($entity, $request, new ObjectFormatType());
-    }
+
+
 }

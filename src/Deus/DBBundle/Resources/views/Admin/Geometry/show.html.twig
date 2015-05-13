@@ -1,0 +1,55 @@
+{% extends '::layout_admin.html.twig' %}
+
+
+{% block page_title %}
+    {{ "crud.title.show"|trans([], 'admin') }}
+{% endblock %}
+
+{% block page_subtitle %}
+    {{ "admin.geometry.entity_name"|trans([], "admin") }}
+{% endblock %}
+
+{% block content %}            
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs pull-right">
+            <li class="pull-left header"><i class="fa fa-th"></i> {{ entity }}</li>
+            <li><a data-toggle="tabajax" data-target="#tab_objectGroups_1" href="{{ path('admin_geometry_objectgroups_list', { id:entity.id}) }}">{{ "admin.geometry.objectGroups"|trans([], "admin") }}</a></li>
+                <li class="active"><a data-toggle="tab" href="#tab_entity_name_2">{{ "crud.title.properties"|trans([], "admin") }}</a></li>
+                </ul>
+        <div class="tab-content">
+            <div id="tab_objectGroups_1" class="tab-pane">                    
+                    
+                <div class="overlay"></div>
+                <div class="loading-img"></div>
+            </div>
+            <div id="tab_entity_name_2" class="tab-pane active">                <form role="form">
+                    <table class="record_properties">
+                        <tbody>
+                            <tr>
+                                <th>{{ "admin.geometry.Z"|trans([], "admin") }}</th>
+                                <td>{{ entity.Z }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.geometry.angle"|trans([], "admin") }}</th>
+                                <td>{{ entity.angle }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.geometry.Simulation"|trans([], "admin") }}</th>
+                                <td>{{ entity.Simulation }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.geometry.GeometryType"|trans([], "admin") }}</th>
+                                <td>{{ entity.GeometryType }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <a href="{{ path('admin_geometry_edit', { id:entity.id}) }}" class="btn btn-default">{{ 'crud.form.edit'|trans([], 'admin')|addGlyphicon("edit") }}</a>                    <a href="{{ path('admin_geometry_list') }}" class="btn btn-default">{{ 'crud.form.list'|trans([], 'admin')|addGlyphicon("list") }}</a>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

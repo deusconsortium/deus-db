@@ -6,6 +6,10 @@ crud:
     new: Create new
     cancel: Cancel
     delete: Delete
+    required: This field is required
+    search_placeholder: 'Search'
+    confirm: Are you sure?
+  search_and_append: 'Search and add %entity_name%'
   message:
     created: The item has been created
     deleted: The item has been deleted
@@ -15,45 +19,72 @@ crud:
     index: List
     new: New
     show: Show
+    delete: Delete
+    properties: Properties
 
 admin:
-    edit_contents: Edit Parameters
-    simulation_search: Search Simulation
-    cosmology:
-        entity_name: Cosmology
-        name: Name
-    simulation:
-        entity_name: Simulation
-        boxlen: Boxlen
-        npart: Npart
-        Supercomputer: Supercomputer
-        Project: Project
-        Cosmology: Cosmology
-    objectformat:
-        entity_name: Object Format
-        name: Name
-    objecttype:
-        entity_name: Object Type
-        name: Name
-    cone:
-        entity_name: Cone
-        name: Name
-    objectgroup:
-        entity_name: Object Group
-        name: Name
-    project:
-        entity_name: Project
-        name: Name
-    snapshot:
-        entity_name: Snapshot
-        name: Name
-    snapshotsample:
-        entity_name: Snapshotsample
-        name: Name
+    edit_contents: Parameters
+    simulation_search: Simulations
     storage:
         entity_name: Storage
         name: Name
-    supercomputer:
-        entity_name: Supercomputer
+        Location: Location
+    boxlen:
+        entity_name: Boxlen
+        value: Value
+    cosmology:
+        entity_name: Cosmology
         name: Name
-        endianness: Endianness
+    geometry:
+        entity_name: Geometry
+        Z: Z
+        angle: Angle
+        Simulation: Simulation
+        GeometryType: Geometry type
+        objectGroups: Object groups
+    objectgroup:
+        entity_name: Object group
+        name: Directory
+        ObjectType: Object type
+        ObjectFormat: Object format
+        Geometry: Geometry
+        Storage: Storage
+    resolution:
+        entity_name: Npart
+        value: Value
+    location:
+        entity_name: Location
+        name: Name
+    geometrytype:
+        entity_name: Geometry type
+        name: Name
+    objectformat:
+        entity_name: Object format
+        name: Name
+    simulation:
+        entity_name: Simulation
+        Boxlen: Boxlen
+        Resolution: Npart
+        Cosmology: Cosmology
+        geometries: Geometries
+    objecttype:
+        entity_name: Object type
+        name: Name
+    user:
+        entity_name: User
+        username: Username
+        usernameCanonical: Usernamecanonical
+        email: Email
+        emailCanonical: Emailcanonical
+        enabled: Enabled
+        salt: Salt
+        password: Password
+        lastLogin: Lastlogin
+        locked: Locked
+        expired: Expired
+        expiresAt: Expiresat
+        confirmationToken: Confirmationtoken
+        passwordRequestedAt: Passwordrequestedat
+        roles: Roles
+        credentialsExpired: Credentialsexpired
+        credentialsExpireAt: Credentialsexpireat

@@ -1,29 +1,35 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jean
- * Date: 07/12/14
- * Time: 18:27
- */
 
 namespace Deus\DBBundle\EventListener;
-
-use JMS\DiExtraBundle\Annotation\Observe;
-use JMS\DiExtraBundle\Annotation\Service;
+use Deus\DBBundle\Entity\Simulation;
+use Deus\DBBundle\Manager\DeusFileManager;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use JMS\DiExtraBundle\Annotation\DoctrineListener;
 
 /**
  * Class SimulationListener
  * @package Deus\DBBundle\EventListener
- * @Service("simulation_listener")
+ * @DoctrineListener(events={"prePersist"})
+
  */
-class SimulationListener {
-
+class SimulationListener
+{
     /**
-     * @param Event $e
-     * @Observe("")
+     * @param LifecycleEventArgs $args
      */
-    public function onCreateSimulation(Event $e)
+    public function prePersist(LifecycleEventArgs $args)
     {
-
+//        $entity = $args->getEntity();
+//        $entityManager = $args->getEntityManager();
+//
+//        if ($entity instanceof Simulation && $entity->getBaseDirectory() != "") {
+//            $simulationManager = new DeusFileManager($entity->getBaseDirectory(),false);
+//
+//            echo "DIR=".$entity->getBaseDirectory()."<br/><br/>";
+//
+//            var_dump($simulationManager);
+//            die("<br/><br/>done");
+//
+//        }
     }
 } 

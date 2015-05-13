@@ -1,0 +1,18 @@
+{{ form_errors(form) }}
+
+{{ form_row(form.username, {'label': 'admin.user.username'|trans([], 'admin')} ) }}
+{{ form_row(form.usernameCanonical, {'label': 'admin.user.usernameCanonical'|trans([], 'admin')} ) }}
+{{ form_row(form.email, {'label': 'admin.user.email'|trans([], 'admin')} ) }}
+{{ form_row(form.emailCanonical, {'label': 'admin.user.emailCanonical'|trans([], 'admin')} ) }}
+{{ form_row(form.enabled, {'label': 'admin.user.enabled'|trans([], 'admin')} ) }}
+{{ form_row(form.salt, {'label': 'admin.user.salt'|trans([], 'admin')} ) }}
+{{ form_row(form.password, {'label': 'admin.user.password'|trans([], 'admin')} ) }}
+{{ form_row(form.lastLogin, {'label': 'admin.user.lastLogin'|trans([], 'admin')} ) }}
+{{ form_row(form.locked, {'label': 'admin.user.locked'|trans([], 'admin')} ) }}
+{{ form_row(form.expired, {'label': 'admin.user.expired'|trans([], 'admin')} ) }}
+{{ form_row(form.expiresAt, {'label': 'admin.user.expiresAt'|trans([], 'admin')} ) }}
+{{ form_row(form.confirmationToken, {'label': 'admin.user.confirmationToken'|trans([], 'admin')} ) }}
+{{ form_row(form.passwordRequestedAt, {'label': 'admin.user.passwordRequestedAt'|trans([], 'admin')} ) }}
+{{ form_row(form.roles, {'label': 'admin.user.roles'|trans([], 'admin')} ) }}
+{{ form_row(form.credentialsExpired, {'label': 'admin.user.credentialsExpired'|trans([], 'admin')} ) }}
+{{ form_row(form.credentialsExpireAt, {'label': 'admin.user.credentialsExpireAt'|trans([], 'admin')} ) }}

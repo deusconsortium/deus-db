@@ -1,51 +1,51 @@
-    {% extends '::layout_admin.html.twig' %}
+{% extends '::layout_admin.html.twig' %}
 
 
-    {% block page_title %}
-        {{ "crud.title.show"|trans([], 'admin') }}
-    {% endblock %}
+{% block page_title %}
+    {{ "crud.title.show"|trans([], 'admin') }}
+{% endblock %}
 
-    {% block page_subtitle %}
-        {{ "admin.simulation.entity_name"|trans([], "admin") }}
-    {% endblock %}
+{% block page_subtitle %}
+    {{ "admin.simulation.entity_name"|trans([], "admin") }}
+{% endblock %}
 
-    {% block content %}
-    <div class="row">
-        <div class="col-md-6">
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title">{{ entity }}</h3>
-                </div>
-                <div class="box-body">
+{% block content %}            
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs pull-right">
+            <li class="pull-left header"><i class="fa fa-th"></i> {{ entity }}</li>
+            <li><a data-toggle="tabajax" data-target="#tab_geometries_1" href="{{ path('admin_simulation_geometries_list', { id:entity.id}) }}">{{ "admin.simulation.geometries"|trans([], "admin") }}</a></li>
+                <li class="active"><a data-toggle="tab" href="#tab_entity_name_2">{{ "crud.title.properties"|trans([], "admin") }}</a></li>
+                </ul>
+        <div class="tab-content">
+            <div id="tab_geometries_1" class="tab-pane">                    
+                    
+                <div class="overlay"></div>
+                <div class="loading-img"></div>
+            </div>
+            <div id="tab_entity_name_2" class="tab-pane active">                <form role="form">
                     <table class="record_properties">
                         <tbody>
                             <tr>
-                                <th>{{ "admin.simulation.boxlen"|trans([], "admin") }}</th>
-                                    <td>{{ entity.boxlen }}</td>
+                                <th>{{ "admin.simulation.Boxlen"|trans([], "admin") }}</th>
+                                <td>{{ entity.Boxlen }}</td>
                             </tr>
                             <tr>
-                                <th>{{ "admin.simulation.npart"|trans([], "admin") }}</th>
-                                    <td>{{ entity.npart }}</td>
-                            </tr>
-                            <tr>
-                                <th>{{ "admin.simulation.Supercomputer"|trans([], "admin") }}</th>
-                                    <td>{{ entity.Supercomputer }}</td>
-                            </tr>
-                            <tr>
-                                <th>{{ "admin.simulation.Project"|trans([], "admin") }}</th>
-                                    <td>{{ entity.Project }}</td>
+                                <th>{{ "admin.simulation.Resolution"|trans([], "admin") }}</th>
+                                <td>{{ entity.Resolution }}</td>
                             </tr>
                             <tr>
                                 <th>{{ "admin.simulation.Cosmology"|trans([], "admin") }}</th>
-                                    <td>{{ entity.Cosmology }}</td>
-                            </tr>                        </tbody>
+                                <td>{{ entity.Cosmology }}</td>
+                            </tr>
+                        </tbody>
                     </table>
-                </div>
-                <div class="box-footer">
-                    <a href="{{ path('admin_simulation_edit', { id:entity.id}) }}" class="btn btn-default">{{ 'crud.form.edit'|trans([], 'admin') }}</a>                    <a href="{{ path('admin_simulation_list') }}" class="btn btn-default">{{ 'crud.form.list'|trans([], 'admin') }}</a>
-                </div>
+                    <div class="text-center">
+                        <a href="{{ path('admin_simulation_edit', { id:entity.id}) }}" class="btn btn-default">{{ 'crud.form.edit'|trans([], 'admin')|addGlyphicon("edit") }}</a>                    <a href="{{ path('admin_simulation_list') }}" class="btn btn-default">{{ 'crud.form.list'|trans([], 'admin')|addGlyphicon("list") }}</a>
+                    </div>
                 </form>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>
-    {% endblock %}
+    
+{% endblock %}

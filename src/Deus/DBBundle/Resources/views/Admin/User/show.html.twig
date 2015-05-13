@@ -1,0 +1,96 @@
+{% extends '::layout_admin.html.twig' %}
+
+
+{% block page_title %}
+    {{ "crud.title.show"|trans([], 'admin') }}
+{% endblock %}
+
+{% block page_subtitle %}
+    {{ "admin.user.entity_name"|trans([], "admin") }}
+{% endblock %}
+
+{% block content %}
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs pull-right">
+            <li class="pull-left header"><i class="fa fa-th"></i> {{ entity }}</li>
+            <li class="active"><a data-toggle="tab" href="#tab_entity_name_1">{{ "crud.title.properties"|trans([], "admin") }}</a></li>
+                </ul>
+        <div class="tab-content">
+            <div id="tab_entity_name_1" class="tab-pane active">                <form role="form">
+                    <table class="record_properties">
+                        <tbody>
+                            <tr>
+                                <th>{{ "admin.user.username"|trans([], "admin") }}</th>
+                                <td>{{ entity.username }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.usernameCanonical"|trans([], "admin") }}</th>
+                                <td>{{ entity.usernameCanonical }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.email"|trans([], "admin") }}</th>
+                                <td>{{ entity.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.emailCanonical"|trans([], "admin") }}</th>
+                                <td>{{ entity.emailCanonical }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.enabled"|trans([], "admin") }}</th>
+                                <td>{{ entity.enabled }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.salt"|trans([], "admin") }}</th>
+                                <td>{{ entity.salt }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.password"|trans([], "admin") }}</th>
+                                <td>{{ entity.password }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.lastLogin"|trans([], "admin") }}</th>
+                                <td>{{ entity.lastLogin|localizeddate("long","medium") }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.locked"|trans([], "admin") }}</th>
+                                <td>{{ entity.locked }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.expired"|trans([], "admin") }}</th>
+                                <td>{{ entity.expired }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.expiresAt"|trans([], "admin") }}</th>
+                                <td>{{ entity.expiresAt|localizeddate("long","medium") }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.confirmationToken"|trans([], "admin") }}</th>
+                                <td>{{ entity.confirmationToken }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.passwordRequestedAt"|trans([], "admin") }}</th>
+                                <td>{{ entity.passwordRequestedAt|localizeddate("long","medium") }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.roles"|trans([], "admin") }}</th>                                    <td>{{ entity.roles|join(",") }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.credentialsExpired"|trans([], "admin") }}</th>
+                                <td>{{ entity.credentialsExpired }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.user.credentialsExpireAt"|trans([], "admin") }}</th>
+                                <td>{{ entity.credentialsExpireAt|localizeddate("long","medium") }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <a href="{{ path('admin_user_edit', { id:entity.id}) }}" class="btn btn-default">{{ 'crud.form.edit'|trans([], 'admin')|addGlyphicon("edit") }}</a>                    <a href="{{ path('admin_user_list') }}" class="btn btn-default">{{ 'crud.form.list'|trans([], 'admin')|addGlyphicon("list") }}</a>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

@@ -3,11 +3,13 @@
 namespace Deus\DBBundle\Controller\Admin;
 
 use Symfony\Component\HttpFoundation\Request;
-use Sedona\SBOGeneratorBundle\Controller\BaseCrudController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Deus\DBBundle\Entity\Storage;
-use Deus\DBBundle\Form\StorageType;
+use Deus\DBBundle\Form\Admin\StorageType;
+use Deus\DBBundle\Entity\Location;
 
 /**
  * Storage controller.
@@ -53,6 +55,27 @@ class StorageController extends BaseCrudController
     }
 
     /**
+    * search Storage.
+    *
+    * @Route("/searchLocation", name="admin_storage_location_search", options={"expose"=true})
+    *
+    * @return JsonResponse
+    */
+    public function searchLocationAction(Request $request)
+    {
+        return $this->searchSelect2($request, 'Deus\DBBundle\Entity\Location', 'name');
+    }        
+    /**
+    * Edit a Storage.
+    *
+    * @Route("/{id}/edit", name="admin_storage_edit", options={"expose"=true})
+    */
+    public function editAction(Storage $entity, Request $request)
+    {
+        return $this->manageEdit($entity, $request, new StorageType());
+    }
+
+    /**
     * Show a Storage.
     *
     * @Route("/{id}", name="admin_storage_show", options={"expose"=true})
@@ -63,13 +86,6 @@ class StorageController extends BaseCrudController
         return $this->manageShow($entity);
     }
 
-    /**
-    * Edit a Storage.
-    *
-    * @Route("/{id}/edit", name="admin_storage_edit", options={"expose"=true})
-    */
-    public function editAction(Storage $entity, Request $request)
-    {
-        return $this->manageEdit($entity, $request, new StorageType());
-    }
+
+
 }

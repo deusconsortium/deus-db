@@ -21,6 +21,8 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\AopBundle\JMSAopBundle(),
 
+            new FOS\UserBundle\FOSUserBundle(),
+
             new Sg\DatatablesBundle\SgDatatablesBundle(),
 
             new Sedona\SBOAdminThemeBundle\SedonaSBOAdminThemeBundle(),

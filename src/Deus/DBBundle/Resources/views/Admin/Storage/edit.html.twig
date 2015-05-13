@@ -1,30 +1,33 @@
-    {% extends '::layout_admin.html.twig' %}
+{% extends '::layout_admin.html.twig' %}
 
 
-    {% block page_title %}
-        {{ "crud.title.edit"|trans([], 'admin') }}
-    {% endblock %}
+{% block page_title %}
+    {{ "crud.title.edit"|trans([], 'admin') }}
+{% endblock %}
 
-    {% block page_subtitle %}
-        {{ "admin.storage.entity_name"|trans([], "admin") }}
-    {% endblock %}
+{% block page_subtitle %}
+    {{ "admin.storage.entity_name"|trans([], "admin") }}
+{% endblock %}
 
-    {% block content %}
-    <div class="row">
-        <div class="col-md-6">
-            <div class="box box-primary">
-                <form role="form" method="POST" {{ form_enctype(form) }}>
-                <div class="box-body">
+{% block content %}
+    <div class="box box-solid">
+        <div class="box-header">
+            <h3 class="box-title"><i class="fa fa-edit"></i>{{ entity }}</h3>
+        </div>
+        {{ form_start(form) }}
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
                     {% include 'DeusDBBundle:Admin/Storage:form.html.twig' %}
                 </div>
-                <div class="box-footer">
-                    {{ form_widget(form.save, { 'label': 'crud.form.save'|trans([], 'admin') }) }}
-                    {{ form_widget(form.delete, { 'label': 'crud.form.delete'|trans([], 'admin') }) }}
-                    <a href="{{ path('admin_storage_show', {id:entity.id}) }}" class="btn btn-default">{{ 'crud.form.cancel'|trans([], 'admin') }}</a>
-                    {{ form_rest(form) }}
-                </div>
-                </form>
             </div>
         </div>
+        <div class="box-footer text-center">
+            {{ form_widget(form.save, { 'label': 'crud.form.save'|trans([], 'admin'), 'glyphicon':'save' }) }}
+            {{ form_widget(form.delete, { 'label': 'crud.form.delete'|trans([], 'admin'), 'attr': {'data-confirm': 'crud.form.confirm'|trans([], 'admin')}, 'glyphicon':'remove' }) }}
+            <a href="{{ path('admin_storage_show', {id:entity.id}) }}" class="btn btn-default">{{ 'crud.form.cancel'|trans([], 'admin')|addGlyphicon("ban-circle") }}</a>
+            {{ form_rest(form) }}
+        </div>
+        {{ form_end(form) }}
     </div>
-    {% endblock %}
+{% endblock %}

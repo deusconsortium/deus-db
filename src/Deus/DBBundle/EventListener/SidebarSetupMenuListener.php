@@ -40,11 +40,13 @@ class SidebarSetupMenuListener
         );
 
         $editLink
-            ->addChild(new MenuItemModel('project', 'admin.project.entity_name', 'admin_project_list', $earg, 'fa fa-edit'))
             ->addChild(new MenuItemModel('cosmology', 'admin.cosmology.entity_name', 'admin_cosmology_list', $earg, 'fa fa-edit'))
-            ->addChild(new MenuItemModel('supercomputer', 'admin.supercomputer.entity_name', 'admin_supercomputer_list', $earg, 'fa fa-edit'))
-            ->addChild(new MenuItemModel('storage', 'admin.storage.entity_name', 'admin_storage_list', $earg, 'fa fa-edit'))
+            ->addChild(new MenuItemModel('boxlen', 'admin.boxlen.entity_name', 'admin_boxlen_list', $earg, 'fa fa-edit'))
+            ->addChild(new MenuItemModel('resolution', 'admin.resolution.entity_name', 'admin_resolution_list', $earg, 'fa fa-edit'))
+            ->addChild(new MenuItemModel('geometrytype', 'admin.geometrytype.entity_name', 'admin_geometrytype_list', $earg, 'fa fa-edit'))
             ->addChild(new MenuItemModel('objecttype', 'admin.objecttype.entity_name', 'admin_objecttype_list', $earg, 'fa fa-edit'))
+            ->addChild(new MenuItemModel('location', 'admin.location.entity_name', 'admin_location_list', $earg, 'fa fa-edit'))
+            ->addChild(new MenuItemModel('storage', 'admin.storage.entity_name', 'admin_storage_list', $earg, 'fa fa-edit'))
             ->addChild(new MenuItemModel('objectformat', 'admin.objectformat.entity_name', 'admin_objectformat_list', $earg, 'fa fa-edit'))
             ;
 

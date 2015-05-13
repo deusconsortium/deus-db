@@ -16,35 +16,29 @@ class LoadParameters implements FixtureInterface
     {
         $this->manager = $manager;
 
-        $this->createBasic('Project','DEUSS');
-        $this->createBasic('Project','DEUS FUR');
-        $this->createBasic('Project','DEUS PUR');
-
-        $this->createBasic('Cosmology','lcdmw5');
-        $this->createBasic('Cosmology','rpcdmw5');
-        $this->createBasic('Cosmology','wcdmw5');
-        $this->createBasic('Cosmology','sucdmw5');
-
-        $this->createBasic('Supercomputer','Curie', ['endianness' => 'little']);
-        $this->createBasic('Supercomputer','Turing', ['endianness' => 'little']);
-        $this->createBasic('Supercomputer','Babel', ['endianness' => 'big']);
+        $this->createBasic('Location','Meudon');
+        $this->createBasic('Location','TGCC');
+        $this->createBasic('Location','Idris');
 
         $this->createBasic('Storage','efiler1');
         $this->createBasic('Storage','efiler2');
-        $this->createBasic('Storage','data bingo');
+        $this->createBasic('Storage','data_bingo');
         $this->createBasic('Storage','asisu');
+        $this->createBasic('Storage','ergon');
+        $this->createBasic('Storage','storedir');
 
-        $this->createBasic('ObjectType','cube');
-        $this->createBasic('ObjectType','cube grav');
-        $this->createBasic('ObjectType','masst');
-        $this->createBasic('ObjectType','strct');
-        $this->createBasic('ObjectType','halo prop');
-        $this->createBasic('ObjectType','cube prop');
+        $this->createBasic('ObjectType','Halo particles');
+        $this->createBasic('ObjectType','Halo positions');
+        $this->createBasic('ObjectType','Particles');
+        $this->createBasic('ObjectType','Grid');
 
-        $this->createBasic('ObjectFormat','Fortran');
-        $this->createBasic('ObjectFormat','Fortran multi');
-        $this->createBasic('ObjectFormat','HDF5');
-        $this->createBasic('ObjectFormat','ASCII');
+        $this->createBasic('ObjectFormat','FOF');
+        $this->createBasic('ObjectFormat','Simple Tar');
+        $this->createBasic('ObjectFormat','Complex');
+
+        $this->createBasic('GeometryType','Redshift Space');
+        $this->createBasic('GeometryType','Comoving Space');
+        $this->createBasic('GeometryType','Sample');
 
         $manager->flush();
     }
@@ -54,6 +48,20 @@ class LoadParameters implements FixtureInterface
         $type = "Deus\\DBBundle\\Entity\\".$type;
         $item = new $type();
         $item->setName($name);
+
+        foreach($parameters as $key => $value) {
+            $item->{'set'.ucfirst($key)}($value);
+        }
+
+        $this->manager->persist($item);
+        return $item;
+    }
+
+    public function createBasicValue($type, $name, $parameters = [])
+    {
+        $type = "Deus\\DBBundle\\Entity\\".$type;
+        $item = new $type();
+        $item->setValue($name);
 
         foreach($parameters as $key => $value) {
             $item->{'set'.ucfirst($key)}($value);

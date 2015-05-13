@@ -3,11 +3,16 @@
 namespace Deus\DBBundle\Controller\Admin;
 
 use Symfony\Component\HttpFoundation\Request;
-use Sedona\SBOGeneratorBundle\Controller\BaseCrudController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Deus\DBBundle\Entity\Simulation;
-use Deus\DBBundle\Form\SimulationType;
+use Deus\DBBundle\Form\Admin\SimulationType;
+use Deus\DBBundle\Entity\Boxlen;
+use Deus\DBBundle\Entity\Resolution;
+use Deus\DBBundle\Entity\Cosmology;
+use Deus\DBBundle\Entity\Geometry;
 
 /**
  * Simulation controller.
@@ -49,34 +54,50 @@ class SimulationController extends BaseCrudController
     */
     public function newAction(Request $request)
     {
-        $entity = new Simulation();
-        $form = new SimulationType();
-        $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm($form, $entity, array(
-            'action' => $this->getNewUrl($entity),
-            'method' => 'POST'
-        ));
+        return $this->manageNew(new Simulation(), $request, new SimulationType());
+    }
 
-        $form
-            ->add("create", "submit", array('attr' => array('class' => 'btn btn-primary')));
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-
-            $this->addFlashMessage("success", "crud.message.created");
-
-            return $this->redirect($this->getShowUrl($entity));
-        }
-
-        return $this->render(
-            $this->getNewTemplate(),
-            array(
-                'entity'      => $entity,
-                'form'   => $form->createView(),
-            ));
+    /**
+    * search Simulation.
+    *
+    * @Route("/searchBoxlen", name="admin_simulation_boxlen_search", options={"expose"=true})
+    *
+    * @return JsonResponse
+    */
+    public function searchBoxlenAction(Request $request)
+    {
+        return $this->searchSelect2($request, 'Deus\DBBundle\Entity\Boxlen', '');
+    }        
+    /**
+    * search Simulation.
+    *
+    * @Route("/searchResolution", name="admin_simulation_resolution_search", options={"expose"=true})
+    *
+    * @return JsonResponse
+    */
+    public function searchResolutionAction(Request $request)
+    {
+        return $this->searchSelect2($request, 'Deus\DBBundle\Entity\Resolution', '');
+    }        
+    /**
+    * search Simulation.
+    *
+    * @Route("/searchCosmology", name="admin_simulation_cosmology_search", options={"expose"=true})
+    *
+    * @return JsonResponse
+    */
+    public function searchCosmologyAction(Request $request)
+    {
+        return $this->searchSelect2($request, 'Deus\DBBundle\Entity\Cosmology', 'name');
+    }        
+    /**
+    * Edit a Simulation.
+    *
+    * @Route("/{id}/edit", name="admin_simulation_edit", options={"expose"=true})
+    */
+    public function editAction(Simulation $entity, Request $request)
+    {
+        return $this->manageEdit($entity, $request, new SimulationType());
     }
 
     /**
@@ -90,13 +111,60 @@ class SimulationController extends BaseCrudController
         return $this->manageShow($entity);
     }
 
+            
     /**
-    * Edit a Simulation.
-    *
-    * @Route("/{id}/edit", name="admin_simulation_edit", options={"expose"=true})
-    */
-    public function editAction(Simulation $entity, Request $request)
+     * Lists all Geometry entities for property geometries of entity Simulation.
+     *
+     * @Route("/{id}/listGeometries", name="admin_simulation_geometries_list", options={"expose"=true})
+     * @Method("GET")
+     */
+    public function indexGeometriesAction(Simulation $simulation)
     {
-        return $this->manageEdit($entity, $request, new SimulationType());
+        return $this->manageFieldIndex($simulation, 'geometries');
     }
+
+    /**
+     * JSON call for datatable to list all Geometry entities for property geometries of entity Simulation.
+     *
+     * @Route("/{id}/datatableGeometries", name="admin_simulation_geometries_datatable", options={"expose"=true})
+     * @Method("GET")
+     */
+    public function datatableGeometriesAction(Simulation $simulation)
+    {
+        return $this->manageFieldDatatableJson($simulation, 'geometries', 'Simulation', 'one');
+    }
+
+    /**
+     * Search geometries for entity Simulation.
+     *
+     * @Route("/{id}/searchGeometries", name="admin_simulation_geometries_search", options={"expose"=true})
+     */
+    public function searchGeometriesAction(Request $request, Simulation $simulation)
+    {
+        return $this->manageSearchFieldMany($request, $simulation, 'Deus\DBBundle\Entity\Geometry', 'geometries', '');
+    }
+            
+    /**
+     * Add relation Simulation to geometries.
+     *
+     * @Route("/{id}/addGeometries/{geometry_id}", name="admin_simulation_geometries_add", options={"expose"=true})
+     * @ParamConverter("geometry", class="Deus\DBBundle\Entity\Geometry", options={"id" = "geometry_id"})
+     */
+    public function addGeometriesAction(Simulation $simulation, Geometry $geometry)
+    {
+        return $this->manageJsonAction($simulation, $geometry, 'geometries', 'addGeometries', false);
+    }
+            
+    /**
+     * Remove relation Simulation to geometries.
+     *
+     * @Route("/{id}/removeGeometries/{geometry_id}", name="admin_simulation_geometries_remove", options={"expose"=true})
+     * @ParamConverter("geometry", class="Deus\DBBundle\Entity\Geometry", options={"id" = "geometry_id"})
+     */
+    public function removeGeometriesAction(Simulation $simulation, Geometry $geometry)
+    {
+        return $this->manageJsonAction($simulation, $geometry, 'geometries', 'removeGeometries', true);
+    }    
+
+
 }
