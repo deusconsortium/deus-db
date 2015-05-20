@@ -8,9 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Deus\DBBundle\Entity\Geometry;
-use Deus\DBBundle\Form\Admin\GeometryType as GeometryTypeForm;
+use Deus\DBBundle\Form\Admin\GeometryType;
 use Deus\DBBundle\Entity\Simulation;
-use Deus\DBBundle\Entity\GeometryType;
+//use Deus\DBBundle\Entity\GeometryType;
 use Deus\DBBundle\Entity\ObjectGroup;
 
 /**
@@ -53,7 +53,7 @@ class GeometryController extends BaseCrudController
     */
     public function newAction(Request $request)
     {
-        return $this->manageNew(new Geometry(), $request, new GeometryTypeForm());
+        return $this->manageNew(new Geometry(), $request, new GeometryType());
     }
 
     /**
@@ -85,7 +85,7 @@ class GeometryController extends BaseCrudController
     */
     public function editAction(Geometry $entity, Request $request)
     {
-        return $this->manageEdit($entity, $request, new GeometryTypeForm());
+        return $this->manageEdit($entity, $request, new GeometryType());
     }
 
     /**

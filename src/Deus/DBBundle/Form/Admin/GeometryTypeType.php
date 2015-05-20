@@ -16,6 +16,7 @@ class GeometryTypeType extends AbstractType
     {
         /*  */
         $builder
+            ->add('id', null, ['required' => true])
             ->add('name', null, ['required' => false])
         ;
     }

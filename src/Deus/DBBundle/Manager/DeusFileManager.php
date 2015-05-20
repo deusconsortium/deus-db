@@ -28,7 +28,7 @@ class DeusFileManager
             $this->snapshots = [];
             $this->path = $path;                        
             $this->retrieveSimulationName();
-            $this->retrieveSimulationInfos();
+//            $this->retrieveSimulationInfos();
             $this->retrieveSnapshots($checkFiles);
             $this->retrieveCones($checkFiles);
             $this->retrieveAllHalos($checkFiles);
@@ -83,12 +83,15 @@ class DeusFileManager
                     $snapshot = $matches[1];
                     if($checkFiles) {
                         $this->snapshots[$snapshot]["cube"]["files"] = $this->retrieveOneCube($this->path.'/'.$entry);
+                        if($this->snapshots[$snapshot]["cube"]["files"] > 0) {
+                            $this->snapshots[$snapshot]["cube"]["path"] = $this->path.'/'.$entry;
+                        }
                     }
                     else {
                         $this->snapshots[$snapshot]["cube"]["files"] = "?";
                     }
                     $this->retrieveSnapshotInfos($this->path.'/'.$entry,$snapshot);
-                    $this->retrieveCubesProperties($snapshot);
+                    //$this->retrieveCubesProperties($snapshot);
                 }
             }
             closedir($handle);
@@ -202,15 +205,16 @@ class DeusFileManager
     
     public function retrieveSimulationName()
     {
-        $this->simulationName = trim(substr($this->path,strrpos($this->path,'/')+1), " /");
-        
+        $this->path = rtrim($this->path,"/ ");
+        $this->simulationName = substr($this->path,strrpos($this->path,'/')+1);
+
         preg_match("/boxlen([0-9]+)_n([0-9]+)_(.*)/", $this->simulationName, $matches);
 
         if(!count($matches) == 4) {
             $this->error("name doesn't match");
             return;
         }
-        
+
         $this->simulationType = array(
             'boxlen' => $matches[1],
             'resolution' => $matches[2],
@@ -228,9 +232,9 @@ class DeusFileManager
                     if($entry == "fof") {
                         $this->retrieveHalos($path.'/'.$entry, $checkFiles);
                     }                        
-                    elseif(preg_match("/fof_b([0-9]{5})/", $entry, $matches)) {
-                        $this->retrieveHalos($path.'/'.$entry, $checkFiles, (float)$matches[1]/10000.0);
-                    }
+//                    elseif(preg_match("/fof_b([0-9]{5})/", $entry, $matches)) {
+//                        $this->retrieveHalos($path.'/'.$entry, $checkFiles, (float)$matches[1]/10000.0);
+//                    }
                 }             
             }
             closedir($handle);
@@ -246,18 +250,20 @@ class DeusFileManager
                         list($nb_masst, $nb_strct) = $this->retrieveOneHalo($path.'/'.$entry);                    
                         $this->snapshots[$matches[1]]['halos'][$b*10000]["masst"] = $nb_masst;
                         $this->snapshots[$matches[1]]['halos'][$b*10000]["strct"] = $nb_strct;
+                        $this->snapshots[$matches[1]]['halos'][$b*10000]["path"] = $path.'/'.$entry;
                     }
                     else {
                         $this->snapshots[$matches[1]]['halos'][$b*10000]["masst"] = "?";
                         $this->snapshots[$matches[1]]['halos'][$b*10000]["strct"] = "?";
                     }
-                    $this->retrieveHalosProperties($matches[1], $b*10000);                    
+                    //$this->retrieveHalosProperties($matches[1], $b*10000);
                 }
                 elseif(is_dir($path.'/'.$entry) && preg_match("/cone_(fullsky|narrow)/", $entry, $matches)) {                    
                     if($checkFiles) {
                         list($nb_masst, $nb_strct) = $this->retrieveOneHalo($path.'/'.$entry);                    
                         $this->cones[$matches[1]]['halos'][$b*10000]["masst"] = $nb_masst;
-                        $this->cones[$matches[1]]['halos'][$b*10000]["strct"] = $nb_strct;                    
+                        $this->cones[$matches[1]]['halos'][$b*10000]["strct"] = $nb_strct;
+                        $this->snapshots[$matches[1]]['halos'][$b*10000]["path"] = $path.'/'.$entry;
                     }
                     else {
                         $this->snapshots[$matches[1]]['halos'][$b*10000]["masst"] = "?";

@@ -64,6 +64,7 @@ class ObjectTypeDatatable extends AbstractCrudDatatableView
     protected function setColumns() {
 
         $this->getColumnBuilder()
+            ->add("id", "column", array("title" => $this->getTranslator()->trans("admin.objecttype.id", [], 'admin')))
             ->add("name", "column", array("title" => $this->getTranslator()->trans("admin.objecttype.name", [], 'admin')))
         ;
     }

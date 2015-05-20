@@ -7,10 +7,13 @@ use Doctrine\ORM\Mapping AS ORM;
  */
 class GeometryType
 {
+    const SNAPSHOT = "snapshot";
+    const CONE = "cone";
+    const SAMPLE = "sample";
+
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="string",length=8)
      */
     private $id;
 
@@ -59,5 +62,16 @@ class GeometryType
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * @param mixed $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 }

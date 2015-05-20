@@ -20,8 +20,16 @@
                     <table class="record_properties">
                         <tbody>
                             <tr>
+                                <th>{{ "admin.storage.id"|trans([], "admin") }}</th>
+                                <td>{{ entity.id }}</td>
+                            </tr>
+                            <tr>
                                 <th>{{ "admin.storage.name"|trans([], "admin") }}</th>
                                 <td>{{ entity.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.storage.path"|trans([], "admin") }}</th>
+                                <td>{{ entity.path }}</td>
                             </tr>
                             <tr>
                                 <th>{{ "admin.storage.Location"|trans([], "admin") }}</th>

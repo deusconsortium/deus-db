@@ -16,23 +16,23 @@ class SimulationType extends AbstractType
     {
         /*  */
         $builder
-            ->add("Boxlen", "entity", [
+            ->add("Boxlen", "entity_select2", [
                    'class'             => 'Deus\DBBundle\Entity\Boxlen',
-//                   'searchRouteName'   => 'admin_simulation_boxlen_search',
-                   'property'          => 'value',
+                   'searchRouteName'   => 'admin_simulation_boxlen_search',
+                   'property'          => '',
                    'placeholder'       => 'search_placeholder',
                    'required'          => false
                ])
-            ->add("Resolution", "entity", [
+            ->add("Resolution", "entity_select2", [
                    'class'             => 'Deus\DBBundle\Entity\Resolution',
-//                   'searchRouteName'   => 'admin_simulation_resolution_search',
-                   'property'          => 'value',
+                   'searchRouteName'   => 'admin_simulation_resolution_search',
+                   'property'          => '',
                    'placeholder'       => 'search_placeholder',
                    'required'          => false
                ])
-            ->add("Cosmology", "entity", [
+            ->add("Cosmology", "entity_select2", [
                    'class'             => 'Deus\DBBundle\Entity\Cosmology',
-//                   'searchRouteName'   => 'admin_simulation_cosmology_search',
+                   'searchRouteName'   => 'admin_simulation_cosmology_search',
                    'property'          => 'name',
                    'placeholder'       => 'search_placeholder',
                    'required'          => false

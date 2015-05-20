@@ -9,12 +9,15 @@ namespace Deus\DBBundle\Service;
  * Time: 15:22
  */
 
+use Deus\DBBundle\Entity\Geometry;
+use Deus\DBBundle\Entity\GeometryType;
 use Deus\DBBundle\Entity\Simulation;
 use Deus\DBBundle\Manager\DeusFileManager;
 use Doctrine\ORM\EntityManagerInterface;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use JMS\DiExtraBundle\Annotation\Service;
 use JMS\DiExtraBundle\Annotation\Inject;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Debug\Exception\ContextErrorException;
 
 /**
@@ -27,6 +30,10 @@ class FileExplorerService
      * @var EntityManagerInterface
      */
     private $em;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     /**
      * @param EntityManagerInterface $em
@@ -34,29 +41,34 @@ class FileExplorerService
             "em": @Inject("doctrine.orm.entity_manager")
      * })
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, LoggerInterface $logger)
     {
         $this->em = $em;
+        $this->logger = $logger;
     }
 
     public function explore($path, $checkFiles = true)
     {
         try {
-            $simulation = new DeusFileManager($path, $checkFiles);
+            $simulationFiles = new DeusFileManager($path, $checkFiles);
         }
         catch(ContextErrorException $error) {
+            $this->logger->error("DeusFileManager Error", (array) $error);
             dump($error);
         }
 
-        $simulation = $this->getSimulation(648, 'lcdmw5', 512);
+        dump($simulationFiles);
+
+        $simulation = $this->getSimulation(
+            $simulationFiles->getSimulationBoxlen(),
+            $simulationFiles->getSimulationCosmo(),
+            $simulationFiles->getSimulationResolution());
+
+        foreach($simulationFiles->getSnaphots() as $oneSnapshot) {
+            $snapshot = $this->getSnapshot($simulation, $oneSnapshot);
+        }
 
         $this->em->flush();
-
-        dump($simulation);
-//
-//        echo "LEN=".$simulation->getSimulationBoxlen()."\n";
-//        echo "COSMO=".$simulation->getSimulationCosmo()."\n";
-//        echo "COSMO=".$simulation->getSimulationResolution()."\n";
     }
 
     protected function getSimulation($boxlen_name, $cosmo_value, $npart_value)
@@ -92,5 +104,32 @@ class FileExplorerService
             $this->em->persist($res);
         }
         return $res;
+    }
+
+    private function getSnapshot($simulation, $snapshotFile)
+    {
+        $geometryType = $this->em->getRepository("DeusDBBundle:GeometryType")->find(GeometryType::SNAPSHOT);
+        if(isset($snapshotFile["infos"]) && isset($snapshotFile["infos"]["Z"])) {
+            $Z = $snapshotFile["infos"]["Z"];
+        }
+        else {
+            $this->logger->warning("No Z for snapshot", (array) $snapshotFile);
+            return null;
+        }
+
+        $snapshot = $this->em->getRepository("DeusDBBundle:Geometry")->findOneBy([
+            'GeometryType' => $geometryType,
+            'Simulation' => $simulation,
+            'Z' => $Z,
+        ]);
+        if(!$snapshot) {
+            $snapshot = new Geometry();
+            $snapshot
+                ->setGeometryType($geometryType)
+                ->setSimulation($simulation)
+                ->setZ($Z);
+            $this->em->persist($snapshot);
+        }
+        return $snapshot;
     }
 } 

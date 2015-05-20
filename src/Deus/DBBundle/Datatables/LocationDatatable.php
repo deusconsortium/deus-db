@@ -64,6 +64,7 @@ class LocationDatatable extends AbstractCrudDatatableView
     protected function setColumns() {
 
         $this->getColumnBuilder()
+            ->add("id", "column", array("title" => $this->getTranslator()->trans("admin.location.id", [], 'admin')))
             ->add("name", "column", array("title" => $this->getTranslator()->trans("admin.location.name", [], 'admin')))
         ;
     }

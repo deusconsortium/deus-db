@@ -23,7 +23,7 @@ class SimulationDatatable extends AbstractCrudDatatableView
 
         $this->getAjax()->setUrl($this->getRouter()->generate("admin_simulation_datatable"));
 
-        $this->setIndividualFiltering(true); // Uncomment it to have a search for each field
+        //$this->setIndividualFiltering(true); // Uncomment it to have a search for each field
 
         $actions = [];
         if ($this->getRouter()->getRouteCollection()->get("admin_simulation_show") != null) {
@@ -64,10 +64,9 @@ class SimulationDatatable extends AbstractCrudDatatableView
     protected function setColumns() {
 
         $this->getColumnBuilder()
-            ->add("Cosmology.name", "column", array("title" => $this->getTranslator()->trans("admin.simulation.Cosmology", [], 'admin')))
-            ->add("Boxlen.value", "column", array("title" => $this->getTranslator()->trans("admin.simulation.Boxlen", [], 'admin')." Mpc/h"))
-             ->add("Resolution.value", "column", array("title" => $this->getTranslator()->trans("admin.simulation.Resolution", [], 'admin')))
-
+             ->add("Boxlen.value", "column", array("title" => $this->getTranslator()->trans("admin.simulation.Boxlen", [], 'admin'))) //Many to one, uncomment and select column to add
+             ->add("Resolution.value", "column", array("title" => $this->getTranslator()->trans("admin.simulation.Resolution", [], 'admin'))) //Many to one, uncomment and select column to add
+             ->add("Cosmology.name", "column", array("title" => $this->getTranslator()->trans("admin.simulation.Cosmology", [], 'admin'))) //Many to one, uncomment and select column to add
         ;
     }
 

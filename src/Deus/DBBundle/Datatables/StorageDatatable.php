@@ -64,7 +64,9 @@ class StorageDatatable extends AbstractCrudDatatableView
     protected function setColumns() {
 
         $this->getColumnBuilder()
+            ->add("id", "column", array("title" => $this->getTranslator()->trans("admin.storage.id", [], 'admin')))
             ->add("name", "column", array("title" => $this->getTranslator()->trans("admin.storage.name", [], 'admin')))
+            ->add("path", "column", array("title" => $this->getTranslator()->trans("admin.storage.path", [], 'admin')))
             // ->add("Location.name", "column", array("title" => $this->getTranslator()->trans("admin.storage.Location", [], 'admin'))) Many to one, uncomment and select column to add
         ;
     }

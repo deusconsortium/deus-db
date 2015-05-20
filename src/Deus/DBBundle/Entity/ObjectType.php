@@ -7,10 +7,14 @@ use Doctrine\ORM\Mapping AS ORM;
  */
 class ObjectType
 {
+    const MASST = "masst";
+    const CUBE = "cube";
+    const STRCT = "strct";
+    const GRAV = "grav";
+
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="string", length=5)
      */
     private $id;
 
@@ -59,5 +63,16 @@ class ObjectType
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * @param mixed $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 }

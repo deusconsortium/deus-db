@@ -64,6 +64,7 @@ class GeometryTypeDatatable extends AbstractCrudDatatableView
     protected function setColumns() {
 
         $this->getColumnBuilder()
+            ->add("id", "column", array("title" => $this->getTranslator()->trans("admin.geometrytype.id", [], 'admin')))
             ->add("name", "column", array("title" => $this->getTranslator()->trans("admin.geometrytype.name", [], 'admin')))
         ;
     }

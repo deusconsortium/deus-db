@@ -67,7 +67,7 @@ class GeometryDatatable extends AbstractCrudDatatableView
             ->add("Z", "column", array("title" => $this->getTranslator()->trans("admin.geometry.Z", [], 'admin')))
             ->add("angle", "column", array("title" => $this->getTranslator()->trans("admin.geometry.angle", [], 'admin')))
             // ->add("Simulation.name", "column", array("title" => $this->getTranslator()->trans("admin.geometry.Simulation", [], 'admin'))) Many to one, uncomment and select column to add
-            // ->add("GeometryType.name", "column", array("title" => $this->getTranslator()->trans("admin.geometry.GeometryType", [], 'admin'))) Many to one, uncomment and select column to add
+            ->add("GeometryType.name", "column", array("title" => $this->getTranslator()->trans("admin.geometry.GeometryType", [], 'admin'))) //Many to one, uncomment and select column to add
         ;
     }
 

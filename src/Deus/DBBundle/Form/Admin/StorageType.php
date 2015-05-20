@@ -16,7 +16,9 @@ class StorageType extends AbstractType
     {
         /*  */
         $builder
+            ->add('id', null, ['required' => true])
             ->add('name', null, ['required' => false])
+            ->add('path', null, ['required' => false])
             ->add("Location", "entity_select2", [
                    'class'             => 'Deus\DBBundle\Entity\Location',
                    'searchRouteName'   => 'admin_storage_location_search',
