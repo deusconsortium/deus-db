@@ -5,6 +5,7 @@ namespace Deus\DBBundle\Datatables;
 use JMS\DiExtraBundle\Annotation\Service;
 use JMS\DiExtraBundle\Annotation\Tag;
 use Sg\DatatablesBundle\Datatable\View\AbstractDatatableView;
+use Sg\DatatablesBundle\Datatable\View\Style;
 
 /**
  * Class SimulationDatatable
@@ -21,7 +22,7 @@ class SimulationDatatable extends AbstractCrudDatatableView
         $this->setParameters();
         $this->setColumns();
 
-        $this->getAjax()->setUrl($this->getRouter()->generate("admin_simulation_datatable"));
+        $this->setUrl($this->getRouter()->generate("admin_simulation_datatable"));
 
         //$this->setIndividualFiltering(true); // Uncomment it to have a search for each field
 
@@ -48,15 +49,6 @@ class SimulationDatatable extends AbstractCrudDatatableView
                 ));
         }
     }
-
-    protected function setParameters() {
-        $this->getFeatures()
-            ->setServerSide(true)
-            ->setProcessing(true)
-        ;
-        $this->setStyle(self::BOOTSTRAP_3_STYLE);
-    }
-
 
     /**
      * {@inheritdoc}

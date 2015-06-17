@@ -1,0 +1,51 @@
+body {
+    background-color: #2d2d2d;
+    background-image: url("http://www.deus-consortium.org/wp-content/themes/complexity/layout/css/style7/body-bg.png");
+    background-position: 0 0;
+    background-repeat: repeat;
+    color: #474747;
+}
+
+#content {
+    margin: 20px auto;
+    min-width: 915px;
+    width: 90%;
+    position: relative;
+}
+
+#bg {
+    background-color: #ffffff;
+    opacity: 0.75;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#simulation_datatable_wrapper {
+    padding: 15px;
+}
+
+h1 {
+    color: #ffffff;
+}
+
+#simulation_datatable_filter {
+    visibility: hidden;
+}
+
+.record_properties th {
+    text-align: left;
+}
+
+.fullpath {
+    text-align: center;
+    width: 70%;
+}
+
+a {
+    color: black;
+}
+
+a:visited {
+    color: black;
+}

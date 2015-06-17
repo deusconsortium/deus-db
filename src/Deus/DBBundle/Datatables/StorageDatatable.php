@@ -21,7 +21,7 @@ class StorageDatatable extends AbstractCrudDatatableView
         $this->setParameters();
         $this->setColumns();
 
-        $this->getAjax()->setUrl($this->getRouter()->generate("admin_storage_datatable"));
+        $this->setUrl($this->getRouter()->generate("admin_storage_datatable"));
 
         //$this->setIndividualFiltering(true); // Uncomment it to have a search for each field
 
@@ -49,25 +49,16 @@ class StorageDatatable extends AbstractCrudDatatableView
         }
     }
 
-    protected function setParameters() {
-        $this->getFeatures()
-            ->setServerSide(true)
-            ->setProcessing(true)
-        ;
-        $this->setStyle(self::BOOTSTRAP_3_STYLE);
-    }
-
-
     /**
      * {@inheritdoc}
      */
     protected function setColumns() {
 
         $this->getColumnBuilder()
-            ->add("id", "column", array("title" => $this->getTranslator()->trans("admin.storage.id", [], 'admin')))
+            //->add("id", "column", array("title" => $this->getTranslator()->trans("admin.storage.id", [], 'admin')))
             ->add("name", "column", array("title" => $this->getTranslator()->trans("admin.storage.name", [], 'admin')))
             ->add("path", "column", array("title" => $this->getTranslator()->trans("admin.storage.path", [], 'admin')))
-            // ->add("Location.name", "column", array("title" => $this->getTranslator()->trans("admin.storage.Location", [], 'admin'))) Many to one, uncomment and select column to add
+            ->add("Location.name", "column", array("title" => $this->getTranslator()->trans("admin.storage.Location", [], 'admin'))) //Many to one, uncomment and select column to add
         ;
     }
 

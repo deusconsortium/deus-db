@@ -1,0 +1,24 @@
+{% extends '::layout_pub.html.twig' %}
+
+{% block page_title %}
+    {{ "crud.title.index"|trans([], 'admin') }}
+{% endblock %}
+
+{% block page_subtitle %}
+    {{ "admin.simulation.entity_name"|trans([], "admin") }}
+{% endblock %}
+
+{% block content %}
+    <h1><img src="http://deus.obspm.fr/wp-content/uploads/2010/09/logo.png"> <img src="{{ asset('bundles/deusdb/images/title.png') }}"></h1>
+    <div id="content">
+        <div id="bg"></div>
+    {{ datatable_render_html(datatable) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ datatable_render_js(datatable) }}
+{% endblock %}
+
+

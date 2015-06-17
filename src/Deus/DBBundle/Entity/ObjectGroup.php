@@ -15,9 +15,9 @@ class ObjectGroup
     private $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      */
-    private $name;
+    private $localPath;
 
     /**
      * @ORM\ManyToOne(targetEntity="ObjectType")
@@ -40,7 +40,7 @@ class ObjectGroup
     private $Storage;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $size;
 
@@ -57,29 +57,6 @@ class ObjectGroup
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return ObjectGroup
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -176,7 +153,7 @@ class ObjectGroup
 
     public function __toString()
     {
-        return $this->getName();
+        return $this->getLocalPath();
     }
 
     /**
@@ -189,10 +166,12 @@ class ObjectGroup
 
     /**
      * @param mixed $size
+     * @return $this
      */
     public function setSize($size)
     {
         $this->size = $size;
+        return $this;
     }
 
     /**
@@ -205,9 +184,63 @@ class ObjectGroup
 
     /**
      * @param mixed $nbFiles
+     * @return $this
      */
     public function setNbFiles($nbFiles)
     {
         $this->nbFiles = $nbFiles;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocalPath()
+    {
+        return $this->localPath;
+    }
+
+    public function getFullPath()
+    {
+        return $this->getStorage()->getPath().$this->localPath;
+    }
+
+    /**
+     * @param mixed $localPath
+     * @return $this
+     */
+    public function setLocalPath($localPath)
+    {
+        $this->localPath = $localPath;
+        return $this;
+    }
+
+    public function getFormattedSize()
+    {
+        return $this::formatSize($this->getSize());
+    }
+
+    public static function formatSize($size)
+    {
+        if($size < 1024) {
+            $unit = 'Ko';
+        }
+        else {
+            $size /= 1024;
+            if($size < 1024) {
+                $unit = 'Mo';
+            }
+            else {
+                $size /= 1024;
+                if($size < 1024) {
+                    $unit = 'Go';
+                }
+                else {
+                    $size /= 1024;
+                    $unit = 'To';
+                }
+            }
+        }
+        return number_format($size, 2).' '.$unit;
     }
 }

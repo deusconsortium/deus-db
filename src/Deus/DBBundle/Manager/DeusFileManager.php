@@ -26,6 +26,7 @@ class DeusFileManager
         }
         else {
             $this->snapshots = [];
+            $this->cones = [];
             $this->path = $path;                        
             $this->retrieveSimulationName();
 //            $this->retrieveSimulationInfos();
@@ -61,18 +62,22 @@ class DeusFileManager
     public function retrieveOneCube($path)
     {        
         $nb = 0;
+        $size = 0.0;
         if ($handlesub = opendir($path)) {                        
             while (false !== ($subentry = readdir($handlesub))) {
                 if(!is_dir($path.'/'.$subentry) && preg_match("/(.*)_cube_([0-9]{5})/", $subentry, $matchessub)) {                    
-                     $nb++;
+                    $nb++;
+                    $size += (float) $this->getFileSize($path.'/'.$subentry);
                 }
-                elseif(is_dir($path.'/'.$subentry) && preg_match("/group_([0-9]{5})/", $subentry, $matchessub)) {                                        
-                    $nb += $this->retrieveOneCube($path.'/'.$subentry);
+                elseif(is_dir($path.'/'.$subentry) && preg_match("/group_([0-9]{5})/", $subentry, $matchessub)) {
+                    list($subNb, $subSize) = $this->retrieveOneCube($path.'/'.$subentry);
+                    $nb += $subNb;
+                    $size += $subSize;
                 }
             }
             closedir($handlesub);
         }
-        return $nb;
+        return array($nb,$size);
     }
     
     public function retrieveSnapshots($checkFiles)
@@ -82,7 +87,7 @@ class DeusFileManager
                 if(is_dir($this->path.'/'.$entry) && preg_match("/cube_([0-9]{5})/", $entry, $matches)) {
                     $snapshot = $matches[1];
                     if($checkFiles) {
-                        $this->snapshots[$snapshot]["cube"]["files"] = $this->retrieveOneCube($this->path.'/'.$entry);
+                        list($this->snapshots[$snapshot]["cube"]["files"], $this->snapshots[$snapshot]["cube"]["size"]) = $this->retrieveOneCube($this->path.'/'.$entry);
                         if($this->snapshots[$snapshot]["cube"]["files"] > 0) {
                             $this->snapshots[$snapshot]["cube"]["path"] = $this->path.'/'.$entry;
                         }
@@ -114,11 +119,30 @@ class DeusFileManager
             }
             closedir($handle);
         }
+        if(is_dir($this->path."/post/slicer_ncoarse") && $handle = opendir($this->path."/post/slicer_ncoarse")) {
+            while (false !== ($entry = readdir($handle))) {
+                if(is_dir($this->path."/post/slicer_ncoarse/".$entry) && preg_match("/output_(cone_[0-9])/", $entry, $matches)) {
+                    $snapshot = $matches[1];
+                    if($checkFiles) {
+                        $path = $this->path."/post/slicer_ncoarse/".$entry;
+                        $this->cones[$snapshot]["cube"]["files"] = $this->retrieveOneCube($path);
+                        list($nb_masst, $size_masst,$nb_strct,$size_strct) = $this->retrieveOneHalo($path);
+                        $this->cones[$snapshot]['halos'][2000]["nb_masst"] = $nb_masst;
+                        $this->cones[$snapshot]['halos'][2000]["size_masst"] = $size_masst;
+                        $this->cones[$snapshot]['halos'][2000]["nb_strct"] = $nb_strct;
+                        $this->cones[$snapshot]['halos'][2000]["size_strct"] = $size_strct;
+                        $this->cones[$snapshot]['halos'][2000]["path"] = $path;
+                    }
+                    else {
+                        $this->cones[$snapshot]["cube"]["files"] = "?";
+                    }
+                }
+            }
+        }
     }
     
     public function convertInfosFile($data)
     {
-
         $lines = explode("\n", $data);
 
         for($i=0; $i<18; $i++) {
@@ -229,7 +253,7 @@ class DeusFileManager
         if ($handle = opendir($path)) {
             while (false !== ($entry = readdir($handle))) {                
                 if(is_dir($path.'/'.$entry)) {
-                    if($entry == "fof") {
+                    if($entry == "fof" || $entry == "slicer_ncoarse") {
                         $this->retrieveHalos($path.'/'.$entry, $checkFiles);
                     }                        
 //                    elseif(preg_match("/fof_b([0-9]{5})/", $entry, $matches)) {
@@ -245,11 +269,17 @@ class DeusFileManager
     {        
         if ($handle = opendir($path)) {
             while (false !== ($entry = readdir($handle))) {                
-                if(is_dir($path.'/'.$entry) && preg_match("/output_([0-9]{5})/", $entry, $matches)) {                    
+                if(is_dir($path.'/'.$entry) && preg_match("/output_([0-9]{5})/", $entry, $matches)) {
+                    $snapshot = $matches[1];
+                    if(!isset($this->snapshots[$snapshot]["infos"]["Z"])) {
+                        $this->retrieveSnapshotInfos($path.'/'.$entry, $snapshot);
+                    }
                     if($checkFiles) {
-                        list($nb_masst, $nb_strct) = $this->retrieveOneHalo($path.'/'.$entry);                    
-                        $this->snapshots[$matches[1]]['halos'][$b*10000]["masst"] = $nb_masst;
-                        $this->snapshots[$matches[1]]['halos'][$b*10000]["strct"] = $nb_strct;
+                        list($nb_masst, $size_masst,$nb_strct,$size_strct) = $this->retrieveOneHalo($path.'/'.$entry);
+                        $this->snapshots[$matches[1]]['halos'][$b*10000]["nb_masst"] = $nb_masst;
+                        $this->snapshots[$matches[1]]['halos'][$b*10000]["size_masst"] = $size_masst;
+                        $this->snapshots[$matches[1]]['halos'][$b*10000]["nb_strct"] = $nb_strct;
+                        $this->snapshots[$matches[1]]['halos'][$b*10000]["size_strct"] = $size_strct;
                         $this->snapshots[$matches[1]]['halos'][$b*10000]["path"] = $path.'/'.$entry;
                     }
                     else {
@@ -260,10 +290,12 @@ class DeusFileManager
                 }
                 elseif(is_dir($path.'/'.$entry) && preg_match("/cone_(fullsky|narrow)/", $entry, $matches)) {                    
                     if($checkFiles) {
-                        list($nb_masst, $nb_strct) = $this->retrieveOneHalo($path.'/'.$entry);                    
-                        $this->cones[$matches[1]]['halos'][$b*10000]["masst"] = $nb_masst;
-                        $this->cones[$matches[1]]['halos'][$b*10000]["strct"] = $nb_strct;
-                        $this->snapshots[$matches[1]]['halos'][$b*10000]["path"] = $path.'/'.$entry;
+                        list($nb_masst, $size_masst,$nb_strct,$size_strct) = $this->retrieveOneHalo($path.'/'.$entry);
+                        $this->cones[$matches[1]]['halos'][$b*10000]["nb_masst"] = $nb_masst;
+                        $this->cones[$matches[1]]['halos'][$b*10000]["size_masst"] = $size_masst;
+                        $this->cones[$matches[1]]['halos'][$b*10000]["nb_strct"] = $nb_strct;
+                        $this->cones[$matches[1]]['halos'][$b*10000]["size_strct"] = $size_strct;
+                        $this->cones[$matches[1]]['halos'][$b*10000]["path"] = $path.'/'.$entry;
                     }
                     else {
                         $this->snapshots[$matches[1]]['halos'][$b*10000]["masst"] = "?";
@@ -278,26 +310,33 @@ class DeusFileManager
     public function retrieveOneHalo($path)
     {        
         $nb_masst = 0;
+        $size_masst = 0.0;
         $nb_strct = 0;
+        $size_strct = 0.0;
+
         if ($handlesub = opendir($path)) {                        
             while (false !== ($subentry = readdir($handlesub))) {
                 if(!is_dir($path.'/'.$subentry)) {
                     if(preg_match("/(.*)_masst_([0-9]{5})/", $subentry, $matchessub)) {
                         $nb_masst++;
+                        $size_masst += (float) $this->getFileSize($path.'/'.$subentry);
                     }
                     elseif(preg_match("/(.*)_strct_([0-9]{5})/", $subentry, $matchessub)) {
                         $nb_strct++;
+                        $size_strct += (float) $this->getFileSize($path.'/'.$subentry);
                     }
                 }
                 elseif(is_dir($path.'/'.$subentry) && preg_match("/group_([0-9]{5})/", $subentry, $matchessub)) {                                        
-                   list($add_masst, $add_strct) = $this->retrieveOneHalo($path.'/'.$subentry);
+                   list($add_masst, $addsize_masst, $add_strct, $addsize_strct) = $this->retrieveOneHalo($path.'/'.$subentry);
                    $nb_masst += $add_masst;
                    $nb_strct += $add_strct;
+                   $size_masst += $addsize_masst;
+                   $size_strct += $addsize_strct;
                 }
             }
             closedir($handlesub);
         }
-        return array($nb_masst, $nb_strct);
+        return array($nb_masst, $size_masst, $nb_strct, $size_strct);
     }
     
     public function getSnaphots() 
@@ -337,6 +376,12 @@ class DeusFileManager
     {
         echo $msg;
         //echo '<span style="color:red;">Error: '.$msg.'</span>';
+    }
+
+    public function getFileSize($file)
+    {
+        list($localSize,$file) = explode("\t", exec("du ".$file, $return));
+        return $localSize;
     }
 }
 

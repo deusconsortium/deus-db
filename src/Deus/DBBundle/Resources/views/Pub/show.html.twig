@@ -1,0 +1,46 @@
+    <div id="content">
+
+            <table class="record_properties">
+                <tbody>
+                    <tr>
+                        <th>{{ "admin.objectgroup.Geometry"|trans([], "admin") }}</th>
+                        <td>{{ entity.Geometry }}</td>
+                    </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <tr>
+                        <th>{{ "admin.objectgroup.Storage"|trans([], "admin") }}</th>
+                        <td>{{ entity.Storage }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ "admin.objectgroup.localPath"|trans([], "admin") }}</th>
+                        <td>{{ entity.localPath }}</td>
+                    </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <tr>
+                        <th>{{ "admin.objectgroup.ObjectType"|trans([], "admin") }}</th>
+                        <td>{{ entity.ObjectType }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ "admin.objectgroup.nbFiles"|trans([], "admin") }}</th>
+                        <td>{{ entity.nbFiles }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ "admin.objectgroup.size"|trans([], "admin") }}</th>
+                        <td>{{ entity.formattedSize }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ "admin.objectgroup.ObjectFormat"|trans([], "admin") }}</th>
+                        <td>{{ entity.ObjectFormat }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        <div class="fullpath">
+            <b>{{ "admin.objectgroup.fullPath"|trans([], "admin") }}</b><br/>
+            {{  entity.fullPath }}
+        </div>
+        <div class="clearfix"></div>
+    </div>

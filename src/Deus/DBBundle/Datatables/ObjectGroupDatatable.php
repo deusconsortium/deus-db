@@ -2,6 +2,7 @@
 
 namespace Deus\DBBundle\Datatables;
 
+use Deus\DBBundle\Entity\ObjectGroup;
 use JMS\DiExtraBundle\Annotation\Service;
 use JMS\DiExtraBundle\Annotation\Tag;
 use Sg\DatatablesBundle\Datatable\View\AbstractDatatableView;
@@ -13,6 +14,15 @@ use Sg\DatatablesBundle\Datatable\View\AbstractDatatableView;
  */
 class ObjectGroupDatatable extends AbstractCrudDatatableView
 {
+
+    protected function initLineFormatter()
+    {
+        $this->addLineFormatter(function($line) {
+            $line['size'] = ObjectGroup::formatSize($line["size"]);
+            return $line;
+        });
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -21,7 +31,7 @@ class ObjectGroupDatatable extends AbstractCrudDatatableView
         $this->setParameters();
         $this->setColumns();
 
-        $this->getAjax()->setUrl($this->getRouter()->generate("admin_objectgroup_datatable"));
+        $this->setUrl($this->getRouter()->generate("admin_objectgroup_datatable"));
 
         //$this->setIndividualFiltering(true); // Uncomment it to have a search for each field
 
@@ -49,28 +59,19 @@ class ObjectGroupDatatable extends AbstractCrudDatatableView
         }
     }
 
-    protected function setParameters() {
-        $this->getFeatures()
-            ->setServerSide(true)
-            ->setProcessing(true)
-        ;
-        $this->setStyle(self::BOOTSTRAP_3_STYLE);
-    }
-
-
-    /**
+     /**
      * {@inheritdoc}
      */
     protected function setColumns() {
 
         $this->getColumnBuilder()
-            ->add("name", "column", array("title" => $this->getTranslator()->trans("admin.objectgroup.name", [], 'admin')))
+            ->add("localPath", "column", array("title" => $this->getTranslator()->trans("admin.objectgroup.localPath", [], 'admin')))
             ->add("size", "column", array("title" => $this->getTranslator()->trans("admin.objectgroup.size", [], 'admin')))
             ->add("nbFiles", "column", array("title" => $this->getTranslator()->trans("admin.objectgroup.nbFiles", [], 'admin')))
-            // ->add("ObjectType.name", "column", array("title" => $this->getTranslator()->trans("admin.objectgroup.ObjectType", [], 'admin'))) Many to one, uncomment and select column to add
-            // ->add("ObjectFormat.name", "column", array("title" => $this->getTranslator()->trans("admin.objectgroup.ObjectFormat", [], 'admin'))) Many to one, uncomment and select column to add
-            // ->add("Geometry.name", "column", array("title" => $this->getTranslator()->trans("admin.objectgroup.Geometry", [], 'admin'))) Many to one, uncomment and select column to add
-            // ->add("Storage.name", "column", array("title" => $this->getTranslator()->trans("admin.objectgroup.Storage", [], 'admin'))) Many to one, uncomment and select column to add
+             ->add("ObjectType.name", "column", array("title" => $this->getTranslator()->trans("admin.objectgroup.ObjectType", [], 'admin'))) //Many to one, uncomment and select column to add
+             ->add("ObjectFormat.name", "column", array("title" => $this->getTranslator()->trans("admin.objectgroup.ObjectFormat", [], 'admin'))) //Many to one, uncomment and select column to add
+             //->add("Geometry.name", "column", array("title" => $this->getTranslator()->trans("admin.objectgroup.Geometry", [], 'admin'))) //Many to one, uncomment and select column to add
+             ->add("Storage.name", "column", array("title" => $this->getTranslator()->trans("admin.objectgroup.Storage", [], 'admin'))) //Many to one, uncomment and select column to add
         ;
     }
 

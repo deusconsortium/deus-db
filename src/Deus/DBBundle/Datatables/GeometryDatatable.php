@@ -13,6 +13,15 @@ use Sg\DatatablesBundle\Datatable\View\AbstractDatatableView;
  */
 class GeometryDatatable extends AbstractCrudDatatableView
 {
+
+    protected function initLineFormatter()
+    {
+        $this->addLineFormatter(function($line) {
+            $line['Z'] = number_format($line['Z'], 2);
+            return $line;
+        });
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -21,7 +30,7 @@ class GeometryDatatable extends AbstractCrudDatatableView
         $this->setParameters();
         $this->setColumns();
 
-        $this->getAjax()->setUrl($this->getRouter()->generate("admin_geometry_datatable"));
+        $this->setUrl($this->getRouter()->generate("admin_geometry_datatable"));
 
         //$this->setIndividualFiltering(true); // Uncomment it to have a search for each field
 
@@ -48,15 +57,6 @@ class GeometryDatatable extends AbstractCrudDatatableView
                 ));
         }
     }
-
-    protected function setParameters() {
-        $this->getFeatures()
-            ->setServerSide(true)
-            ->setProcessing(true)
-        ;
-        $this->setStyle(self::BOOTSTRAP_3_STYLE);
-    }
-
 
     /**
      * {@inheritdoc}

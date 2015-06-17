@@ -23,7 +23,7 @@ class GeometryObjectgroupsDatatable extends ObjectGroupDatatable
         $this->setParameters();
         $this->setColumns();
 
-        $this->getAjax()->setUrl($this->getRouter()->generate("admin_geometry_objectgroups_datatable",['id'=> $geometry->getId() ]));
+        $this->setUrl($this->getRouter()->generate("admin_geometry_objectgroups_datatable",['id'=> $geometry->getId() ]));
 
         //$this->setIndividualFiltering(true); // Uncomment it to have a search for each field
 

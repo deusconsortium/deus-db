@@ -55,7 +55,7 @@ class Geometry
         $name = $this->getSimulation()->__toString();
         $name .= " " . $this->getGeometryType()->getName();
         if (is_numeric($this->Z)) {
-            $name .= " Z=" . $this->Z;
+            $name .= " Z=" . $this->getFormattedZ();
         }
         if (is_numeric($this->angle)) {
             $name .= " " . $this->angle . "°";
@@ -84,6 +84,11 @@ class Geometry
     public function getZ()
     {
         return $this->Z;
+    }
+
+    public function getFormattedZ()
+    {
+        return number_format($this->Z, 2);
     }
 
     /**

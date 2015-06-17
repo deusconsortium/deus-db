@@ -20,37 +20,51 @@
                     <table class="record_properties">
                         <tbody>
                             <tr>
-                                <th>{{ "admin.objectgroup.name"|trans([], "admin") }}</th>
-                                <td>{{ entity.name }}</td>
+                                <th>{{ "admin.objectgroup.Geometry"|trans([], "admin") }}</th>
+                                <td>{{ entity.Geometry }}</td>
                             </tr>
                             <tr>
-                                <th>{{ "admin.objectgroup.size"|trans([], "admin") }}</th>
-                                <td>{{ entity.size }}</td>
+                                <th>&nbsp;</th>
                             </tr>
                             <tr>
-                                <th>{{ "admin.objectgroup.nbFiles"|trans([], "admin") }}</th>
-                                <td>{{ entity.nbFiles }}</td>
+                                <th>{{ "admin.objectgroup.Storage"|trans([], "admin") }}</th>
+                                <td>{{ entity.Storage }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.objectgroup.localPath"|trans([], "admin") }}</th>
+                                <td>{{ entity.localPath }}</td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
                             </tr>
                             <tr>
                                 <th>{{ "admin.objectgroup.ObjectType"|trans([], "admin") }}</th>
                                 <td>{{ entity.ObjectType }}</td>
                             </tr>
                             <tr>
+                                <th>{{ "admin.objectgroup.nbFiles"|trans([], "admin") }}</th>
+                                <td>{{ entity.nbFiles }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.objectgroup.size"|trans([], "admin") }}</th>
+                                <td>{{ entity.formattedSize }}</td>
+                            </tr>
+                            <tr>
                                 <th>{{ "admin.objectgroup.ObjectFormat"|trans([], "admin") }}</th>
                                 <td>{{ entity.ObjectFormat }}</td>
                             </tr>
                             <tr>
-                                <th>{{ "admin.objectgroup.Geometry"|trans([], "admin") }}</th>
-                                <td>{{ entity.Geometry }}</td>
+                                <th>&nbsp;</th>
                             </tr>
                             <tr>
-                                <th>{{ "admin.objectgroup.Storage"|trans([], "admin") }}</th>
-                                <td>{{ entity.Storage }}</td>
+                                <th>{{ "admin.objectgroup.fullPath"|trans([], "admin") }}</th>
+                                <td>{{ entity.fullPath }}</td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="text-center">
-                        <a href="{{ path('admin_objectgroup_edit', { id:entity.id}) }}" class="btn btn-default">{{ 'crud.form.edit'|trans([], 'admin')|addGlyphicon("edit") }}</a>                    <a href="{{ path('admin_objectgroup_list') }}" class="btn btn-default">{{ 'crud.form.list'|trans([], 'admin')|addGlyphicon("list") }}</a>
+                        <a href="{{ path('admin_objectgroup_edit', { id:entity.id}) }}" class="btn btn-default">{{ 'crud.form.edit'|trans([], 'admin')|addGlyphicon("edit") }}</a>
+                        <a href="{{ path('admin_geometry_show', {id:entity.Geometry.id}) }}#tab_objectGroups_1" class="btn btn-default">{{ 'crud.form.list'|trans([], 'admin')|addGlyphicon("list") }}</a>
                     </div>
                 </form>
                 <div class="clearfix"></div>

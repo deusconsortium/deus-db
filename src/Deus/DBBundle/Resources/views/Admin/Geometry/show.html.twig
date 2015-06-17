@@ -27,7 +27,7 @@
                         <tbody>
                             <tr>
                                 <th>{{ "admin.geometry.Z"|trans([], "admin") }}</th>
-                                <td>{{ entity.Z }}</td>
+                                <td>{{ entity.formattedZ }}</td>
                             </tr>
                             <tr>
                                 <th>{{ "admin.geometry.angle"|trans([], "admin") }}</th>
@@ -44,7 +44,8 @@
                         </tbody>
                     </table>
                     <div class="text-center">
-                        <a href="{{ path('admin_geometry_edit', { id:entity.id}) }}" class="btn btn-default">{{ 'crud.form.edit'|trans([], 'admin')|addGlyphicon("edit") }}</a>                    <a href="{{ path('admin_geometry_list') }}" class="btn btn-default">{{ 'crud.form.list'|trans([], 'admin')|addGlyphicon("list") }}</a>
+                        <a href="{{ path('admin_geometry_edit', { id:entity.id}) }}" class="btn btn-default">{{ 'crud.form.edit'|trans([], 'admin')|addGlyphicon("edit") }}</a>
+                        <a href="{{ path('admin_simulation_show', {id:entity.Simulation.id}) }}#tab_geometries_1" class="btn btn-default">{{ 'crud.form.list'|trans([], 'admin')|addGlyphicon("list") }}</a>
                     </div>
                 </form>
                 <div class="clearfix"></div>

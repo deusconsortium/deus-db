@@ -23,7 +23,7 @@ class SimulationGeometriesDatatable extends GeometryDatatable
         $this->setParameters();
         $this->setColumns();
 
-        $this->getAjax()->setUrl($this->getRouter()->generate("admin_simulation_geometries_datatable",['id'=> $simulation->getId() ]));
+        $this->setUrl($this->getRouter()->generate("admin_simulation_geometries_datatable",['id'=> $simulation->getId() ]));
 
         //$this->setIndividualFiltering(true); // Uncomment it to have a search for each field
 

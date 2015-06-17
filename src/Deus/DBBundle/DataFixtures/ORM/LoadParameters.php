@@ -25,10 +25,10 @@ class LoadParameters implements FixtureInterface
         $tgcc = $this->createBasic('Location',Location::TGCC, 'TGCC');
         $idris = $this->createBasic('Location',Location::IDRIS, 'Idris');
 
-        $this->createBasic('Storage', Storage::MEUDON_EFILER_DATA1, 'Meudon / efiler / data1', ["path" => "/efiler1", "location" => $meudon]);
-        $this->createBasic('Storage', Storage::MEUDON_EFILER_DATA2, 'Meudon / efiler / data2', ["path" => "/efiler2", "location" => $meudon]);
-        $this->createBasic('Storage', Storage::MEUDON_BINGO_DATA, 'Meudon / bingo / data', ["path" => "/data_bingo", "location" => $meudon]);
-        $this->createBasic('Storage', Storage::MEUDON_ASISU_DEUS_DATA, 'Meudon / asisu / deus_data', ["path" => "/asisu/deus_data", "location" => $meudon]);
+        $this->createBasic('Storage', Storage::MEUDON_EFILER_DATA1, 'Meudon / efiler / data1', ["path" => "/efiler1/", "location" => $meudon]);
+        $this->createBasic('Storage', Storage::MEUDON_EFILER_DATA2, 'Meudon / efiler / data2', ["path" => "/efiler2/", "location" => $meudon]);
+        $this->createBasic('Storage', Storage::MEUDON_BINGO_DATA, 'Meudon / bingo / data', ["path" => "/data_bingo/", "location" => $meudon]);
+        $this->createBasic('Storage', Storage::MEUDON_ASISU_DEUS_DATA, 'Meudon / asisu / deus_data', ["path" => "/asisu/deus_data/", "location" => $meudon]);
         $this->createBasic('Storage', Storage::TGCC_CURIE_STOREDIR, 'TGCC / curie / storedir', ["path" => '$STOREDIR', "location" => $idris]);
         $this->createBasic('Storage', Storage::IDRIS_ERGON_STOREDIR, 'IDRIS / ergon / storedir', ["path" => '$STOREDIR', "location" => $tgcc]);
 

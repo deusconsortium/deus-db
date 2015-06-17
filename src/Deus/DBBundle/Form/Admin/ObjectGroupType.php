@@ -16,7 +16,7 @@ class ObjectGroupType extends AbstractType
     {
         /*  */
         $builder
-            ->add('name', null, ['required' => false])
+            ->add('localPath', null, ['required' => true])
             ->add('size', null, ['required' => true])
             ->add('nbFiles', null, ['required' => true])
             ->add("ObjectType", "entity_select2", [

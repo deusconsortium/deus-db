@@ -1,10 +1,10 @@
 deus_db:
     resource: "@DeusDBBundle/Controller/Admin"
     type:     annotation
-    prefix:   /
+    prefix:   /admin/
 
 deus_db_public:
-    resource: "@DeusDBBundle/Controller"
+    resource: "@DeusDBBundle/Controller/Pub"
     type:     annotation
     prefix:   /
 

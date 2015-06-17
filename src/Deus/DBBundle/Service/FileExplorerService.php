@@ -11,7 +11,11 @@ namespace Deus\DBBundle\Service;
 
 use Deus\DBBundle\Entity\Geometry;
 use Deus\DBBundle\Entity\GeometryType;
+use Deus\DBBundle\Entity\ObjectFormat;
+use Deus\DBBundle\Entity\ObjectType;
+use Deus\DBBundle\Entity\ObjectGroup;
 use Deus\DBBundle\Entity\Simulation;
+use Deus\DBBundle\Entity\Storage;
 use Deus\DBBundle\Manager\DeusFileManager;
 use Doctrine\ORM\EntityManagerInterface;
 use JMS\DiExtraBundle\Annotation\InjectParams;
@@ -51,13 +55,21 @@ class FileExplorerService
     {
         try {
             $simulationFiles = new DeusFileManager($path, $checkFiles);
+
+//            dump($simulationFiles);
+//            die();
+
         }
         catch(ContextErrorException $error) {
             $this->logger->error("DeusFileManager Error", (array) $error);
             dump($error);
+            throw new \Exception("DeusFileManager Error");
         }
 
-        dump($simulationFiles);
+        $storage = $this->getStorage($path);
+        if(!$storage) {
+            throw new \Exception("Storage not found for ".$path );
+        }
 
         $simulation = $this->getSimulation(
             $simulationFiles->getSimulationBoxlen(),
@@ -66,6 +78,70 @@ class FileExplorerService
 
         foreach($simulationFiles->getSnaphots() as $oneSnapshot) {
             $snapshot = $this->getSnapshot($simulation, $oneSnapshot);
+            if(isset($oneSnapshot["cube"]) && isset($oneSnapshot["cube"]["files"]) && isset($oneSnapshot["cube"]["path"])) {
+                $this->logger->info("Adding ObjectGroup",["path" => $oneSnapshot["cube"]["path"]]);
+                $type = $this->em->getRepository("DeusDBBundle:ObjectType")->find(ObjectType::CUBE);
+                $objectGroup = $this->getObjectGroup($storage, $type, $oneSnapshot["cube"]["path"]);
+                $objectGroup
+                    ->setGeometry($snapshot)
+                    ->setSize($oneSnapshot["cube"]["size"])
+                    ->setNbFiles($oneSnapshot["cube"]["files"]);
+            }
+
+            if(isset($oneSnapshot["halos"][2000]) && isset($oneSnapshot["halos"][2000]["path"])) {
+                $this->logger->info("Adding ObjectGroup",["path" => $oneSnapshot["halos"][2000]["path"]]);
+                if(isset($oneSnapshot["halos"][2000]["nb_masst"]) && $oneSnapshot["halos"][2000]["nb_masst"] > 0) {
+                    $type = $this->em->getRepository("DeusDBBundle:ObjectType")->find(ObjectType::MASST);
+                    $objectGroup = $this->getObjectGroup($storage, $type, $oneSnapshot["halos"][2000]["path"]);
+                    $objectGroup
+                        ->setGeometry($snapshot)
+                        ->setSize($oneSnapshot["halos"][2000]["size_masst"])
+                        ->setNbFiles($oneSnapshot["halos"][2000]["nb_masst"]);
+
+                }
+                if(isset($oneSnapshot["halos"][2000]["nb_strct"]) && $oneSnapshot["halos"][2000]["nb_strct"] > 0) {
+                    $type = $this->em->getRepository("DeusDBBundle:ObjectType")->find(ObjectType::STRCT);
+                    $objectGroup = $this->getObjectGroup($storage, $type, $oneSnapshot["halos"][2000]["path"]);
+                    $objectGroup
+                        ->setGeometry($snapshot)
+                        ->setSize($oneSnapshot["halos"][2000]["size_strct"])
+                        ->setNbFiles($oneSnapshot["halos"][2000]["nb_strct"]);
+                }
+            }
+        }
+
+        foreach($simulationFiles->getCones() as $type => $oneSnapshot) {
+            $snapshot = $this->getCone($simulation, $oneSnapshot, $type);
+            if(isset($oneSnapshot["cube"]) && isset($oneSnapshot["cube"]["files"]) && isset($oneSnapshot["cube"]["path"])) {
+                $this->logger->info("Adding ObjectGroup",["path" => $oneSnapshot["cube"]["path"]]);
+                $type = $this->em->getRepository("DeusDBBundle:ObjectType")->find(ObjectType::CUBE);
+                $objectGroup = $this->getObjectGroup($storage, $type, $oneSnapshot["cube"]["path"]);
+                $objectGroup
+                    ->setGeometry($snapshot)
+                    ->setSize($oneSnapshot["cube"]["size"])
+                    ->setNbFiles($oneSnapshot["cube"]["files"]);
+            }
+
+            if(isset($oneSnapshot["halos"][2000]) && isset($oneSnapshot["halos"][2000]["path"])) {
+                $this->logger->info("Adding ObjectGroup",["path" => $oneSnapshot["halos"][2000]["path"]]);
+                if(isset($oneSnapshot["halos"][2000]["nb_masst"])) {
+                    $type = $this->em->getRepository("DeusDBBundle:ObjectType")->find(ObjectType::MASST);
+                    $objectGroup = $this->getObjectGroup($storage, $type, $oneSnapshot["halos"][2000]["path"]);
+                    $objectGroup
+                        ->setGeometry($snapshot)
+                        ->setSize($oneSnapshot["halos"][2000]["size_masst"])
+                        ->setNbFiles($oneSnapshot["halos"][2000]["nb_masst"]);
+
+                }
+                if(isset($oneSnapshot["halos"][2000]["nb_strct"])) {
+                    $type = $this->em->getRepository("DeusDBBundle:ObjectType")->find(ObjectType::STRCT);
+                    $objectGroup = $this->getObjectGroup($storage, $type, $oneSnapshot["halos"][2000]["path"]);
+                    $objectGroup
+                        ->setGeometry($snapshot)
+                        ->setSize($oneSnapshot["halos"][2000]["size_strct"])
+                        ->setNbFiles($oneSnapshot["halos"][2000]["nb_strct"]);
+                }
+            }
         }
 
         $this->em->flush();
@@ -132,4 +208,79 @@ class FileExplorerService
         }
         return $snapshot;
     }
-} 
+
+    private function getCone($simulation, $snapshotFile, $type)
+    {
+        $geometryType = $this->em->getRepository("DeusDBBundle:GeometryType")->find(GeometryType::CONE);
+        $Z = 0;
+
+        if($type == "narrow") {
+            $angle = 60;
+        }
+        else {
+            $angle = 360;
+        }
+
+        $snapshot = $this->em->getRepository("DeusDBBundle:Geometry")->findOneBy([
+            'GeometryType' => $geometryType,
+            'Simulation' => $simulation,
+            'Z' => $Z,
+            'angle' => $angle
+        ]);
+        if(!$snapshot) {
+            $snapshot = new Geometry();
+            $snapshot
+                ->setGeometryType($geometryType)
+                ->setSimulation($simulation)
+                ->setZ($Z)
+                ->setAngle($angle);
+            $this->em->persist($snapshot);
+        }
+        return $snapshot;
+    }
+
+    private function getObjectGroup(Storage $storage, ObjectType $type, $path)
+    {
+        $localPath = substr($path,strlen($storage->getPath()));
+
+        // Only FOF Format for file exploring
+        $format = $this->em->getRepository("DeusDBBundle:ObjectFormat")->find(ObjectFormat::FOF);
+
+        $objectGroup = $this->em->getRepository("DeusDBBundle:ObjectGroup")->findOneBy([
+            'Storage' => $storage,
+            'localPath' => $localPath,
+            'ObjectType' => $type
+        ]);
+
+        if(!$objectGroup) {
+            $objectGroup = new ObjectGroup();
+            $objectGroup
+                ->setStorage($storage)
+                ->setObjectType($type)
+                ->setLocalPath($localPath)
+                ->setObjectFormat($format);
+            $this->em->persist($objectGroup);
+        }
+
+        return $objectGroup;
+    }
+
+    /**
+     * @param $path
+     * @return \Deus\DBBundle\Entity\Storage|null
+     */
+    private function getStorage($path)
+    {
+        $storages = $this->em->getRepository("DeusDBBundle:Storage")->findBy([
+            "Location" => $this->em->getRepository("DeusDBBundle:Location")->find("meudon")
+        ]);
+
+        foreach($storages as $storage) {
+            if(strpos($path, $storage->getPath()) === 0 ) {
+                return $storage;
+            }
+        }
+
+        return null;
+    }
+}

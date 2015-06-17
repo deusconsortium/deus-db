@@ -41,7 +41,7 @@ class ImportSimulationCommand extends ContainerAwareCommand
     {
         $path = $input->getArgument("path");
 
-        $output->writeln("PATH=".$path);
+        $output->writeln("IMPORTING Data from ".$path." ...");
 
         $this->getContainer()->get("deus.fileexplorer")->explore($path);
 

@@ -6,6 +6,22 @@
     </a>
 {% endblock %}
 
+{% block stylesheets %}
+    {% stylesheets '@data_tables_css' '@admin_lte_all_css' filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{%  block javascripts_head %}
+    {% javascripts '@SedonaSBOAdminThemeBundle/Resources/public/vendor/modernizr/modernizr.js'
+    '@SedonaSBOAdminThemeBundle/Resources/public/vendor/jquery/dist/jquery.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <!--[if lt IE 9]>
+
+    <![endif]-->
+{% endblock %}
+
 {% block title %}DEUS DATABASE{% endblock title %}
 
 {% block page_title %}Administration{% endblock %}

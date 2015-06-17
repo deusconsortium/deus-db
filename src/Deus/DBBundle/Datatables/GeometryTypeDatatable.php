@@ -21,7 +21,7 @@ class GeometryTypeDatatable extends AbstractCrudDatatableView
         $this->setParameters();
         $this->setColumns();
 
-        $this->getAjax()->setUrl($this->getRouter()->generate("admin_geometrytype_datatable"));
+        $this->setUrl($this->getRouter()->generate("admin_geometrytype_datatable"));
 
         //$this->setIndividualFiltering(true); // Uncomment it to have a search for each field
 
@@ -48,15 +48,6 @@ class GeometryTypeDatatable extends AbstractCrudDatatableView
                 ));
         }
     }
-
-    protected function setParameters() {
-        $this->getFeatures()
-            ->setServerSide(true)
-            ->setProcessing(true)
-        ;
-        $this->setStyle(self::BOOTSTRAP_3_STYLE);
-    }
-
 
     /**
      * {@inheritdoc}

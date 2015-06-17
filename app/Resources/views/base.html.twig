@@ -2,9 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}DEUS DB{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block javascripts_head %}{% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}

@@ -42,22 +42,28 @@ admin:
         Simulation: Simulation
         GeometryType: Geometry type
         objectGroups: Object groups
+        parameters: Parameters
     objectgroup:
         entity_name: Object group
-        name: Directory
         ObjectType: Object type
         ObjectFormat: Object format
         Geometry: Geometry
         Storage: Storage
+        size: Size
+        nbFiles: Nb files
+        localPath: Directory
+        fullPath: Full Path
     resolution:
         entity_name: Npart
         value: Value
     location:
         entity_name: Location
         name: Name
+        id: Code
     geometrytype:
         entity_name: Geometry type
         name: Name
+        id: Code
     objectformat:
         entity_name: Object format
         name: Name
@@ -70,6 +76,7 @@ admin:
     objecttype:
         entity_name: Object type
         name: Name
+        id: Code
     user:
         entity_name: User
         username: Username

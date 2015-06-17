@@ -7,3 +7,7 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    sg_datatables.datatable:
+        class: Sg\DatatablesBundle\Datatable\Data\DatatableDataManager
+        scope: request
+        arguments: [@doctrine, @request, @sg_datatables.serializer]

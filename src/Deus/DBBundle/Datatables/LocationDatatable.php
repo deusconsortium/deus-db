@@ -21,7 +21,7 @@ class LocationDatatable extends AbstractCrudDatatableView
         $this->setParameters();
         $this->setColumns();
 
-        $this->getAjax()->setUrl($this->getRouter()->generate("admin_location_datatable"));
+        $this->setUrl($this->getRouter()->generate("admin_location_datatable"));
 
         //$this->setIndividualFiltering(true); // Uncomment it to have a search for each field
 
@@ -49,22 +49,13 @@ class LocationDatatable extends AbstractCrudDatatableView
         }
     }
 
-    protected function setParameters() {
-        $this->getFeatures()
-            ->setServerSide(true)
-            ->setProcessing(true)
-        ;
-        $this->setStyle(self::BOOTSTRAP_3_STYLE);
-    }
-
-
     /**
      * {@inheritdoc}
      */
     protected function setColumns() {
 
         $this->getColumnBuilder()
-            ->add("id", "column", array("title" => $this->getTranslator()->trans("admin.location.id", [], 'admin')))
+            //->add("id", "column", array("title" => $this->getTranslator()->trans("admin.location.id", [], 'admin')))
             ->add("name", "column", array("title" => $this->getTranslator()->trans("admin.location.name", [], 'admin')))
         ;
     }
