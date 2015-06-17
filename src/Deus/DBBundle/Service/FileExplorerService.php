@@ -215,10 +215,10 @@ class FileExplorerService
         $Z = 0;
 
         if($type == "narrow") {
-            $angle = 60;
+            $angle = Geometry::NARROW;
         }
         else {
-            $angle = 360;
+            $angle = Geometry::FULLSKY;
         }
 
         $snapshot = $this->em->getRepository("DeusDBBundle:Geometry")->findOneBy([

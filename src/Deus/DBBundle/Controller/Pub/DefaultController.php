@@ -32,9 +32,11 @@ class DefaultController extends Controller
     public function datatableAction()
     {
         $postDatatable = $this->get('public_datatable');
-        $datatable = $this->get("sg_datatables.datatable")->getDatatable($postDatatable);
+        $datatable = $this->get("sedona_deusdb.datatable")->getDatatable($postDatatable);
 
-        return $datatable->getResponse();
+        $res = $datatable->getResponse();
+
+        return $res;
     }
 
     /**

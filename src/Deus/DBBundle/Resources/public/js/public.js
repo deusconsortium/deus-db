@@ -26,4 +26,18 @@ $(document).ready(function() {
         });
 
     } );
+
+    $('#simulation_datatable').on('xhr.dt', function ( e, settings, json ) {
+        $("#simulation_datatable .individual_filtering").each(function(i) {
+            var currvalue = $(this).val();
+            var option = $(this).html('<option value="">All</option>');
+            if(json.filters[i]) {
+                for(value in json.filters[i]) {
+                    var selected = value == currvalue ? ' selected="selected"' : '';
+                    option.append('<option value="'+value+'" '+ selected + '>'+value+'</option>');
+                };
+            }
+        });
+    });
+
 } );

@@ -18,26 +18,26 @@ class PublicDatatable extends AbstractCrudDatatableView
 
     protected function initLineFormatter()
     {
-        $this->addLineFormatter(function($line) {
-            $GeometryDetail = "";
-
-            if($line["Geometry"]["angle"]) {
-                if($line["Geometry"]["angle"] == 360) {
-                    $GeometryDetail = "Fullsky";
-                }
-                else {
-                    $GeometryDetail = $line["Geometry"]["angle"]."°";
-                }
-                if($line["Geometry"]["Z"]) {
-                    $GeometryDetail .= " - Z=".number_format($line['Geometry']['Z'], 2);
-                }
-            }
-            else {
-                $GeometryDetail = "Z=".number_format($line['Geometry']['Z'], 2);
-            }
-            $line['Geometry']['Z'] = $GeometryDetail;
-            return $line;
-        });
+//        $this->addLineFormatter(function($line) {
+//            $GeometryDetail = "";
+//
+//            if($line["Geometry"]["angle"]) {
+//                if($line["Geometry"]["angle"] == 360) {
+//                    $GeometryDetail = "Fullsky";
+//                }
+//                else {
+//                    $GeometryDetail = $line["Geometry"]["angle"]."°";
+//                }
+//                if($line["Geometry"]["Z"]) {
+//                    $GeometryDetail .= " - Z=".number_format($line['Geometry']['Z'], 2);
+//                }
+//            }
+//            else {
+//                $GeometryDetail = "Z=".number_format($line['Geometry']['Z'], 2);
+//            }
+//            $line['Geometry']['Z'] = $GeometryDetail;
+//            return $line;
+//        });
     }
 
     /**
@@ -124,7 +124,7 @@ class PublicDatatable extends AbstractCrudDatatableView
                 "title" => $this->getTranslator()->trans("admin.simulation.Cosmology", [], 'admin'),
                 "searchable" => true,
                 "filter_type" => "select",
-                "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArray($cosmologies, "name", "name"),
+                "filter_options" => ["" => "Any"],// + $this->getCollectionAsOptionsArray($cosmologies, "name", "name"),
             ))
             ->add("Geometry.Simulation.Boxlen.value", "column", array(
                 "title" => $this->getTranslator()->trans("admin.simulation.Boxlen", [], 'admin')." Mpc/h",
@@ -144,22 +144,22 @@ class PublicDatatable extends AbstractCrudDatatableView
                 "filter_type" => "select",
                 "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArray($geometryTypes, "name", "name"),
             ))
-            ->add("Geometry.Z", "column", array(
-                "title" => $this->getTranslator()->trans("admin.geometry.parameters", [], 'admin'),
-                "searchable" => false,
+            ->add("Geometry.formattedZ", "column", array(
+                "title" => $this->getTranslator()->trans("admin.geometry.Z", [], 'admin'),
+                "searchable" => true,
                 "filter_type" => "select",
                 "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArrayForZ($geometries, "Z", "Z"),
             ))
             ->add("Geometry.angle", "column", array(
                 "title" => $this->getTranslator()->trans("admin.geometry.angle", [], 'admin'),
-                "visible" => false,
+                //"visible" => false,
                 "searchable" => true,
                 "filter_type" => "select",
                 "search_type" => "eq",
                 "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArray($geometries, "angle", "angle")
             ))
             ->add("ObjectType.name", "column", array(
-                "title" => $this->getTranslator()->trans("admin.objectformat.entity_name", [], 'admin'),
+                "title" => $this->getTranslator()->trans("admin.objecttype.entity_name", [], 'admin'),
                 "searchable" => true,
                 "filter_type" => "select",
                 "search_type" => "eq",

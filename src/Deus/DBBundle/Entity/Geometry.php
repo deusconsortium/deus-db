@@ -8,6 +8,10 @@ use Symfony\Component\Config\Definition\Exception\Exception;
  */
 class Geometry
 {
+    const FULLSKY = 'FullSky';
+    const NARROW = 'Narrow';
+    const NOTCONE = 'N/A';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -36,7 +40,12 @@ class Geometry
     private $Z;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $formattedZ;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $angle;
 
@@ -72,6 +81,7 @@ class Geometry
     public function setZ($z)
     {
         $this->Z = $z;
+        $this->formattedZ = number_format($z, 2);
 
         return $this;
     }
@@ -86,9 +96,12 @@ class Geometry
         return $this->Z;
     }
 
+    /**
+     * @return mixed
+     */
     public function getFormattedZ()
     {
-        return number_format($this->Z, 2);
+        return $this->formattedZ;
     }
 
     /**
