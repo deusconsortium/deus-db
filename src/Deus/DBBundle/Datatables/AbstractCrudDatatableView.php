@@ -2,7 +2,11 @@
 
 namespace Deus\DBBundle\Datatables;
 
+use Sg\DatatablesBundle\Datatable\Column\ColumnBuilder;
 use Sg\DatatablesBundle\Datatable\View\AbstractDatatableView;
+use Sg\DatatablesBundle\Datatable\View\Ajax;
+use Sg\DatatablesBundle\Datatable\View\Features;
+use Sg\DatatablesBundle\Datatable\View\Options;
 use Sg\DatatablesBundle\Datatable\View\Style;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bridge\Twig\TwigEngine;
@@ -39,6 +43,7 @@ abstract class AbstractCrudDatatableView extends AbstractDatatableView
             $doctrine,
             $defaultLayoutOptions
         );
+
         $this->initLineFormatter();
     }
 

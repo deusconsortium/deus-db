@@ -16,21 +16,21 @@ class GeometryType extends AbstractType
     {
         /*  */
         $builder
-            ->add('Z', null, ['required' => false])
+            ->add('Z', null, ['required' => true])
             ->add('angle', null, ['required' => false])
             ->add("Simulation", "entity_select2", [
                    'class'             => 'Deus\DBBundle\Entity\Simulation',
                    'searchRouteName'   => 'admin_geometry_simulation_search',
                    'property'          => '',
                    'placeholder'       => 'search_placeholder',
-                   'required'          => false
+                   'required'          => true
                ])
-            ->add("GeometryType", "entity_select2", [
+            ->add("GeometryType", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Geometrytype',
-                   'searchRouteName'   => 'admin_geometry_geometrytype_search',
+//                   'searchRouteName'   => 'admin_geometry_geometrytype_search',
                    'property'          => 'name',
                    'placeholder'       => 'search_placeholder',
-                   'required'          => false
+                   'required'          => true
                ])
         //   ->add("objectGroups","collection_select2",[
         //           'class'             => 'Deus\DBBundle\Entity\Objectgroups',

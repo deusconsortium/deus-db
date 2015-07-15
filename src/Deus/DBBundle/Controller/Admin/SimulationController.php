@@ -152,7 +152,7 @@ class SimulationController extends BaseCrudController
      */
     public function addGeometriesAction(Simulation $simulation, Geometry $geometry)
     {
-        return $this->manageJsonAction($simulation, $geometry, 'geometries', 'addGeometries', false);
+        return $this->manageJsonAction($simulation, $geometry, 'geometries', 'addGeometry', false);
     }
             
     /**
@@ -163,7 +163,7 @@ class SimulationController extends BaseCrudController
      */
     public function removeGeometriesAction(Simulation $simulation, Geometry $geometry)
     {
-        return $this->manageJsonAction($simulation, $geometry, 'geometries', 'removeGeometries', true);
+        return $this->manageJsonAction($simulation, $geometry, 'geometries', 'removeGeometry', true);
     }    
 
 

@@ -29,6 +29,8 @@ admin:
         entity_name: Storage
         name: Name
         Location: Location
+        path: Path
+        id: Code
     boxlen:
         entity_name: Boxlen
         value: Value
@@ -66,6 +68,7 @@ admin:
         id: Code
     objectformat:
         entity_name: Object format
+        id: Code
         name: Name
     simulation:
         entity_name: Simulation

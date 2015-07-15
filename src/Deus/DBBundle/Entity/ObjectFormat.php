@@ -1,9 +1,11 @@
 <?php
 namespace Deus\DBBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
+ * @UniqueEntity("id")
  */
 class ObjectFormat
 {

@@ -15,15 +15,20 @@ use Deus\DBBundle\Entity\Simulation;
 class SimulationGeometriesDatatable extends GeometryDatatable
 {
 
+    public function setMainEntity(Simulation $simulation = null)
+    {
+        $this->setUrl($this->getRouter()->generate("admin_simulation_geometries_datatable",['id'=> $simulation->getId() ]));
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function buildDatatableView(Simulation $simulation = null)
+    public function buildDatatableView()
     {
         $this->setParameters();
         $this->setColumns();
 
-        $this->setUrl($this->getRouter()->generate("admin_simulation_geometries_datatable",['id'=> $simulation->getId() ]));
+
 
         //$this->setIndividualFiltering(true); // Uncomment it to have a search for each field
 

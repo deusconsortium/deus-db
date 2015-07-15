@@ -16,26 +16,26 @@ class SimulationType extends AbstractType
     {
         /*  */
         $builder
-            ->add("Boxlen", "entity_select2", [
+            ->add("Boxlen", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Boxlen',
-                   'searchRouteName'   => 'admin_simulation_boxlen_search',
-                   'property'          => '',
-                   'placeholder'       => 'search_placeholder',
-                   'required'          => false
+//                   'searchRouteName'   => 'admin_simulation_boxlen_search',
+//                   'property'          => '',
+//                   'placeholder'       => 'search_placeholder',
+//                   'required'          => false
                ])
-            ->add("Resolution", "entity_select2", [
+            ->add("Resolution", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Resolution',
-                   'searchRouteName'   => 'admin_simulation_resolution_search',
-                   'property'          => '',
-                   'placeholder'       => 'search_placeholder',
-                   'required'          => false
+//                   'searchRouteName'   => 'admin_simulation_resolution_search',
+//                   'property'          => '',
+//                   'placeholder'       => 'search_placeholder',
+//                   'required'          => false
                ])
-            ->add("Cosmology", "entity_select2", [
+            ->add("Cosmology", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Cosmology',
-                   'searchRouteName'   => 'admin_simulation_cosmology_search',
-                   'property'          => 'name',
-                   'placeholder'       => 'search_placeholder',
-                   'required'          => false
+//                   'searchRouteName'   => 'admin_simulation_cosmology_search',
+//                   'property'          => 'name',
+//                   'placeholder'       => 'search_placeholder',
+//                   'required'          => false
                ])
         //   ->add("geometries","collection_select2",[
         //           'class'             => 'Deus\DBBundle\Entity\Geometries',

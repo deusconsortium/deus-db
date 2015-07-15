@@ -47,13 +47,26 @@ class GeometryController extends BaseCrudController
     }
 
     /**
-    * Create a new Geometry.
-    *
-    * @Route("/new", name="admin_geometry_new", options={"expose"=true})
-    */
+     * Create a new Geometry.
+     *
+     * @Route("/new/simulation", name="admin_geometry_new", options={"expose"=true})
+     */
     public function newAction(Request $request)
     {
-        return $this->manageNew(new Geometry(), $request, new GeometryType());
+        $geometry = new Geometry();
+        return $this->manageNew($geometry, $request, new GeometryType());
+    }
+
+    /**
+     * Create a new Geometry from Simulation.
+     *
+     * @Route("/new/simulation/{id}", name="admin_geometry_new_simulation", options={"expose"=true})
+     */
+    public function newFromSimulationAction(Simulation $simulation, Request $request)
+    {
+        $geometry = new Geometry();
+        $geometry->setSimulation($simulation);
+        return $this->manageNew($geometry, $request, new GeometryType());
     }
 
     /**
@@ -151,7 +164,7 @@ class GeometryController extends BaseCrudController
      */
     public function removeObjectgroupsAction(Geometry $geometry, ObjectGroup $objectgroup)
     {
-        return $this->manageJsonAction($geometry, $objectgroup, 'objectGroups', 'removeObjectgroups', true);
+        return $this->manageJsonAction($geometry, $objectgroup, 'objectGroups', 'removeObjectgroup', true);
     }    
 
 

@@ -54,7 +54,20 @@ class ObjectGroupController extends BaseCrudController
     */
     public function newAction(Request $request)
     {
-        return $this->manageNew(new ObjectGroup(), $request, new ObjectGroupType());
+        $objectGroup = new ObjectGroup();
+        return $this->manageNew($objectGroup, $request, new ObjectGroupType());
+    }
+
+    /**
+     * Create a new ObjectGroup.
+     *
+     * @Route("/new/{id}", name="admin_objectgroup_new_geometry", options={"expose"=true})
+     */
+    public function newFromGeometryAction(Geometry $geometry, Request $request)
+    {
+        $objectGroup = new ObjectGroup();
+        $objectGroup->setGeometry($geometry);
+        return $this->manageNew($objectGroup, $request, new ObjectGroupType());
     }
 
     /**

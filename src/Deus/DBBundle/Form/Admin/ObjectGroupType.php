@@ -19,16 +19,16 @@ class ObjectGroupType extends AbstractType
             ->add('localPath', null, ['required' => true])
             ->add('size', null, ['required' => true])
             ->add('nbFiles', null, ['required' => true])
-            ->add("ObjectType", "entity_select2", [
+            ->add("ObjectType", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Objecttype',
-                   'searchRouteName'   => 'admin_objectgroup_objecttype_search',
+//                   'searchRouteName'   => 'admin_objectgroup_objecttype_search',
                    'property'          => 'name',
                    'placeholder'       => 'search_placeholder',
                    'required'          => false
                ])
-            ->add("ObjectFormat", "entity_select2", [
+            ->add("ObjectFormat", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Objectformat',
-                   'searchRouteName'   => 'admin_objectgroup_objectformat_search',
+//                   'searchRouteName'   => 'admin_objectgroup_objectformat_search',
                    'property'          => 'name',
                    'placeholder'       => 'search_placeholder',
                    'required'          => false
@@ -40,9 +40,9 @@ class ObjectGroupType extends AbstractType
                    'placeholder'       => 'search_placeholder',
                    'required'          => false
                ])
-            ->add("Storage", "entity_select2", [
+            ->add("Storage", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Storage',
-                   'searchRouteName'   => 'admin_objectgroup_storage_search',
+//                   'searchRouteName'   => 'admin_objectgroup_storage_search',
                    'property'          => 'name',
                    'placeholder'       => 'search_placeholder',
                    'required'          => false

@@ -15,6 +15,11 @@ use Deus\DBBundle\Entity\Geometry;
 class GeometryObjectgroupsDatatable extends ObjectGroupDatatable
 {
 
+    public function setMainEntity(Geometry $geometry = null)
+    {
+        $this->setUrl($this->getRouter()->generate("admin_geometry_objectgroups_datatable",['id'=> $geometry->getId() ]));
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -23,7 +28,6 @@ class GeometryObjectgroupsDatatable extends ObjectGroupDatatable
         $this->setParameters();
         $this->setColumns();
 
-        $this->setUrl($this->getRouter()->generate("admin_geometry_objectgroups_datatable",['id'=> $geometry->getId() ]));
 
         //$this->setIndividualFiltering(true); // Uncomment it to have a search for each field
 

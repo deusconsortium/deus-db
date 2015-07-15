@@ -30,7 +30,7 @@ class Simulation
     private $Cosmology;
 
     /**
-     * @ORM\OneToMany(targetEntity="Geometry", mappedBy="Simulation")
+     * @ORM\OneToMany(targetEntity="Geometry", mappedBy="Simulation", orphanRemoval=true)
      */
     private $geometries;
     /**
@@ -141,6 +141,7 @@ class Simulation
     public function removeGeometry(\Deus\DBBundle\Entity\Geometry $geometries)
     {
         $this->geometries->removeElement($geometries);
+        $geometries->setSimulation(null);
     }
 
     /**

@@ -1,14 +1,9 @@
 
 {% block content %}
 
-    <div class="form-group">
-        <div>
-            <input type="text" class="form-control" placeholder="{{ 'crud.search_and_append'|trans({'%entity_name%': 'admin.geometry.objectGroups'|trans([], 'admin') }, 'admin') }}" data-toggle="select2-remote" autocomplete="false" data-target="#{{ datatable.name }}" data-source="{{ path('admin_geometry_objectgroups_search', { id:entity.id}) }}" />
-        </div>
-    </div>
-
     <div class="box-body table-responsive">
         {{ datatable_render(datatable) }}
+    <div class="box-footer"><a href="{{ path('admin_objectgroup_new_geometry', {id:entity.id}) }}" class="btn btn-default pull-right">{{ 'crud.form.new'|trans([], 'admin')|addGlyphicon("plus-sign") }}</a><div class="clearfix"></div>
     </div>
 
 {% endblock %}
