@@ -1,0 +1,4 @@
+Boxlen Mpc/h;Cosmology;Npart;Geometry type;Z;Angle;Object type;Location;Nb Files;Size (MB);Format;Full Path
+{% for gc in groups %}
+{{ gc.Geometry.Simulation.Boxlen.value }};{{ gc.Geometry.Simulation.Cosmology.name }};{{ gc.Geometry.Simulation.Resolution.value }};{{ gc.Geometry.GeometryType.name }};{{ gc.Geometry.formattedZ }};{{ gc.Geometry.angle }};{{ gc.ObjectType.name }};{{ gc.Storage.Location.name }};{{ gc.nbFiles }};{{ (gc.size / 1024)|round }};{{ gc.ObjectFormat.name }};{{ gc.fullPath }}
+{% endfor %}

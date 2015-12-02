@@ -51,4 +51,42 @@ class DefaultController extends Controller
             "entity" => $entity
         ));
     }
+
+    /**
+     * Show a ObjectGroup.
+     *
+     * @Route("/export", name="public_export", options={"expose"=true})
+     * @Method("GET")
+     */
+    public function exportAction()
+    {
+        $groups = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+            ->from("DeusDBBundle:ObjectGroup", "og")
+            ->select("og")
+            ->join("og.Geometry","g")
+            ->join("og.ObjectFormat","of")
+            ->join("og.ObjectType","ot")
+            ->join("og.Storage","Storage")
+            ->join("g.Simulation","s")
+            ->join("g.GeometryType","gt")
+            ->join("s.Resolution", "r")
+            ->join("s.Cosmology", "c")
+            ->join("s.Boxlen", "b")
+            ->addOrderBy("b.value", "ASC")
+            ->addOrderBy("c.name", "ASC")
+            ->addOrderBy("r.value", "ASC")
+            ->addOrderBy("gt.id", "DESC")
+            ->addOrderBy("g.Z", "DESC")
+            ->addOrderBy("g.angle", "ASC")
+            ->getQuery()
+
+            ->getResult()
+            ;
+
+        $response = $this->render("DeusDBBundle:Pub:export.csv.twig", array(
+            "groups" => $groups
+        ));
+        $response->headers->set("Content-Type", "text/csv");
+        return $response;
+    }
 }
