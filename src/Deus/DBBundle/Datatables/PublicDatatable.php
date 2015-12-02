@@ -16,30 +16,6 @@ use Symfony\Component\DependencyInjection\Container;
 class PublicDatatable extends AbstractCrudDatatableView
 {
 
-    protected function initLineFormatter()
-    {
-//        $this->addLineFormatter(function($line) {
-//            $GeometryDetail = "";
-//
-//            if($line["Geometry"]["angle"]) {
-//                if($line["Geometry"]["angle"] == 360) {
-//                    $GeometryDetail = "Fullsky";
-//                }
-//                else {
-//                    $GeometryDetail = $line["Geometry"]["angle"]."°";
-//                }
-//                if($line["Geometry"]["Z"]) {
-//                    $GeometryDetail .= " - Z=".number_format($line['Geometry']['Z'], 2);
-//                }
-//            }
-//            else {
-//                $GeometryDetail = "Z=".number_format($line['Geometry']['Z'], 2);
-//            }
-//            $line['Geometry']['Z'] = $GeometryDetail;
-//            return $line;
-//        });
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -118,6 +94,7 @@ class PublicDatatable extends AbstractCrudDatatableView
         $geometryTypes = $em->getRepository("DeusDBBundle:GeometryType")->findAll();
         $objectType = $em->getRepository("DeusDBBundle:ObjectType")->findAll();
         $geometries = $em->getRepository("DeusDBBundle:Geometry")->findAll();
+        $locations = $em->getRepository("DeusDBBundle:Location")->findAll();
 
         $this->getColumnBuilder()
             ->add("Geometry.Simulation.Cosmology.name", "column", array(
@@ -164,6 +141,13 @@ class PublicDatatable extends AbstractCrudDatatableView
                 "filter_type" => "select",
                 "search_type" => "eq",
                 "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArray($objectType, "name", "name")
+            ))
+            ->add("Storage.Location.name", "column", array(
+                "title" => $this->getTranslator()->trans("admin.location.entity_name", [], 'admin'),
+                "searchable" => true,
+                "filter_type" => "select",
+                "search_type" => "eq",
+                "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArray($locations, "name", "name")
             ))
         ;
     }
