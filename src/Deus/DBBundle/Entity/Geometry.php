@@ -81,9 +81,36 @@ class Geometry
     public function setZ($z)
     {
         $this->Z = $z;
-        $this->formattedZ = number_format($z, 2);
+
+        if($z < 1.0) {
+            $this->formattedZ = round($z, 2);
+        }
+        elseif($z < 10.0) {
+            $this->formattedZ = round($z, 1);
+        }
+        else {
+            $this->formattedZ = round($z, 0);
+        }
+
+        $this->formattedZ = sprintf("%+5.2f", $this->formattedZ);
+        $this->formattedZ = $this->formattedZ{0}.str_pad(substr($this->formattedZ,1),7,'0',STR_PAD_LEFT);
 
         return $this;
+    }
+
+    static public function formatZ($Z)
+    {
+        $Z = (float) $Z;
+        if($Z < 1.0) {
+            $Z = number_format($Z, 2);
+        }
+        elseif($Z < 10.0) {
+            $Z = number_format($Z, 1);
+        }
+        else {
+            $Z = number_format($Z, 0);
+        }
+        return $Z;
     }
 
     /**

@@ -32,9 +32,9 @@ $(document).ready(function() {
             var currvalue = $(this).val();
             var option = $(this).html('<option value="">All</option>');
             if(json.filters[i]) {
-                for(value in json.filters[i]) {
-                    var selected = value == currvalue ? ' selected="selected"' : '';
-                    option.append('<option value="'+value+'" '+ selected + '>'+value+'</option>');
+                for(key in json.filters[i]) {
+                    var selected = key == currvalue ? ' selected="selected"' : '';
+                    option.append('<option value="'+key+'" '+ selected + '>'+json.filters[i][key]+'</option>');
                 };
             }
         });

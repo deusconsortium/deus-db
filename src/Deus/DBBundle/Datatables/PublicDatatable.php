@@ -2,6 +2,7 @@
 
 namespace Deus\DBBundle\Datatables;
 
+use Deus\DBBundle\Entity\Geometry;
 use JMS\DiExtraBundle\Annotation\Service;
 use JMS\DiExtraBundle\Annotation\Tag;
 use Sg\DatatablesBundle\Datatable\View\AbstractDatatableView;
@@ -53,6 +54,14 @@ class PublicDatatable extends AbstractCrudDatatableView
                     "actions" => $actions
                 ));
         }
+    }
+
+    protected function initLineFormatter()
+    {
+        $this->addLineFormatter(function($line) {
+            $line['Geometry']['formattedZ'] = Geometry::formatZ($line['Geometry']['formattedZ']);
+            return $line;
+        });
     }
 
     protected function setParameters()
@@ -125,15 +134,8 @@ class PublicDatatable extends AbstractCrudDatatableView
                 "title" => $this->getTranslator()->trans("admin.geometry.Z", [], 'admin'),
                 "searchable" => true,
                 "filter_type" => "select",
-                "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArrayForZ($geometries, "Z", "Z"),
-            ))
-            ->add("Geometry.angle", "column", array(
-                "title" => $this->getTranslator()->trans("admin.geometry.angle", [], 'admin'),
-                //"visible" => false,
-                "searchable" => true,
-                "filter_type" => "select",
                 "search_type" => "eq",
-                "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArray($geometries, "angle", "angle")
+                "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArrayForZ($geometries),
             ))
             ->add("ObjectType.name", "column", array(
                 "title" => $this->getTranslator()->trans("admin.objecttype.entity_name", [], 'admin'),
@@ -199,10 +201,9 @@ class PublicDatatable extends AbstractCrudDatatableView
         $options = [];
 
         foreach ($entitiesCollection as $entity) {
-            $Z = $entity->getZ();
-            $value = number_format((float) floor(10*$Z) / 10.0,1);
-            //$id = (float) floor(10*$Z) / 10.0;
-            $options["$value"] = $value;
+            $Z = (float) $entity->getFormattedZ();
+            $value = (float) $Z;
+            $options["$Z"] = $value;
         }
 
         asort($options);

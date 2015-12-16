@@ -11,6 +11,7 @@
 
 namespace Deus\DBBundle\Datatables\Data;
 
+use Deus\DBBundle\Entity\Geometry;
 use Sg\DatatablesBundle\Datatable\View\DatatableViewInterface;
 use Sg\DatatablesBundle\Datatable\Column\AbstractColumn;
 
@@ -521,10 +522,15 @@ class DatatableQuery
         $res = [];
         foreach($rawres as $onerawres) {
             foreach($onerawres as $onevalue) {
-                $res[$onevalue] = $onevalue;
+                if("Geometry_Geometry.formattedZ" == $this->searchColumns[$id]) {
+                    $res[$onevalue] = Geometry::formatZ($onevalue);
+                }
+                else {
+                    $res[$onevalue] = $onevalue;
+                }
             }
         }
-        asort($res);
+        ksort($res);
 
         return $res;
     }
