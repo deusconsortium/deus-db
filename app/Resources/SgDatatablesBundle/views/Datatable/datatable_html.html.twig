@@ -1,0 +1,25 @@
+<table cellpadding="0" cellspacing="0" class="{{ view_options.class }}" border="0" id="{{ view_table_id }}" width="100%">
+    <thead>
+    </thead>
+    {% if view_options.individualFiltering %}
+        {% if "foot" == view_options.individualFilteringPosition or "both" == view_options.individualFilteringPosition %}
+            <thead>
+                <tr>
+                    {% for column in view_columns %}
+                        <td>
+                            {% if column.searchable %}
+                                {{ datatable_filter_render(datatable, column, loop.index0) }}
+                            {% elseif column.title == "Action" %}
+                                <input type="button" value="Reset" name="Reset" id="reset"/>
+                            {% else %}
+                                <input type="hidden" />
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            </thead>
+        {% endif %}
+    {% endif %}
+    <tbody>
+    </tbody>
+</table>
