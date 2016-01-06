@@ -15,6 +15,15 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+
+//        $geometries = $this->getDoctrine()->getRepository("DeusDBBundle:Geometry")->findAll();
+//        foreach ($geometries as $geometry) {
+//            $geometry->setZ($geometry->getZ());
+//        }
+//        $this->getDoctrine()->getEntityManager()->flush();
+//        die("OK?");
+
+
         $postDatatable = $this->get('public_datatable');
         //$postDatatable->buildDatatableView();
 

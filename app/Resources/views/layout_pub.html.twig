@@ -3,7 +3,6 @@
 {% block stylesheets %}
     {% stylesheets
         '@data_tables_css'
-        '@DeusDBBundle/Resources/public/css/avgrund.css'
         '@DeusDBBundle/Resources/public/css/public.css'
         filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
@@ -20,7 +19,6 @@
     </script>
     {% javascripts
         '@data_tables'
-        '@DeusDBBundle/Resources/public/js/jquery.avgrund.min.js'
         '@DeusDBBundle/Resources/public/js/public.js'
     %}
     <script src="{{ asset_url }}"></script>

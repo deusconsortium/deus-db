@@ -50,7 +50,7 @@ class PublicDatatable extends AbstractCrudDatatableView
         if(count($actions)>0) {
             $this->getColumnBuilder()
                 ->add(null, "action", array(
-                    "title" => "Actions",
+                    "title" => "Action",
                     "actions" => $actions
                 ));
         }
@@ -85,9 +85,11 @@ class PublicDatatable extends AbstractCrudDatatableView
         $this->options->setOptions(array(
             "class" => Style::BOOTSTRAP_3_STYLE,
             "individual_filtering" => true,
-            "individual_filtering_position" => "both",
-            "use_integration_options" => true
+            "individual_filtering_position" => "foot",
+            "use_integration_options" => true,
+            'page_length' => 50,
         ));
+
     }
 
 
