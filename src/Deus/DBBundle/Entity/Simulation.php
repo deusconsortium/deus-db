@@ -45,6 +45,11 @@ class Simulation
     private $public = false;
 
     /**
+     * @ORM\Column(type="float")     *
+     */
+    private $particleMass = false;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -71,6 +76,7 @@ class Simulation
     public function setBoxlen(\Deus\DBBundle\Entity\Boxlen $boxlen = null)
     {
         $this->Boxlen = $boxlen;
+        $this->calculateParticleMass();
 
         return $this;
     }
@@ -94,6 +100,7 @@ class Simulation
     public function setResolution(\Deus\DBBundle\Entity\Resolution $resolution = null)
     {
         $this->Resolution = $resolution;
+        $this->calculateParticleMass();
 
         return $this;
     }
@@ -185,6 +192,7 @@ class Simulation
     public function setProperties($properties)
     {
         $this->properties = $properties;
+        $this->calculateParticleMass();
         return $this;
     }
 
@@ -204,5 +212,39 @@ class Simulation
     public function getPublic()
     {
         return $this->public;
+    }
+
+    /**
+     * @param mixed $particleMass
+     * @return Simulation
+     */
+    public function setParticleMass($particleMass)
+    {
+        $this->particleMass = $particleMass;
+        return $this;
+    }
+
+    public function calculateParticleMass()
+    {
+        $properties = $this->getProperties();
+        if(!isset($properties['omega_m']) || !$this->getBoxlen() || !$this->getResolution()) {
+            $this->setParticleMass("0.0");
+        }
+        else {
+            $mp = 2.775*10^11
+                * $properties['omega_m']
+                * $this->getBoxlen()->getValue()^3
+                / $this->getResolution()->getValue()^3;
+            $this->setParticleMass($mp);
+        }
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParticleMass()
+    {
+        return $this->particleMass;
     }
 }

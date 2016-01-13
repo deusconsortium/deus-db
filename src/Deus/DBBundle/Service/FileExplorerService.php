@@ -55,10 +55,6 @@ class FileExplorerService
     {
         try {
             $simulationFiles = new DeusFileManager($path, $checkFiles);
-
-//            dump($simulationFiles);
-//            die();
-
         }
         catch(ContextErrorException $error) {
             $this->logger->error("DeusFileManager Error", (array) $error);
@@ -70,11 +66,15 @@ class FileExplorerService
         if(!$storage) {
             throw new \Exception("Storage not found for ".$path );
         }
+        $this->saveData($simulationFiles);
+    }
 
+    protected function saveData($simulationFiles)
+    {
         $simulation = $this->getSimulation(
-            $simulationFiles->getSimulationBoxlen(),
-            $simulationFiles->getSimulationCosmo(),
-            $simulationFiles->getSimulationResolution());
+        $simulationFiles->getSimulationBoxlen(),
+        $simulationFiles->getSimulationCosmo(),
+        $simulationFiles->getSimulationResolution());
 
         foreach($simulationFiles->getSnaphots() as $oneSnapshot) {
             $snapshot = $this->getSnapshot($simulation, $oneSnapshot);
@@ -182,11 +182,11 @@ class FileExplorerService
         return $res;
     }
 
-    private function getSnapshot($simulation, $snapshotFile)
+    protected function getSnapshot($simulation, $snapshotFile)
     {
         $geometryType = $this->em->getRepository("DeusDBBundle:GeometryType")->find(GeometryType::SNAPSHOT);
-        if(isset($snapshotFile["infos"]) && isset($snapshotFile["infos"]["Z"])) {
-            $Z = $snapshotFile["infos"]["Z"];
+        if(isset($snapshotFile["infos"]) && isset($snapshotFile["infos"]["snapshot"]["Z"])) {
+            $Z = $snapshotFile["infos"]["snapshot"]["Z"];
         }
         else {
             $this->logger->warning("No Z for snapshot", (array) $snapshotFile);
@@ -204,12 +204,22 @@ class FileExplorerService
                 ->setGeometryType($geometryType)
                 ->setSimulation($simulation)
                 ->setZ($Z);
+
             $this->em->persist($snapshot);
         }
+
+        if(!$snapshot->getProperties() || $snapshot->getProperties() == []) {
+            $snapshot->setProperties($snapshotFile["infos"]["snapshot"]);
+        }
+        $Simulation = $snapshot->getSimulation();
+        if(!$Simulation->getProperties() || $Simulation->getProperties() == []) {
+            $Simulation->setProperties( $snapshotFile["infos"]['simulation']);
+        }
+
         return $snapshot;
     }
 
-    private function getCone($simulation, $snapshotFile, $type)
+    protected function getCone($simulation, $snapshotFile, $type)
     {
         $geometryType = $this->em->getRepository("DeusDBBundle:GeometryType")->find(GeometryType::CONE);
         $Z = 0;
@@ -239,7 +249,7 @@ class FileExplorerService
         return $snapshot;
     }
 
-    private function getObjectGroup(Storage $storage, ObjectType $type, $path)
+    protected function getObjectGroup(Storage $storage, ObjectType $type, $path)
     {
         $localPath = substr($path,strlen($storage->getPath()));
 
@@ -269,7 +279,7 @@ class FileExplorerService
      * @param $path
      * @return \Deus\DBBundle\Entity\Storage|null
      */
-    private function getStorage($path)
+    protected function getStorage($path)
     {
         $storages = $this->em->getRepository("DeusDBBundle:Storage")->findBy([
             "Location" => $this->em->getRepository("DeusDBBundle:Location")->find("meudon")

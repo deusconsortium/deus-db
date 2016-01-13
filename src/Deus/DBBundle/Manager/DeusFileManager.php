@@ -1,6 +1,7 @@
 <?php
 
 namespace Deus\DBBundle\Manager;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Description of DEUSManager *
@@ -36,7 +37,7 @@ class DeusFileManager
             ksort($this->snapshots);
         }
     }
-    
+
     public function retrieveSnapshotInfos($path, $snapshot)
     {
         $file = $path.'/info_'.$snapshot.'.txt';
@@ -47,8 +48,21 @@ class DeusFileManager
         $infos = $this->convertInfosFile(file_get_contents($file));
                 
         $this->snapshots[$snapshot]["infos"] = $infos;
-    }    
-    
+    }
+
+    static public function findSnapshotInfos($path)
+    {
+        $finder = new Finder();
+        $file = $finder->files()->in($path)->name("info_*.txt");
+        foreach($file as $oneFile) {
+            return DeusFileManager::convertInfosFile(file_get_contents($oneFile->getRealpath()));
+        }
+        return [
+            'simulation' => [],
+            'snapshot' => [],
+        ];
+    }
+
     public function retrieveSimulationInfos()
     {
         $file = $this->path.'/log/mycosmoDM0.nml';
@@ -79,15 +93,18 @@ class DeusFileManager
         }
         return array($nb,$size);
     }
-    
-    public function retrieveSnapshots($checkFiles)
-    {   
+
+    public function retrieveGeometries($checkFiles, $pattern)
+    {
         if ($handle = opendir($this->path)) {
             while (false !== ($entry = readdir($handle))) {
-                if(is_dir($this->path.'/'.$entry) && preg_match("/cube_([0-9]{5})/", $entry, $matches)) {
+                if(is_dir($this->path.'/'.$entry) && preg_match($pattern, $entry, $matches)) {
                     $snapshot = $matches[1];
                     if($checkFiles) {
-                        list($this->snapshots[$snapshot]["cube"]["files"], $this->snapshots[$snapshot]["cube"]["size"]) = $this->retrieveOneCube($this->path.'/'.$entry);
+                        list(
+                            $this->snapshots[$snapshot]["cube"]["files"],
+                            $this->snapshots[$snapshot]["cube"]["size"]
+                            ) = $this->retrieveOneCube($this->path.'/'.$entry);
                         if($this->snapshots[$snapshot]["cube"]["files"] > 0) {
                             $this->snapshots[$snapshot]["cube"]["path"] = $this->path.'/'.$entry;
                         }
@@ -102,23 +119,16 @@ class DeusFileManager
             closedir($handle);
         }
     }
+
+    public function retrieveSnapshots($checkFiles)
+    {   
+        $this->retrieveGeometries($checkFiles, "/cube_([0-9]{5})/");
+    }
     
     public function retrieveCones($checkFiles)
-    {        
-        if ($handle = opendir($this->path)) {
-            while (false !== ($entry = readdir($handle))) {
-                if(is_dir($this->path.'/'.$entry) && preg_match("/cube_(fullsky|narrow)/", $entry, $matches)) {
-                    $snapshot = $matches[1];
-                    if($checkFiles) {
-                        $this->cones[$snapshot]["cube"]["files"] = $this->retrieveOneCube($this->path.'/'.$entry);                    
-                    }
-                    else {
-                        $this->snapshots[$snapshot]["cube"]["files"] = "?";
-                    }
-                }
-            }
-            closedir($handle);
-        }
+    {
+        $this->retrieveGeometries($checkFiles, "/cube_(fullsky|narrow)/");
+
         if(is_dir($this->path."/post/slicer_ncoarse") && $handle = opendir($this->path."/post/slicer_ncoarse")) {
             while (false !== ($entry = readdir($handle))) {
                 if(is_dir($this->path."/post/slicer_ncoarse/".$entry) && preg_match("/output_(cone_[0-9])/", $entry, $matches)) {
@@ -141,19 +151,38 @@ class DeusFileManager
         }
     }
     
-    public function convertInfosFile($data)
+    static public function convertInfosFile($data)
     {
         $lines = explode("\n", $data);
+
+        // Global parameters of simulation (others are snapshot parameters)
+        $simArg = [
+            'ncpu',
+            'ndim',
+            'levelmin',
+            'levelmax',
+            'H0',
+            'omega_m',
+            'omega_l',
+            'omega_k',
+            'omega_b',
+        ];
 
         for($i=0; $i<18; $i++) {
             if(strpos($lines[$i], "=") !== false) {
                 list($arg, $value) = explode("=", $lines[$i]);
                 if(trim($arg) && trim($value)) {
-                    $res[trim($arg)] = trim($value);
+                    if(in_array(trim($arg), $simArg)) {
+                        $res['simulation'][trim($arg)] = trim($value);
+                    }
+                    else {
+                        $res['snapshot'][trim($arg)] = trim($value);
+                    }
                 }
             }
         }
-        $res["Z"] = abs(1.0/$res["aexp"] - 1.0);
+
+        $res['snapshot']["Z"] = (1.0/$res['snapshot']["aexp"] - 1.0);
         return $res;
     }
     
@@ -372,13 +401,13 @@ class DeusFileManager
         return array_keys($b);
     }
     
-    public function error($msg) 
+    public static function error($msg)
     {
         echo $msg;
         //echo '<span style="color:red;">Error: '.$msg.'</span>';
     }
 
-    public function getFileSize($file)
+    public static function getFileSize($file)
     {
         list($localSize,$file) = explode("\t", exec("du ".$file, $return));
         return $localSize;

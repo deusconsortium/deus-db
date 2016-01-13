@@ -291,4 +291,87 @@ class ObjectGroup
     {
         return $this->public;
     }
+
+    public function calculateFilePattern()
+    {
+        $Geometry = $this->getGeometry();
+        $Simulation = $Geometry->getSimulation();
+        $res = "";
+
+        switch($this->getObjectType()->getId()) {
+            case 'cube':
+                switch($this->getObjectFormat()->getId()) {
+                    case 'fof':
+                        $res =  "fof_boxlen"
+                            .$Simulation->getBoxlen()->getValue()
+                            ."_n".$Simulation->getResolution()->getValue()
+                            ."_".$Simulation->getCosmology()->getValue()."_cube_?????";
+                        break;
+                    case 'multi':
+                        $res = "fof_boxlen"
+                        .$Simulation->getBoxlen()->getValue()
+                        ."_n".$Simulation->getResolution()->getValue()
+                        ."_".$Simulation->getCosmology()->getValue()."_multicube_?????";
+                        break;
+                }
+                break;
+            case 'grav':
+                if("cone" == $Geometry->getGeometryType()->getId()) { // Grav on cone only
+                    switch($this->getObjectFormat()->getId()) {
+                        case 'fof':
+                            $res =  "fof_conegrav"
+                                .$Simulation->getBoxlen()->getValue()
+                                ."_n".$Simulation->getResolution()->getValue()
+                                ."_".$Simulation->getCosmology()->getValue()."_cube_?????";
+                            break;
+                        case 'multi':
+                            $res = "fof_conegrav"
+                                .$Simulation->getBoxlen()->getValue()
+                                ."_n".$Simulation->getResolution()->getValue()
+                                ."_".$Simulation->getCosmology()->getValue()."_multicube_?????";
+                            break;
+                    }
+                    break;
+                }
+
+            case 'strct':
+                switch($this->getObjectFormat()->getId()) {
+                    case 'fof':
+                        $res =  "fof_boxlen"
+                            .$Simulation->getBoxlen()->getValue()
+                            ."_n".$Simulation->getResolution()->getValue()
+                            ."_".$Simulation->getCosmology()->getValue()."_strct_?????";
+                        break;
+                    case 'multi':
+                        $res = "fof_boxlen"
+                            .$Simulation->getBoxlen()->getValue()
+                            ."_n".$Simulation->getResolution()->getValue()
+                            ."_".$Simulation->getCosmology()->getValue()."_multistrct_?????";
+                        break;
+                }
+                break;
+            case 'masst':
+                switch($this->getObjectFormat()->getId()) {
+                    case 'fof':
+                        $res =  "fof_boxlen"
+                            .$Simulation->getBoxlen()->getValue()
+                            ."_n".$Simulation->getResolution()->getValue()
+                            ."_".$Simulation->getCosmology()->getValue()."_masst_?????";
+                        break;
+                    case 'multi':
+                        $res = "fof_boxlen"
+                            .$Simulation->getBoxlen()->getValue()
+                            ."_n".$Simulation->getResolution()->getValue()
+                            ."_".$Simulation->getCosmology()->getValue()."_multimasst_?????";
+                        break;
+                }
+                break;
+        }
+
+        if("cone" == $Geometry->getGeometryType()->getId() && 21000 == $Simulation->getBoxlen()->getValue()) {
+            $res = str_replace("fof_boxlen21000","fof_cone21000", $res);
+        }
+
+        return $res;
+    }
 }

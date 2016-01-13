@@ -47,7 +47,7 @@ class ImportSimulationArchiveCommand extends ContainerAwareCommand
 
         $output->writeln("IMPORTING Data from ".$path." archive of storage $storage ...");
 
-        $this->getContainer()->get("deus.archiveexplorer")->explore($path, $storage, $file_format_id);
+        $this->getContainer()->get("deus.archiveexplorer")->exploreArchive($path, $storage, $file_format_id);
 
         $output->writeln("done");
     }

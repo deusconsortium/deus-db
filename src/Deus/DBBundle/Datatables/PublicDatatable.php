@@ -60,6 +60,8 @@ class PublicDatatable extends AbstractCrudDatatableView
     {
         $this->addLineFormatter(function($line) {
             $line['Geometry']['formattedZ'] = Geometry::formatZ($line['Geometry']['formattedZ']);
+            $line['Geometry']['Simulation']['Boxlen']['value'] = $line['Geometry']['Simulation']['Boxlen']['value'].'<sup>3</sup>';
+            $line['Geometry']['Simulation']['Resolution']['value'] = $line['Geometry']['Simulation']['Resolution']['value'].'<sup>3</sup>';
             return $line;
         });
     }
