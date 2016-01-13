@@ -10,6 +10,10 @@
         {
             "type": "vcs",
             "url": "https://git.sedona.fr/php/sedona-sbo.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/pasdeloup/DatatablesBundle.git"
         }
     ],
     "require": {
@@ -25,7 +29,7 @@
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "sedona/sbo": "dev-master",
-        "sg/datatablesbundle": "dev-master as 0.6.1",
+        "sg/datatablesbundle": "0.6.2",
         "datatables/datatables": "1.10.4",
         "moment/moment": "2.6.0",
         "friendsofsymfony/jsrouting-bundle": "@stable",
