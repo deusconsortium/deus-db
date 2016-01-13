@@ -6,18 +6,8 @@ namespace Deus\DBBundle\Manager;
  * Description of DEUSManager *
  * @author admin
  */
-class DeusArchiveManager
+class DeusArchiveManager extends DeusFileManager
 {
-    protected $path;
-    
-    protected $snapshots;
-    protected $cones;
-    
-    protected $simulationName;    
-    protected $simulationInfos;
-    
-    protected $simulationType;
-   
     public function __construct($path, $checkFiles = false) 
     {
         if(!file_exists($path)) {
@@ -35,18 +25,7 @@ class DeusArchiveManager
             ksort($this->snapshots);
         }
     }
-    
-    public function retrieveSnapshotInfos($path, $snapshot)
-    {
-        $file = $path.'/info_'.$snapshot.'.txt';
-        if(!file_exists($file)) {
-            $this->error("$file does not exist");
-            return;
-        }
-        $infos = $this->convertInfosFile(file_get_contents($file));
-                
-        $this->snapshots[$snapshot]["infos"] = $infos;
-    }    
+
 
     public function retrieveOneDir($path)
     {
@@ -141,140 +120,8 @@ class DeusArchiveManager
             closedir($handle);
         }
     }
-    
-    public function convertInfosFile($data)
-    {
-        $lines = explode("\n", $data);
 
-        for($i=0; $i<18; $i++) {
-            if(strpos($lines[$i], "=") !== false) {
-                list($arg, $value) = explode("=", $lines[$i]);
-                if(trim($arg) && trim($value)) {
-                    $res[trim($arg)] = trim($value);
-                }
-            }
-        }
-        $res["Z"] = abs(1.0/$res["aexp"] - 1.0);
-        return $res;
-    }
-    
-    public function convertNmlFile($data)
-    {
-        $lines = explode("\n", $data);
-                
-        $currBloc = "default";
-        $res = array();
-        
-        foreach($lines as $oneLine) {            
-            if(trim($oneLine) == "") {
-                continue;
-            }
-            elseif($oneLine[0] == "&") {
-                $currBloc = trim(substr($oneLine, 1));
-            }
-            elseif($oneLine[0] == "/") {
-                $currBloc = "default";
-            }
-            else {
-                list($arg, $value) = explode("=", $oneLine);
-                if(trim($arg) && trim($value)) {
-                    $res[$currBloc][trim($arg)] = trim($value);
-                }    
-            }
-            
-        }        
-        return $res;
-    }
 
-    public function getSimulationName()
-    {
-        return $this->simulationName;
-    }
-    
-    public function getSimulationResolution()
-    {
-        return $this->simulationType['resolution'];
-    }
-    
-    public function getSimulationResolutionPow()
-    {
-        return pow($this->simulationType['resolution'],3);
-    }
-    
-    public function getSimulationBoxlen()
-    {
-        return $this->simulationType['boxlen'];
-    }
-    
-    public function getSimulationCosmo()
-    {
-        return $this->simulationType['cosmo'];
-    }
-    
-    public function retrieveSimulationName()
-    {
-        $this->path = rtrim($this->path,"/ ");
-        $this->simulationName = substr($this->path,strrpos($this->path,'/')+1);
-
-        preg_match("/boxlen([0-9]+)_n([0-9]+)_(.*)/", $this->simulationName, $matches);
-
-        if(!count($matches) == 4) {
-            $this->error("name doesn't match");
-            return;
-        }
-
-        $this->simulationType = array(
-            'boxlen' => $matches[1],
-            'resolution' => $matches[2],
-            'cosmo' => $matches[3]
-        );
-        
-    }
-
-    public function getSnaphots() 
-    {
-        return $this->snapshots;
-    }
-    
-    public function getCones() 
-    {
-        return $this->cones;
-    }
-    
-    public function getPath() 
-    {
-        return $this->path;
-    }
-    
-    public function getInfos($bloc, $value) 
-    {
-        return $this->simulationInfos[$bloc][$value];
-    }
-    
-    public function getBValues() 
-    {        
-        $b = array();
-        foreach($this->snapshots as $oneSnapshot) {
-            foreach($oneSnapshot['halos'] as $oneB => $files) {
-                $b[$oneB] = true;
-            }
-        }
-        
-        ksort($b);
-        return array_keys($b);
-    }
-    
-    public function error($msg) 
-    {
-        echo $msg;
-        //echo '<span style="color:red;">Error: '.$msg.'</span>';
-    }
-
-    public function getFileSize($file)
-    {
-        list($localSize,$file) = explode("\t", exec("du ".$file, $return));
-        return $localSize;
-    }
 }
 
 ?>
