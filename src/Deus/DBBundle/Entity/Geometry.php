@@ -20,7 +20,7 @@ class Geometry
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Simulation", inversedBy="snapshots")
+     * @ORM\ManyToOne(targetEntity="Simulation", inversedBy="geometries")
      */
     private $Simulation;
 
@@ -48,6 +48,11 @@ class Geometry
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $angle;
+
+    /**
+     * @ORM\Column(type="json_array", nullable=true)
+     */
+    private $properties;
 
     /**
      * Get id
@@ -135,7 +140,7 @@ class Geometry
      * Set Simulation
      *
      * @param \Deus\DBBundle\Entity\Simulation $simulation
-     * @return Snapshot
+     * @return Geometry
      */
     public function setSimulation(\Deus\DBBundle\Entity\Simulation $simulation = null)
     {
@@ -232,5 +237,23 @@ class Geometry
     public function setAngle($angle)
     {
         $this->angle = $angle;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProperties()
+    {
+        return $this->properties;
+    }
+
+    /**
+     * @param mixed $properties
+     * @return $this
+     */
+    public function setProperties($properties)
+    {
+        $this->properties = $properties;
+        return $this;
     }
 }

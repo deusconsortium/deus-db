@@ -42,7 +42,7 @@ class ObjectGroup
     private $Storage;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="bigint")
      */
     private $size;
 
@@ -50,6 +50,16 @@ class ObjectGroup
      * @ORM\Column(type="integer")
      */
     private $nbFiles;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $filePattern;
+
+    /**
+     * @ORM\Column(type="boolean")     *
+     */
+    private $public = false;
 
     /**
      * Get id
@@ -244,5 +254,41 @@ class ObjectGroup
             }
         }
         return number_format($size, 2).' '.$unit;
+    }
+
+    /**
+     * @param mixed $filePattern
+     * @return ObjectGroup
+     */
+    public function setFilePattern($filePattern)
+    {
+        $this->filePattern = $filePattern;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFilePattern()
+    {
+        return $this->filePattern;
+    }
+
+    /**
+     * @param mixed $public
+     * @return ObjectGroup
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublic()
+    {
+        return $this->public;
     }
 }

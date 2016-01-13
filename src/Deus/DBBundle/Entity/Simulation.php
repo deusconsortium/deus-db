@@ -33,6 +33,17 @@ class Simulation
      * @ORM\OneToMany(targetEntity="Geometry", mappedBy="Simulation", orphanRemoval=true)
      */
     private $geometries;
+
+    /**
+     * @ORM\Column(type="json_array", nullable=true)
+     */
+    private $properties;
+
+    /**
+     * @ORM\Column(type="boolean")     *
+     */
+    private $public = false;
+
     /**
      * Constructor
      */
@@ -157,5 +168,41 @@ class Simulation
     public function __toString()
     {
         return $this->getBoxlen()->getValue()." Mpc/h ".$this->getResolution()->getValue()."^3 particles ".$this->getCosmology()->getName();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProperties()
+    {
+        return $this->properties;
+    }
+
+    /**
+     * @param mixed $properties
+     * @return $this
+     */
+    public function setProperties($properties)
+    {
+        $this->properties = $properties;
+        return $this;
+    }
+
+    /**
+     * @param mixed $public
+     * @return Simulation
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublic()
+    {
+        return $this->public;
     }
 }
