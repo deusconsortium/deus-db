@@ -47,14 +47,17 @@ class UpdateObjectGroupCommand extends ContainerAwareCommand
         $objectGroups = $em
             ->getRepository("DeusDBBundle:ObjectGroup")
             ->findBy([
-                'filePattern' => ""
+                'filePattern' => "",
+'Storage' => ['meudon_efiler_data1','meudon_data_bingo']
             ]);
 
-        $output->writeln("Found ".count($objectGroups)." to update");
+        $nbGroups = count($objectGroups);
+        $output->writeln("Found ".$nbGroups." to update");
 
         $i = 0;
 
         foreach($objectGroups as $oneGroup) {
+            try {
             $infos = DeusFileManager::findSnapshotInfos($oneGroup->getFullPath());
             $Geometry = $oneGroup->getGeometry();
             $Simulation = $Geometry->getSimulation();
@@ -75,8 +78,13 @@ class UpdateObjectGroupCommand extends ContainerAwareCommand
             $i++;
 
             if($i % 20 == 0) {
+                $output->writeln($i*100/$nbGroups . "%");
                 $em->flush();
             }
+}
+catch(\Exception $e) {
+   $output->writeln("ERROR: ".$e->message());
+}
         }
         $em->flush();
 

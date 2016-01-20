@@ -305,13 +305,13 @@ class ObjectGroup
                         $res =  "fof_boxlen"
                             .$Simulation->getBoxlen()->getValue()
                             ."_n".$Simulation->getResolution()->getValue()
-                            ."_".$Simulation->getCosmology()->getValue()."_cube_?????";
+                            ."_".$Simulation->getCosmology()->getName()."_cube_?????";
                         break;
                     case 'multi':
                         $res = "fof_boxlen"
                         .$Simulation->getBoxlen()->getValue()
                         ."_n".$Simulation->getResolution()->getValue()
-                        ."_".$Simulation->getCosmology()->getValue()."_multicube_?????";
+                        ."_".$Simulation->getCosmology()->getName()."_multicube_?????";
                         break;
                 }
                 break;
@@ -322,13 +322,13 @@ class ObjectGroup
                             $res =  "fof_conegrav"
                                 .$Simulation->getBoxlen()->getValue()
                                 ."_n".$Simulation->getResolution()->getValue()
-                                ."_".$Simulation->getCosmology()->getValue()."_cube_?????";
+                                ."_".$Simulation->getCosmology()->getName()."_cube_?????";
                             break;
                         case 'multi':
                             $res = "fof_conegrav"
                                 .$Simulation->getBoxlen()->getValue()
                                 ."_n".$Simulation->getResolution()->getValue()
-                                ."_".$Simulation->getCosmology()->getValue()."_multicube_?????";
+                                ."_".$Simulation->getCosmology()->getName()."_multicube_?????";
                             break;
                     }
                     break;
@@ -340,13 +340,13 @@ class ObjectGroup
                         $res =  "fof_boxlen"
                             .$Simulation->getBoxlen()->getValue()
                             ."_n".$Simulation->getResolution()->getValue()
-                            ."_".$Simulation->getCosmology()->getValue()."_strct_?????";
+                            ."_".$Simulation->getCosmology()->getName()."_strct_?????";
                         break;
                     case 'multi':
                         $res = "fof_boxlen"
                             .$Simulation->getBoxlen()->getValue()
                             ."_n".$Simulation->getResolution()->getValue()
-                            ."_".$Simulation->getCosmology()->getValue()."_multistrct_?????";
+                            ."_".$Simulation->getCosmology()->getName()."_multistrct_?????";
                         break;
                 }
                 break;
@@ -356,13 +356,13 @@ class ObjectGroup
                         $res =  "fof_boxlen"
                             .$Simulation->getBoxlen()->getValue()
                             ."_n".$Simulation->getResolution()->getValue()
-                            ."_".$Simulation->getCosmology()->getValue()."_masst_?????";
+                            ."_".$Simulation->getCosmology()->getName()."_masst_?????";
                         break;
                     case 'multi':
                         $res = "fof_boxlen"
                             .$Simulation->getBoxlen()->getValue()
                             ."_n".$Simulation->getResolution()->getValue()
-                            ."_".$Simulation->getCosmology()->getValue()."_multimasst_?????";
+                            ."_".$Simulation->getCosmology()->getName()."_multimasst_?????";
                         break;
                 }
                 break;
