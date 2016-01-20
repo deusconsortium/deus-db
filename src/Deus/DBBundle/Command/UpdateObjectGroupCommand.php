@@ -57,6 +57,9 @@ class UpdateObjectGroupCommand extends ContainerAwareCommand
         $i = 0;
 
         foreach($objectGroups as $oneGroup) {
+
+	$output->writeln("Update ".$oneGroup."...");
+
             try {
             $infos = DeusFileManager::findSnapshotInfos($oneGroup->getFullPath());
             $Geometry = $oneGroup->getGeometry();
@@ -75,15 +78,17 @@ class UpdateObjectGroupCommand extends ContainerAwareCommand
             if(count($files) == $oneGroup->getNbFiles()) {
                 $oneGroup->setFilePattern($pattern);
             }
+else {
+   $output->writeln("FilePattern error: found ".count($files)." with pattern ".$pattern." instead of ".$oneGroup->getNbFiles());
+}
             $i++;
+           $em->flush();
+           $output->writeln($i*100/$nbGroups . "%");
 
-            if($i % 20 == 0) {
-                $output->writeln($i*100/$nbGroups . "%");
-                $em->flush();
-            }
 }
 catch(\Exception $e) {
-   $output->writeln("ERROR: ".$e->message());
+   $output->writeln("ERROR: ".$e->getMessage());
+   $output->writeln($e->getTraceAsString());
 }
         }
         $em->flush();

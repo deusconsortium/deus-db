@@ -53,7 +53,8 @@ class DeusFileManager
     static public function findSnapshotInfos($path)
     {
         $finder = new Finder();
-        $file = $finder->files()->in($path)->name("info_*.txt");
+        $file = $finder->files()->in($path)->name("/info_[0-9]{5}.txt/");
+
         foreach($file as $oneFile) {
             return DeusFileManager::convertInfosFile(file_get_contents($oneFile->getRealpath()));
         }

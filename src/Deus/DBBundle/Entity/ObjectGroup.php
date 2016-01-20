@@ -370,6 +370,9 @@ class ObjectGroup
 
         if("cone" == $Geometry->getGeometryType()->getId() && 21000 == $Simulation->getBoxlen()->getValue()) {
             $res = str_replace("fof_boxlen21000","fof_cone21000", $res);
+            if("lcdmw7" == $Simulation->getCosmology()->getName()) {
+                $res = str_replace("lcdmw7","lcdmw7_dosamplecone", $res);
+            }
         }
 
         return $res;
