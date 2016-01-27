@@ -60,6 +60,12 @@ class PublicDatatable extends AbstractCrudDatatableView
     {
         $this->addLineFormatter(function($line) {
             $line['Geometry']['formattedZ'] = Geometry::formatZ($line['Geometry']['formattedZ']);
+
+            $line['Geometry']['Simulation']['particleMass'] =
+                $line['Geometry']['Simulation']['particleMass']
+                    ? sprintf("%.2E",$line['Geometry']['Simulation']['particleMass'])
+                    : '?';
+
             $line['Geometry']['Simulation']['Boxlen']['value'] = $line['Geometry']['Simulation']['Boxlen']['value'].'<sup>3</sup>';
             $line['Geometry']['Simulation']['Resolution']['value'] = $line['Geometry']['Simulation']['Resolution']['value'].'<sup>3</sup>';
             return $line;
@@ -108,6 +114,7 @@ class PublicDatatable extends AbstractCrudDatatableView
         $objectType = $em->getRepository("DeusDBBundle:ObjectType")->findAll();
         $geometries = $em->getRepository("DeusDBBundle:Geometry")->findAll();
         $locations = $em->getRepository("DeusDBBundle:Location")->findAll();
+        $simulations = $em->getRepository("DeusDBBundle:Simulation")->findAll();
 
         $this->getColumnBuilder()
             ->add("Geometry.Simulation.Cosmology.name", "column", array(
@@ -127,6 +134,12 @@ class PublicDatatable extends AbstractCrudDatatableView
                 "searchable" => true,
                 "filter_type" => "select",
                 "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArray($resolutions, "value", "value"),
+            ))
+            ->add("Geometry.Simulation.particleMass", "column", array(
+                "title" => $this->getTranslator()->trans("admin.simulation.particleMass", [], 'admin'),
+                "searchable" => true,
+                "filter_type" => "select",
+                "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArrayForParticleMass($simulations, "particleMass", "particleMass"),
             ))
             ->add("Geometry.GeometryType.name", "column", array(
                 "title" => $this->getTranslator()->trans("admin.geometrytype.entity_name", [], 'admin'),
@@ -208,6 +221,21 @@ class PublicDatatable extends AbstractCrudDatatableView
             $Z = (float) $entity->getFormattedZ();
             $value = (float) $Z;
             $options["$Z"] = $value;
+        }
+
+        asort($options);
+
+        return $options;
+    }
+
+    public function getCollectionAsOptionsArrayForParticleMass($entitiesCollection)
+    {
+        $options = [];
+
+        foreach ($entitiesCollection as $entity) {
+            $Z = (float) $entity->getParticleMass();
+            $value = (float) $Z;
+            $options["$Z"] = sprintf("%.3E", $value);
         }
 
         asort($options);

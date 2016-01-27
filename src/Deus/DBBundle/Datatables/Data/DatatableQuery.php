@@ -525,11 +525,15 @@ class DatatableQuery
                 if("Geometry_Geometry.formattedZ" == $this->searchColumns[$id]) {
                     $res[$onevalue] = Geometry::formatZ($onevalue);
                 }
+                elseif("Simulation_Simulation.particleMass" == $this->searchColumns[$id]) {
+                    $res[$onevalue] = $onevalue ? sprintf("%.3E",$onevalue) : "?";
+                }
                 else {
                     $res[$onevalue] = $onevalue;
                 }
             }
         }
+
         ksort($res);
 
         return $res;

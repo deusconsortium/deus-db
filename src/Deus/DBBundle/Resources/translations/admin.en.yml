@@ -76,6 +76,7 @@ admin:
         Resolution: Npart
         Cosmology: Cosmology
         geometries: Geometries
+        particleMass: Particle Mass Msun/h
     objecttype:
         entity_name: Object type
         name: Name
