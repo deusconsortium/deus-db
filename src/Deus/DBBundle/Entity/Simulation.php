@@ -231,10 +231,18 @@ class Simulation
             $this->setParticleMass("0.0");
         }
         else {
-            $mp = 2.775*10^11
-                * $properties['omega_m']
-                * $this->getBoxlen()->getValue()^3
-                / $this->getResolution()->getValue()^3;
+            bcscale(10);
+            $mp = (float) bcdiv(
+                bcmul(
+                    bcmul(
+                        2.775E11,
+                        (float) $properties['omega_m']
+                    ),
+                    bcpow((float) $this->getBoxlen()->getValue(), 3)
+                ),
+                bcpow((float) $this->getResolution()->getValue(), 3)
+            );
+
             $this->setParticleMass($mp);
         }
 
@@ -247,4 +255,5 @@ class Simulation
     {
         return $this->particleMass;
     }
+
 }
