@@ -29,8 +29,8 @@ class LoadParameters implements FixtureInterface
         $this->createBasic('Storage', Storage::MEUDON_EFILER_DATA2, 'Meudon / efiler / data2', ["path" => "/efiler2/", "location" => $meudon]);
         $this->createBasic('Storage', Storage::MEUDON_BINGO_DATA, 'Meudon / bingo / data', ["path" => "/data_bingo/", "location" => $meudon]);
         $this->createBasic('Storage', Storage::MEUDON_ASISU_DEUS_DATA, 'Meudon / asisu / deus_data', ["path" => "/asisu/deus_data/", "location" => $meudon]);
-        $this->createBasic('Storage', Storage::TGCC_CURIE_STOREDIR, 'TGCC / curie / storedir', ["path" => '$STOREDIR', "location" => $idris]);
-        $this->createBasic('Storage', Storage::IDRIS_ERGON_STOREDIR, 'IDRIS / ergon / storedir', ["path" => '$STOREDIR', "location" => $tgcc]);
+        $this->createBasic('Storage', Storage::TGCC_CURIE_STOREDIR, 'TGCC / curie / storedir', ["path" => '$STOREDIR', "location" => $tgcc]);
+        $this->createBasic('Storage', Storage::IDRIS_ERGON_STOREDIR, 'IDRIS / ergon / storedir', ["path" => '$STOREDIR', "location" => $idris]);
 
         $this->createBasic('ObjectType', ObjectType::STRCT, 'Halo particles');
         $this->createBasic('ObjectType', ObjectType::MASST, 'Halo positions');
