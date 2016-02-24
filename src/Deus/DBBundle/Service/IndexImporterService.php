@@ -72,7 +72,7 @@ class IndexImporterService
 
     public function importOneConfigPattern(IndexSimulation $IndexSimulation, $parameter, Storage $Storage)
     {
-        $path = IndexImporterService::patternReplace($IndexSimulation, $parameter['path']);
+        $path = $parameter['path'];
         $dirPattern = IndexImporterService::patternReplace($IndexSimulation, $parameter['dir_pattern']);
         $filePattern = IndexImporterService::patternReplace($IndexSimulation, $parameter['file_pattern']);
 
@@ -115,15 +115,49 @@ class IndexImporterService
 
     }
 
+    /**
+     * @param IndexSimulation $IndexSimulation
+     * @param $string
+     * @return mixed
+     */
     protected static function patternReplace(IndexSimulation $IndexSimulation, $string)
     {
+        $tags = [
+            "<cosmo>",
+            "<boxlen>",
+            "<npart>",
+            "<number>",
+            "<name>"
+        ];
+
+        if(!$string) { // empty, don't modify
+            return "";
+        }
+
+        if('/' !== substr($string,0,1)) { // Not given as a regexp, let's create it
+            $string = "/^".preg_quote($string)."$/";
+            $tags = array_map("preg_quote", $tags);
+        }
+
         $string = str_replace(
-            ["<cosmo>","<boxlen>","<npart>"],
-            [$IndexSimulation->getCosmo(), $IndexSimulation->getBoxlen(), $IndexSimulation->getResolution()],
+            $tags,
+            [
+                $IndexSimulation->getCosmo(),
+                $IndexSimulation->getBoxlen(),
+                $IndexSimulation->getResolution(),
+                "([0-9]{5})",
+                "(.*)"
+            ],
             $string);
+
         return $string;
     }
 
+    /**
+     * @param $pattern
+     * @param $string
+     * @return string
+     */
     protected static function extractCode($pattern, $string)
     {
         preg_match($pattern, $string, $matches);
@@ -135,7 +169,12 @@ class IndexImporterService
         }
     }
 
-    protected static function cleanPath($path) {
+    /**
+     * @param $path
+     * @return string
+     */
+    protected static function cleanPath($path)
+    {
         $path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
         $parts = array_filter(explode(DIRECTORY_SEPARATOR, $path), 'strlen');
         $absolutes = array();
@@ -153,6 +192,6 @@ class IndexImporterService
         else {
             return DIRECTORY_SEPARATOR.implode(DIRECTORY_SEPARATOR, $absolutes).DIRECTORY_SEPARATOR;
         }
-
     }
+
 }

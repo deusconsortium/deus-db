@@ -139,6 +139,9 @@ class IndexSimulation
         else {
             $path = $this->localPath;
         }
+        if(!file_exists($path)) {
+            return [];
+        }
         $dirs = $finder->in($path)->directories();
 
         if($pattern) {

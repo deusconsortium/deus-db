@@ -105,3 +105,14 @@ admin:
         roles: Roles
         credentialsExpired: Credentialsexpired
         credentialsExpireAt: Credentialsexpireat
+
+public:
+  Cosmology: 'Cosmology'
+  Boxlen: 'Boxlen<br/>(Mpc/h)'
+  Resolution: 'Resolution<br/>(npart)'
+  particleMass: 'Particle<br/>Mass<br/>(Msun/h)'
+  geometrytype: 'Geometry'
+  Z: 'Z'
+  objecttype: 'Object<br/>Type'
+  objectformat: 'File<br/>Format'
+  location: 'Storage<br/>Location'
