@@ -6,6 +6,8 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: deus_cones.yml }
+    - { resource: deus_files.yml }
 
 framework:
     #esi:             ~

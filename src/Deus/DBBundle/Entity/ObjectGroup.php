@@ -52,12 +52,17 @@ class ObjectGroup
     private $nbFiles;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbGroups;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $filePattern;
 
     /**
-     * @ORM\Column(type="boolean")     *
+     * @ORM\Column(type="boolean")
      */
     private $public = false;
 
@@ -173,7 +178,7 @@ class ObjectGroup
      */
     public function getSize()
     {
-        return $this->size;
+        return gmp_init($this->size);
     }
 
     /**
@@ -182,7 +187,7 @@ class ObjectGroup
      */
     public function setSize($size)
     {
-        $this->size = $size;
+        $this->size = gmp_strval($size);
         return $this;
     }
 
@@ -234,6 +239,7 @@ class ObjectGroup
 
     public static function formatSize($size)
     {
+        $size = (double) gmp_strval($size);
         if($size < 1024) {
             $unit = 'Ko';
         }
@@ -376,5 +382,21 @@ class ObjectGroup
         }
 
         return $res;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNbGroups()
+    {
+        return $this->nbGroups;
+    }
+
+    /**
+     * @param mixed $nbGroups
+     */
+    public function setNbGroups($nbGroups)
+    {
+        $this->nbGroups = $nbGroups;
     }
 }

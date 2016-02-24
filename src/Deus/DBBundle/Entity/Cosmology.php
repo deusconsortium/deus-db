@@ -20,6 +20,11 @@ class Cosmology
     private $name;
 
     /**
+     * @ORM\Column(type="json_array", nullable=true)
+     */
+    private $properties;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -58,5 +63,21 @@ class Cosmology
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProperties()
+    {
+        return $this->properties;
+    }
+
+    /**
+     * @param mixed $properties
+     */
+    public function setProperties($properties)
+    {
+        $this->properties = $properties;
     }
 }

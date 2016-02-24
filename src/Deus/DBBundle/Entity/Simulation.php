@@ -76,7 +76,6 @@ class Simulation
     public function setBoxlen(\Deus\DBBundle\Entity\Boxlen $boxlen = null)
     {
         $this->Boxlen = $boxlen;
-        $this->calculateParticleMass();
 
         return $this;
     }
@@ -100,7 +99,6 @@ class Simulation
     public function setResolution(\Deus\DBBundle\Entity\Resolution $resolution = null)
     {
         $this->Resolution = $resolution;
-        $this->calculateParticleMass();
 
         return $this;
     }
@@ -192,7 +190,6 @@ class Simulation
     public function setProperties($properties)
     {
         $this->properties = $properties;
-        $this->calculateParticleMass();
         return $this;
     }
 
@@ -227,7 +224,18 @@ class Simulation
     public function calculateParticleMass()
     {
         $properties = $this->getProperties();
-        if(!isset($properties['omega_m']) || !$this->getBoxlen() || !$this->getResolution()) {
+
+        if(isset($properties['omega_m'])) {
+            $omegaM = $properties['omega_m'];
+        }
+        elseif($this->getCosmology()) {
+            $cosmoProperties = $this->getCosmology()->getProperties();
+            if(isset($cosmoProperties['omega_m'])) {
+                $omegaM = $cosmoProperties['omega_m'];
+            }
+        }
+
+        if(!isset($omegaM) || !$this->getBoxlen() || !$this->getResolution()) {
             $this->setParticleMass("0.0");
         }
         else {
@@ -236,7 +244,7 @@ class Simulation
                 bcmul(
                     bcmul(
                         2.775E11,
-                        (float) $properties['omega_m']
+                        (float) $omegaM
                     ),
                     bcpow((float) $this->getBoxlen()->getValue(), 3)
                 ),

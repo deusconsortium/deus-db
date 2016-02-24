@@ -38,11 +38,11 @@ class PublicDatatable extends AbstractCrudDatatableView
                 "route" => "public_show",
                 "route_parameters" => array("id" => "id"),
                 "label" => $this->getTranslator()->trans("crud.title.show", [], 'admin'),
-                "icon" => "glyphicon glyphicon-eye-open",
+                "icon" => "fa fa-fw fa-search",
                 "attributes" => array(
                     "rel" => "tooltip",
                     "title" => "Show",
-                    "class" => "btn btn-default btn-xs",
+                    "class" => "btn",
                     "role" => "button"
                 )
             ];
@@ -111,6 +111,7 @@ class PublicDatatable extends AbstractCrudDatatableView
         $boxlens = $em->getRepository("DeusDBBundle:Boxlen")->findAll();
         $resolutions = $em->getRepository("DeusDBBundle:Resolution")->findAll();
         $geometryTypes = $em->getRepository("DeusDBBundle:GeometryType")->findAll();
+        $objectFormat = $em->getRepository("DeusDBBundle:ObjectFormat")->findAll();
         $objectType = $em->getRepository("DeusDBBundle:ObjectType")->findAll();
         $geometries = $em->getRepository("DeusDBBundle:Geometry")->findAll();
         $locations = $em->getRepository("DeusDBBundle:Location")->findAll();
@@ -118,51 +119,58 @@ class PublicDatatable extends AbstractCrudDatatableView
 
         $this->getColumnBuilder()
             ->add("Geometry.Simulation.Cosmology.name", "column", array(
-                "title" => $this->getTranslator()->trans("admin.simulation.Cosmology", [], 'admin'),
+                "title" => $this->getTranslator()->trans("public.Cosmology", [], 'admin'),
                 "searchable" => true,
                 "filter_type" => "select",
                 "filter_options" => ["" => "Any"],// + $this->getCollectionAsOptionsArray($cosmologies, "name", "name"),
             ))
             ->add("Geometry.Simulation.Boxlen.value", "column", array(
-                "title" => $this->getTranslator()->trans("admin.simulation.Boxlen", [], 'admin')." Mpc/h",
+                "title" => $this->getTranslator()->trans("public.Boxlen", [], 'admin'),
                 "searchable" => true,
                 "filter_type" => "select",
                 "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArray($boxlens, "value", "value"),
             ))
             ->add("Geometry.Simulation.Resolution.value", "column", array(
-                "title" => $this->getTranslator()->trans("admin.simulation.Resolution", [], 'admin'),
+                "title" => $this->getTranslator()->trans("public.Resolution", [], 'admin'),
                 "searchable" => true,
                 "filter_type" => "select",
                 "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArray($resolutions, "value", "value"),
             ))
             ->add("Geometry.Simulation.particleMass", "column", array(
-                "title" => $this->getTranslator()->trans("admin.simulation.particleMass", [], 'admin'),
+                "title" => $this->getTranslator()->trans("public.particleMass", [], 'admin'),
                 "searchable" => true,
                 "filter_type" => "select",
                 "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArrayForParticleMass($simulations, "particleMass", "particleMass"),
             ))
             ->add("Geometry.GeometryType.name", "column", array(
-                "title" => $this->getTranslator()->trans("admin.geometrytype.entity_name", [], 'admin'),
+                "title" => $this->getTranslator()->trans("public.geometrytype", [], 'admin'),
                 "searchable" => true,
                 "filter_type" => "select",
                 "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArray($geometryTypes, "name", "name"),
             ))
             ->add("Geometry.formattedZ", "column", array(
-                "title" => $this->getTranslator()->trans("admin.geometry.Z", [], 'admin'),
+                "title" => $this->getTranslator()->trans("public.Z", [], 'admin'),
                 "searchable" => true,
                 "filter_type" => "select",
                 "search_type" => "eq",
                 "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArrayForZ($geometries),
             ))
             ->add("ObjectType.name", "column", array(
-                "title" => $this->getTranslator()->trans("admin.objecttype.entity_name", [], 'admin'),
+                "title" => $this->getTranslator()->trans("public.objecttype", [], 'admin'),
                 "searchable" => true,
                 "filter_type" => "select",
                 "search_type" => "eq",
                 "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArray($objectType, "name", "name")
             ))
+            ->add("ObjectFormat.name", "column", array(
+                "title" => $this->getTranslator()->trans("public.objectformat", [], 'admin'),
+                "searchable" => true,
+                "filter_type" => "select",
+                "search_type" => "eq",
+                "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArray($objectFormat, "name", "name")
+            ))
             ->add("Storage.Location.name", "column", array(
-                "title" => $this->getTranslator()->trans("admin.location.entity_name", [], 'admin'),
+                "title" => $this->getTranslator()->trans("public.location", [], 'admin'),
                 "searchable" => true,
                 "filter_type" => "select",
                 "search_type" => "eq",

@@ -12,6 +12,7 @@ class ObjectFormat
     const FOF = "fof";
     const MULTI = "multi";
     const RAMSES = "ramses";
+    const HDF5 = "hdf5";
 
     /**
      * @ORM\Id

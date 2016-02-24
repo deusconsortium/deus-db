@@ -24,7 +24,9 @@ crud:
 
 admin:
     edit_contents: Parameters
-    simulation_search: Simulations
+    simulation_front: Search Interface
+    simulation_edit: Edit Simulations
+    logout: Logout
     storage:
         entity_name: Storage
         name: Name
@@ -51,10 +53,13 @@ admin:
         ObjectFormat: Object format
         Geometry: Geometry
         Storage: Storage
-        size: Size
+        size: Size (Ko)
         nbFiles: Nb files
         localPath: Directory
         fullPath: Full Path
+        filePattern: File Pattern
+        public: Visible on public web site
+        nbGroups: Nb groups
     resolution:
         entity_name: Npart
         value: Value
@@ -77,6 +82,8 @@ admin:
         Cosmology: Cosmology
         geometries: Geometries
         particleMass: Particle Mass Msun/h
+        public: Visible on public web site
+        properties: Properties
     objecttype:
         entity_name: Object type
         name: Name
@@ -99,3 +106,14 @@ admin:
         roles: Roles
         credentialsExpired: Credentialsexpired
         credentialsExpireAt: Credentialsexpireat
+
+public:
+  Cosmology: 'Cosmology'
+  Boxlen: 'Boxlen<br/>(Mpc/h)'
+  Resolution: 'Resolution<br/>(npart)'
+  particleMass: 'Particle<br/>Mass<br/>(Msun/h)'
+  geometrytype: 'Geometry'
+  Z: 'Z'
+  objecttype: 'Object<br/>Type'
+  objectformat: 'File<br/>Format'
+  location: 'Storage<br/>Location'

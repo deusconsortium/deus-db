@@ -1,0 +1,30 @@
+#
+# CUSTOM PARAMETER FILE TO GIVE CONES PARAMETERS ACCORDING TO DIR_NAME
+#
+
+parameters:
+  deus_cones:
+      output_cone:
+        Z: 0
+        angle: FullSky
+      output_cone_fullsky:
+        Z: 0
+        angle: FullSky
+      cone_narrow:
+        Z: 0
+        angle: Narrow
+      output_cone_1:
+        Z: 0
+        angle: FullSky
+      output_cone_2:
+        Z: 0
+        angle: FullSky
+      output_cone_3:
+        Z: 0
+        angle: FullSky
+      output_cone_5:
+        Z: 0.5
+        angle: FullSky
+      output_cone_6:
+        Z: 1.2
+        angle: FullSky

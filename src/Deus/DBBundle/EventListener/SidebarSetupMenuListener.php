@@ -35,8 +35,10 @@ class SidebarSetupMenuListener
     {
         $earg      = array();
         $rootItems = array(
-            $simulationLink = new MenuItemModel('simulation', 'admin.simulation_search', 'admin_simulation_list', $earg, 'fa fa-edit'),
+            $simulationFrontLink = new MenuItemModel('simulation_front', 'admin.simulation_front', 'public_home', $earg, 'fa fa-search'),
+            $simulationLink = new MenuItemModel('simulation', 'admin.simulation_edit', 'admin_simulation_list', $earg, 'fa fa-edit'),
             $editLink = new MenuItemModel('crud', 'admin.edit_contents', null, $earg, 'fa fa-edit'),
+            $logoutLink = new MenuItemModel('logout', 'admin.logout', "fos_user_security_logout", $earg, 'fa fa-sign-out'),
         );
 
         $editLink
