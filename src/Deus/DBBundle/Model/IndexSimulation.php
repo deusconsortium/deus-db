@@ -133,13 +133,18 @@ class IndexSimulation
     {
         $finder = new Finder();
 
-        $dirs = $finder->in($this->localPath)->directories();
         if($path) {
-            $dirs = $dirs->path($path);
+            $path = $this->localPath.DIRECTORY_SEPARATOR.$path;
         }
+        else {
+            $path = $this->localPath;
+        }
+        $dirs = $finder->in($path)->directories();
+
         if($pattern) {
             $dirs = $dirs->name($pattern);
         }
+        $dirs->depth("==0");
         return $dirs;
     }
 

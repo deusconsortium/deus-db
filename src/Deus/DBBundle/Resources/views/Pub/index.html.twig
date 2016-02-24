@@ -14,7 +14,16 @@
 
     <div id="content">
         <div id="bg"></div>
-        <div id="export"><a href="{{ url("public_export") }}">Export all</a></div>
+        <div id="export">
+            {% if app.user %}
+                <a href="{{ url("admin_simulation_list") }}"><i class="fa fa-fw fa-edit"></i> Administration</a>
+                <a href="{{ url("public_export") }}"><i class="fa fa-fw fa-download"></i> Export</a>
+                <a href="{{ url("fos_user_security_logout") }}"><i class="fa fa-fw fa-sign-out"></i> Logout</a>
+            {% else %}
+                <a href="{{ url("fos_user_security_login") }}"><i class="fa fa-fw fa-sign-in"></i> Login</a>
+            {% endif %}
+        </div>
+
     {{ datatable_render_html(datatable) }}
     </div>
 {% endblock %}

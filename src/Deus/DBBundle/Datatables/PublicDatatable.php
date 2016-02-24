@@ -38,11 +38,11 @@ class PublicDatatable extends AbstractCrudDatatableView
                 "route" => "public_show",
                 "route_parameters" => array("id" => "id"),
                 "label" => $this->getTranslator()->trans("crud.title.show", [], 'admin'),
-                "icon" => "glyphicon glyphicon-eye-open",
+                "icon" => "fa fa-fw fa-search",
                 "attributes" => array(
                     "rel" => "tooltip",
                     "title" => "Show",
-                    "class" => "btn btn-default btn-xs",
+                    "class" => "btn",
                     "role" => "button"
                 )
             ];

@@ -37,11 +37,11 @@ class IndexDirectory
         $infos = [];
 
         foreach($lines as $oneLine) {
-            if(preg_match("/([^ ]+) ([^ ]+) ([^ ]+) ([^ ]+)([ ]+)([0-9]+)([ ]+)([^ ]+)([ ]+)([^ ]+)([ ]+)([0-9]{4}) (.+)/", $oneLine, $infos)) {
+            if(preg_match("/([^ ]+)[ ]+([^ ]+)[ ]+([^ ]+)[ ]+([^ ]+)([ ]+)([0-9]+)([ ]+)([^ ]+)([ ]+)([^ ]+)([ ]+)([0-9]{4})[ ]+(.+)/", $oneLine, $infos)) {
                 $this->files[$infos[13]] = $infos[6];
             }
             elseif($oneLine) {
-                throw new \Exception("ls.txt not correctly formatted");
+                throw new \Exception("ls.txt not correctly formatted: $oneLine");
             }
         }
     }
@@ -59,11 +59,12 @@ class IndexDirectory
         $totalNb = 0;
         $totalSize = 0;
         foreach($this->files as $name => $size) {
-            if(fnmatch($pattern, $name)) {
+            if(preg_match($pattern, $name)) {
                 $totalNb++;
                 $totalSize = gmp_add($size, $totalSize);
             }
         }
+        $totalSize = gmp_div($totalSize, 1024);
         return [$totalNb, $totalSize];
     }
 }

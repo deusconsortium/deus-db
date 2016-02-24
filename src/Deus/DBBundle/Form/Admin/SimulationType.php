@@ -37,6 +37,7 @@ class SimulationType extends AbstractType
 //                   'placeholder'       => 'search_placeholder',
 //                   'required'          => false
                ])
+            ->add('public', null)
         //   ->add("geometries","collection_select2",[
         //           'class'             => 'Deus\DBBundle\Entity\Geometries',
         //           'searchRouteName'   => 'admin_geometries_search',

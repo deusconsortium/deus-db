@@ -46,11 +46,13 @@ class ImportSimulationIndexCommand extends ContainerAwareCommand
         $importerService = $this->getContainer()->get('deus.index_importer');
 
         if(file_exists($path.'/index.txt')) { // Index.txt exist, direct simulation link
+            $output->writeln("Importing single simulation");
             $importerService->importSimulationFromIndex($path);
         }
         else {
             $dirs = new Finder();
-            foreach($dirs->in($path)->depth(1)->directories() as $oneSimDir) {
+            $output->writeln("Importing multiple simulations");
+            foreach($dirs->in($path)->depth(0)->directories() as $oneSimDir) {
                 $importerService->importSimulationFromIndex($oneSimDir->getRealpath());
             }
         }

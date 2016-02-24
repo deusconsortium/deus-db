@@ -7,6 +7,7 @@ use Deus\DBBundle\Entity\Location;
 use Deus\DBBundle\Entity\ObjectFormat;
 use Deus\DBBundle\Entity\ObjectType;
 use Deus\DBBundle\Entity\Storage;
+use Deus\DBBundle\Entity\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -45,10 +46,27 @@ class LoadParameters implements FixtureInterface
         $this->createBasic('GeometryType', GeometryType::CONE, 'Redshift Space');
         $this->createBasic('GeometryType', GeometryType::SAMPLE, 'Sample');
 
+        $this->createAdminUser("jpasdeloup","jean.pasdeloup@obspm.fr","welcome");
+        $this->createAdminUser("alimi","jean-michel.alimi@obspm.fr@obspm.fr","welcome");
+        $this->createAdminUser("corasaniti","pier-stefano.corasaniti@obspm.fr","welcome");
+        $this->createAdminUser("yrasera","yann.rasera@obspm.fr","welcome");
+
         $manager->flush();
     }
 
-    public function createBasic($type, $id, $name, $parameters = [])
+    protected function createAdminUser($username, $email, $password)
+    {
+        $user = new User();
+        $user
+            ->setUsername($username)
+            ->setEmail($email)
+            ->setPlainPassword($password)
+            ->setEnabled(true)
+            ->setRoles(["ROLE_ADMIN"]);
+        $this->manager->persist($user);
+    }
+
+    protected function createBasic($type, $id, $name, $parameters = [])
     {
         $type = "Deus\\DBBundle\\Entity\\".$type;
         $item = new $type();
@@ -63,7 +81,7 @@ class LoadParameters implements FixtureInterface
         return $item;
     }
 
-    public function createBasicValue($type, $name, $parameters = [])
+    protected function createBasicValue($type, $name, $parameters = [])
     {
         $type = "Deus\\DBBundle\\Entity\\".$type;
         $item = new $type();

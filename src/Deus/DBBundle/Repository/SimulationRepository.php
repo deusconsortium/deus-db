@@ -72,6 +72,39 @@ class SimulationRepository
         return $simulation;
     }
 
+    /**
+     * @param $id
+     * @return ObjectType
+     */
+    public function getObjectType($id)
+    {
+        return $this->getObject("ObjectType", "id", $id);
+    }
+
+    /**
+     * @param $id
+     * @return ObjectFormat
+     */
+    public function getObjectFormat($id)
+    {
+        return $this->getObject("ObjectFormat", "id", $id);
+    }
+
+    /**
+     * @param $id
+     * @return GeometryType
+     */
+    public function getGeometryType($id)
+    {
+        return $this->getObject("GeometryType", "id", $id);
+    }
+
+    /**
+     * @param $object
+     * @param $property
+     * @param $value
+     * @return object
+     */
     public function getObject($object, $property, $value)
     {
         $res = $this->em->getRepository("DeusDBBundle:".$object)->findOneBy([$property => $value]);
@@ -79,9 +112,44 @@ class SimulationRepository
             $object = 'Deus\\DBBundle\\Entity\\'.$object;
             $res = new $object;
             $res->{'set'.ucfirst($property)}($value);
+            if(method_exists($res, "setName")) {
+                $res->setName($value);
+            }
             $this->em->persist($res);
         }
         return $res;
+    }
+
+    /**
+     * @param $Simulation
+     * @param $code
+     * @param $type
+     * @return Geometry|null|object
+     */
+    public function getGeometry($Simulation, $code, $type)
+    {
+        $GeometryType = $this->em->getRepository("DeusDBBundle:GeometryType")->find($type);
+
+        if(!$GeometryType) {
+            $this->logger->alert("Unknown GeometryType", ["type" => $type]);
+            return null;
+        }
+
+        $Geometry = $this->em->getRepository("DeusDBBundle:Geometry")->findOneBy([
+            'GeometryType' => $GeometryType,
+            'Simulation' => $Simulation,
+            'code' => $code,
+        ]);
+        if(!$Geometry) {
+            $Geometry = new Geometry();
+            $Geometry
+                ->setGeometryType($GeometryType)
+                ->setSimulation($Simulation)
+                ->setCode($code);
+
+            $this->em->persist($Geometry);
+        }
+        return $Geometry;
     }
 
     public function getSnapshot($simulation, $snapshotFile)
@@ -151,48 +219,56 @@ class SimulationRepository
         return $snapshot;
     }
 
-    public function getObjectGroup(Storage $storage, ObjectType $type, $path)
+    public function getObjectGroup(Storage $Storage, ObjectType $ObjectType, ObjectFormat $ObjectFormat, $filePattern, $path)
     {
-        $localPath = substr($path,strlen($storage->getPath()));
+        $storagePathLen = strlen($Storage->getPath());
+        if(substr($path,0,$storagePathLen) != $Storage->getPath()) {
+            $this->logger->error("Path doesn't match given Storage", ["path" => $path, "storage path" => $Storage->getPath]);
+            return "";
+        }
+        $localPath = substr($path,$storagePathLen);
 
-        // Only FOF Format for file exploring
-        $format = $this->em->getRepository("DeusDBBundle:ObjectFormat")->find(ObjectFormat::FOF);
-
-        $objectGroup = $this->em->getRepository("DeusDBBundle:ObjectGroup")->findOneBy([
-            'Storage' => $storage,
+        $ObjectGroup = $this->em->getRepository("DeusDBBundle:ObjectGroup")->findOneBy([
+            'Storage' => $Storage,
+            'ObjectType' => $ObjectType,
+            'ObjectFormat' => $ObjectFormat,
             'localPath' => $localPath,
-            'ObjectType' => $type
+            'filePattern' => $filePattern
         ]);
 
-        if(!$objectGroup) {
-            $objectGroup = new ObjectGroup();
-            $objectGroup
-                ->setStorage($storage)
-                ->setObjectType($type)
+        if(!$ObjectGroup) {
+            $ObjectGroup = new ObjectGroup();
+            $ObjectGroup
+                ->setStorage($Storage)
+                ->setObjectType($ObjectType)
+                ->setObjectFormat($ObjectFormat)
                 ->setLocalPath($localPath)
-                ->setObjectFormat($format);
-            $this->em->persist($objectGroup);
+                ->setFilePattern($filePattern);
+            $this->em->persist($ObjectGroup);
         }
 
-        return $objectGroup;
+        return $ObjectGroup;
     }
 
     /**
-     * @param $path
-     * @return \Deus\DBBundle\Entity\Storage|null
+     * @param $id
+     * @return Storage|null
+     * @throws \Exception
      */
-    public function getStorage($path)
+    public function getStorage($id)
     {
-        $storages = $this->em->getRepository("DeusDBBundle:Storage")->findBy([
-            "Location" => $this->em->getRepository("DeusDBBundle:Location")->find("meudon")
-        ]);
+        $Storage = $this->em->getRepository("DeusDBBundle:Storage")->find($id);
 
-        foreach($storages as $storage) {
-            if(strpos($path, $storage->getPath()) === 0 ) {
-                return $storage;
-            }
+        if(!$Storage) {
+            throw new \Exception("Unknown Storage: $id");
+            return null;
         }
 
-        return null;
+        return $Storage;
+    }
+
+    public function flush()
+    {
+        $this->em->flush();
     }
 }

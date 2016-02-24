@@ -6,9 +6,18 @@ body {
     color: #474747;
 }
 
+#popup {
+    background-color: white;
+}
+
+#popup table {
+    padding-left: 30px;
+    padding-top: 10px;
+}
+
 #content {
     margin: 20px auto;
-    min-width: 915px;
+    min-width: 1096px;
     width: 90%;
     position: relative;
 }
@@ -23,6 +32,13 @@ body {
 
 #export {
     z-index: 10;
+    position: absolute;
+    right: 30px;
+    top: 14px;
+}
+
+#export a {
+    margin-left: 20px;
 }
 
 #simulation_datatable_wrapper {
@@ -46,8 +62,9 @@ h1 {
 }
 
 .fullpath {
+    padding: 15px;
     text-align: center;
-    width: 70%;
+    width: 100%;
 }
 
 a {

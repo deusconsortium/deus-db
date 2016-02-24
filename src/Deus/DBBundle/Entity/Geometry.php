@@ -5,6 +5,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="search_idx", columns={"code", "geometryType_id", "simulation_id"})})
  */
 class Geometry
 {
@@ -18,6 +19,11 @@ class Geometry
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $code;
 
     /**
      * @ORM\ManyToOne(targetEntity="Simulation", inversedBy="geometries")
@@ -198,6 +204,7 @@ class Geometry
     public function addObjectGroup(\Deus\DBBundle\Entity\ObjectGroup $objectGroups)
     {
         $this->objectGroups[] = $objectGroups;
+        $objectGroups->setGeometry($this);
 
         return $this;
     }
@@ -254,6 +261,24 @@ class Geometry
     public function setProperties($properties)
     {
         $this->properties = $properties;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param mixed $code
+     * @return $this
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
         return $this;
     }
 }

@@ -16,7 +16,7 @@ $(document).ready(function() {
         $('#simulation_datatable .btn').click(function(e) {
 
             e.stopPropagation();
-            window.open($(this).attr("href"),"_blank", "height=300,width=750");
+            window.open($(this).attr("href"),"_blank", "height=400,width=800");
             //
             //
             //$.ajax({

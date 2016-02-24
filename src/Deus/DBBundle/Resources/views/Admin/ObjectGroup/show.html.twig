@@ -54,11 +54,19 @@
                                 <td>{{ entity.ObjectFormat }}</td>
                             </tr>
                             <tr>
+                                <th>{{ "admin.objectgroup.filePattern"|trans([], "admin") }}</th>
+                                <td>{{ entity.filePattern }}</td>
+                            </tr>
+                            <tr>
                                 <th>&nbsp;</th>
                             </tr>
                             <tr>
                                 <th>{{ "admin.objectgroup.fullPath"|trans([], "admin") }}</th>
                                 <td>{{ entity.fullPath }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.objectgroup.public"|trans([], "admin") }}</th>
+                                <td>{% if entity.public %}YES{% else %}NO{% endif %}</td>
                             </tr>
                         </tbody>
                     </table>

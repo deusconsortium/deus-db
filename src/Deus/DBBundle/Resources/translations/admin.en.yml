@@ -24,7 +24,9 @@ crud:
 
 admin:
     edit_contents: Parameters
-    simulation_search: Simulations
+    simulation_front: Search Interface
+    simulation_edit: Edit Simulations
+    logout: Logout
     storage:
         entity_name: Storage
         name: Name
@@ -51,10 +53,12 @@ admin:
         ObjectFormat: Object format
         Geometry: Geometry
         Storage: Storage
-        size: Size
+        size: Size (Ko)
         nbFiles: Nb files
         localPath: Directory
         fullPath: Full Path
+        filePattern: File Pattern
+        public: Visible on public web site
     resolution:
         entity_name: Npart
         value: Value
@@ -77,6 +81,7 @@ admin:
         Cosmology: Cosmology
         geometries: Geometries
         particleMass: Particle Mass Msun/h
+        public: Visible on public web site
     objecttype:
         entity_name: Object type
         name: Name
