@@ -83,6 +83,7 @@ admin:
         geometries: Geometries
         particleMass: Particle Mass Msun/h
         public: Visible on public web site
+        properties: Properties
     objecttype:
         entity_name: Object type
         name: Name

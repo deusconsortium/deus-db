@@ -3,6 +3,8 @@
 namespace Deus\DBBundle\Form\Admin;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -18,32 +20,35 @@ class SimulationType extends AbstractType
         $builder
             ->add("Boxlen", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Boxlen',
-//                   'searchRouteName'   => 'admin_simulation_boxlen_search',
-//                   'property'          => '',
-//                   'placeholder'       => 'search_placeholder',
-//                   'required'          => false
                ])
             ->add("Resolution", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Resolution',
-//                   'searchRouteName'   => 'admin_simulation_resolution_search',
-//                   'property'          => '',
-//                   'placeholder'       => 'search_placeholder',
-//                   'required'          => false
                ])
             ->add("Cosmology", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Cosmology',
-//                   'searchRouteName'   => 'admin_simulation_cosmology_search',
-//                   'property'          => 'name',
-//                   'placeholder'       => 'search_placeholder',
-//                   'required'          => false
                ])
             ->add('public', null)
-        //   ->add("geometries","collection_select2",[
-        //           'class'             => 'Deus\DBBundle\Entity\Geometries',
-        //           'searchRouteName'   => 'admin_geometries_search',
-        //           'property'          => '',
-        //           'required'          => false
-        //       ])
+            ->add('properties', TextareaType::class)
+            ->get("properties")->addModelTransformer(new CallbackTransformer(
+                function ($originalProperties) {
+                    $res = "";
+                    foreach($originalProperties as $key => $value) {
+                        $res .= "$key=$value\n";
+                    }
+                    return $res;
+                },
+                function ($submittedProperties) {
+                    $res = [];
+                    $lines = explode("\n", $submittedProperties);
+                    foreach($lines as $oneLine) {
+                        $values = explode("=",$oneLine,2);
+                        if(2 == count($values)) {
+                            $res[trim($values[0])] = trim($values[1]);
+                        }
+                    }
+                    return $res;
+                }
+            ))
         ;
     }
     

@@ -38,6 +38,20 @@
                                 <td>{{ entity.Cosmology }}</td>
                             </tr>
                             <tr>
+                                <th>&nbsp;</th>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.simulation.properties"|trans([], "admin") }}</th>
+                                <td>
+                                    {% for key,value in entity.properties %}
+                                        &nbsp;{{ key }} = {{ value }}<br/>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                            </tr>
+                            <tr>
                                 <th>{{ "admin.simulation.public"|trans([], "admin") }}</th>
                                 <td>{% if entity.public %}YES{% else %}NO{% endif %}</td>
                             </tr>

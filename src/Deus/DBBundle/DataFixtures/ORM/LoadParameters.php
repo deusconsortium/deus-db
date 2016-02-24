@@ -2,6 +2,7 @@
 
 namespace Acme\HelloBundle\DataFixtures\ORM;
 
+use Deus\DBBundle\Entity\Cosmology;
 use Deus\DBBundle\Entity\GeometryType;
 use Deus\DBBundle\Entity\Location;
 use Deus\DBBundle\Entity\ObjectFormat;
@@ -41,6 +42,7 @@ class LoadParameters implements FixtureInterface
         $this->createBasic('ObjectFormat', ObjectFormat::FOF, 'FOF');
         $this->createBasic('ObjectFormat', ObjectFormat::MULTI, 'FOF Multi Tar');
         $this->createBasic('ObjectFormat', ObjectFormat::RAMSES, 'Raw Ramses Tar');
+        $this->createBasic('ObjectFormat', ObjectFormat::HDF5, 'HDF5');
 
         $this->createBasic('GeometryType', GeometryType::SNAPSHOT, 'Comoving Space');
         $this->createBasic('GeometryType', GeometryType::CONE, 'Redshift Space');
@@ -50,6 +52,10 @@ class LoadParameters implements FixtureInterface
         $this->createAdminUser("alimi","jean-michel.alimi@obspm.fr@obspm.fr","welcome");
         $this->createAdminUser("corasaniti","pier-stefano.corasaniti@obspm.fr","welcome");
         $this->createAdminUser("yrasera","yann.rasera@obspm.fr","welcome");
+
+        $this->createCosmology('lcdmw5', ['omega_m' => 0.259999990463257]);
+        $this->createCosmology('rpcdmw5', ['omega_m' => 0.230000004172325]);
+        $this->createCosmology('sucdmw5', ['omega_m' => 0.250000000000000]);
 
         $manager->flush();
     }
@@ -90,6 +96,17 @@ class LoadParameters implements FixtureInterface
         foreach($parameters as $key => $value) {
             $item->{'set'.ucfirst($key)}($value);
         }
+
+        $this->manager->persist($item);
+        return $item;
+    }
+
+    protected function createCosmology($name, $properties)
+    {
+        $item = new Cosmology();
+        $item
+            ->setName($name)
+            ->setProperties($properties);
 
         $this->manager->persist($item);
         return $item;

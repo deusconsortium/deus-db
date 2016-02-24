@@ -9,7 +9,7 @@ use JMS\DiExtraBundle\Annotation\DoctrineListener;
 /**
  * Class SimulationListener
  * @package Deus\DBBundle\EventListener
- * @DoctrineListener(events={"prePersist"})
+ * @DoctrineListener(events={"prePersist", "preUpdate"})
 
  */
 class SimulationListener
@@ -19,17 +19,22 @@ class SimulationListener
      */
     public function prePersist(LifecycleEventArgs $args)
     {
-//        $entity = $args->getEntity();
-//        $entityManager = $args->getEntityManager();
-//
-//        if ($entity instanceof Simulation && $entity->getBaseDirectory() != "") {
-//            $simulationManager = new DeusFileManager($entity->getBaseDirectory(),false);
-//
-//            echo "DIR=".$entity->getBaseDirectory()."<br/><br/>";
-//
-//            var_dump($simulationManager);
-//            die("<br/><br/>done");
-//
-//        }
+        $entity = $args->getEntity();
+
+        if ($entity instanceof Simulation) {
+            $entity->calculateParticleMass();
+        }
+    }
+
+    /**
+     * @param LifecycleEventArgs $args
+     */
+    public function preUpdate(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+
+        if ($entity instanceof Simulation) {
+            $entity->calculateParticleMass();
+        }
     }
 } 
