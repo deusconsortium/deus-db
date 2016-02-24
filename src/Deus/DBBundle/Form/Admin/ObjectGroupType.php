@@ -21,6 +21,7 @@ class ObjectGroupType extends AbstractType
             ->add('localPath', null, ['required' => true])
             ->add('size', TextType::class, ['required' => true])
             ->add('nbFiles', null, ['required' => true])
+            ->add('nbGroups', null, ['required' => true])
             ->add('filePattern', null, ['required' => true])
             ->add('public', null)
             ->add("ObjectType", "entity", [

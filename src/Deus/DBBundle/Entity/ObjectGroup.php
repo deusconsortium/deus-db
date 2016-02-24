@@ -52,6 +52,11 @@ class ObjectGroup
     private $nbFiles;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbGroups;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $filePattern;
@@ -377,5 +382,21 @@ class ObjectGroup
         }
 
         return $res;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNbGroups()
+    {
+        return $this->nbGroups;
+    }
+
+    /**
+     * @param mixed $nbGroups
+     */
+    public function setNbGroups($nbGroups)
+    {
+        $this->nbGroups = $nbGroups;
     }
 }

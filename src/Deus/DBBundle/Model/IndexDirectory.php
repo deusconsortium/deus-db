@@ -9,11 +9,15 @@
 namespace Deus\DBBundle\Model;
 
 
+use Symfony\Component\Finder\Finder;
+
 class IndexDirectory
 {
     private $localPath;
 
     private $files;
+
+    private $groups;
 
     /**
      * IndexDirectory constructor.
@@ -23,6 +27,7 @@ class IndexDirectory
     {
         $this->localPath = $localPath;
         $this->files = [];
+        $this->groups = [];
         $this->retrieveFiles($localPath);
     }
 
@@ -44,20 +49,20 @@ class IndexDirectory
                 throw new \Exception("ls.txt not correctly formatted: $oneLine");
             }
         }
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getFiles()
-    {
-        return $this->files;
+        $groupDirs = $this->getGroupDirectories();
+        foreach($groupDirs as $oneGroup) {
+            $this->groups[] = new IndexDirectory($oneGroup->getRealPath());
+        }
+
     }
 
     public function totalFromPattern($pattern)
     {
         $totalNb = 0;
         $totalSize = 0;
+        $totalGroups = count($this->groups);
+
         foreach($this->files as $name => $size) {
             if(preg_match($pattern, $name)) {
                 $totalNb++;
@@ -65,6 +70,29 @@ class IndexDirectory
             }
         }
         $totalSize = gmp_div($totalSize, 1024);
-        return [$totalNb, $totalSize];
+
+        foreach($this->groups as $oneGroup) {
+            list($subNb, $subSize, $subGroups) = $oneGroup->totalFromPattern($pattern);
+            $totalNb += $subNb;
+            $totalSize = gmp_add($subSize, $totalSize);
+            $totalGroups += $subGroups;
+        }
+
+        return [$totalNb, $totalSize, $totalGroups];
     }
+
+    protected function getGroupDirectories()
+    {
+        $finder = new Finder();
+
+        $dirs = $finder
+            ->in($this->localPath)
+            ->directories()
+            ->name('/group_([0-9]{5})/')
+            ->depth("==0")
+            ;
+
+        return $dirs;
+    }
+
 }

@@ -68,18 +68,6 @@ class IndexImporterService
             $this->importOneConfigPattern($IndexSimulation, $oneFileParameter, $Storage);
         }
 
-//
-//        $dirs = $IndexSimulation->getDirectories("post","output_*"); //
-//
-//        foreach($dirs as $oneDir) {
-//
-//            /**
-//             * @var $oneDir \Symfony\Component\Finder\SplFileInfo
-//             */
-//            echo $oneDir->getFilename()."\n";
-////            $IndexDirectory = new IndexDirectory($oneDir->getRealPath());
-////            dump(count($IndexDirectory->getFiles()));
-//        }
     }
 
     public function importOneConfigPattern(IndexSimulation $IndexSimulation, $parameter, Storage $Storage)
@@ -107,13 +95,15 @@ class IndexImporterService
             }
 
             $IndexDirectory = new IndexDirectory($oneDir->getRealPath());
-            list($totalNb, $totalSize) = $IndexDirectory->totalFromPattern($filePattern);
+            list($totalNb, $totalSize, $totalGroups) = $IndexDirectory->totalFromPattern($filePattern);
             if($totalNb > 0) {
                 $Geometry = $this->repository->getGeometry($IndexSimulation->getSimulation(), $code, $GeometryType);
                 $ObjectGroup = $this->repository->getObjectGroup($Storage, $ObjectType, $ObjectFormat, $filePattern, $fullpath);
                 $ObjectGroup
                     ->setSize($totalSize)
-                    ->setNbFiles($totalNb);
+                    ->setNbFiles($totalNb)
+                    ->setNbGroups($totalGroups)
+                ;
                 $Geometry->addObjectGroup($ObjectGroup);
             }
             else {

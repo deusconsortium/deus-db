@@ -28,7 +28,7 @@
                     </tr>
                     <tr>
                         <th>{{ "admin.objectgroup.nbFiles"|trans([], "admin") }}</th>
-                        <td>{{ entity.nbFiles }}</td>
+                        <td>{{ entity.nbFiles }}{% if entity.nbGroups > 0 %} splitted in {{ entity.nbGroups }} group_* dirs{% endif %}</td>
                     </tr>
                     <tr>
                         <th>{{ "admin.objectgroup.size"|trans([], "admin") }}</th>

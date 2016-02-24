@@ -59,6 +59,7 @@ admin:
         fullPath: Full Path
         filePattern: File Pattern
         public: Visible on public web site
+        nbGroups: Nb groups
     resolution:
         entity_name: Npart
         value: Value
