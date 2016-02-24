@@ -104,6 +104,83 @@ parameters:
             file_pattern: "grouptar_<number>.tar"
             file_format: ramses
             file_type: cube
-
+      curie:
+          curie_cubes:
+            path: "post/multi"
+            dir_pattern: "output_<number>"
+            geometry_type: snapshot
+            file_pattern: "fof_boxlen<boxlen>_n<npart>_<cosmo>_multicube_<number>"
+            file_format: multi
+            file_type: cube
+          curie_strct:
+            path: "post/multi"
+            dir_pattern: "output_<number>"
+            geometry_type: snapshot
+            file_pattern: "fof_boxlen<boxlen>_n<npart>_<cosmo>_multistrct_<number>"
+            file_format: multi
+            file_type: strct
+          curie_masst:
+            path: "post/multi"
+            dir_pattern: "output_<number>"
+            geometry_type: snapshot
+            file_pattern: "fof_boxlen<boxlen>_n<npart>_<cosmo>_multimasst_<number>"
+            file_format: multi
+            file_type: masst
+          curie_masst_tarprop:
+            path: "post/multi"
+            dir_pattern: "output_<number>"
+            geometry_type: snapshot
+            file_pattern: "output_<code>_masstprop.tar"
+            file_format: multi
+            file_type: masst
+          curie_masst_tar:
+            path: "post/multi"
+            dir_pattern: "output_<number>"
+            geometry_type: snapshot
+            file_pattern: "output_<code>_masst.tar"
+            file_format: multi
+            file_type: masst
+          curie_cubes_cone:
+            path: "post/multi"
+            dir_pattern: "output_cone_<name>"
+            geometry_type: cone
+            file_pattern: "fof_cone<boxlen>_n<npart>_<cosmo>_multicube_<number>"
+            file_format: multi
+            file_type: cube
+          curie_cubes_conegrav:
+            path: "post/multi"
+            dir_pattern: "output_cone_<name>"
+            geometry_type: cone
+            file_pattern: "fof_conegrav<boxlen>_n<npart>_<cosmo>_multicube_<number>"
+            file_format: multi
+            file_type: grav
+          curie_strct_cone:
+            path: "post/multi"
+            dir_pattern: "output_cone_<name>"
+            geometry_type: cone
+            file_pattern: "fof_cone<boxlen>_n<npart>_<cosmo>_multistrct_<number>"
+            file_format: multi
+            file_type: strct
+          curie_masst_cone:
+            path: "post/multi"
+            dir_pattern: "output_cone_<name>"
+            geometry_type: cone
+            file_pattern: "fof_cone<boxlen>_n<npart>_<cosmo>_multimasst_<number>"
+            file_format: multi
+            file_type: masst
+          curie_masst_tarprop_cone:
+            path: "post/multi"
+            dir_pattern: "output_cone_<name>"
+            geometry_type: cone
+            file_pattern: "output_<code>_masstprop.tar"
+            file_format: multi
+            file_type: masst
+          curie_masst_tar_cone:
+            path: "post/multi"
+            dir_pattern: "output_cone_<name>"
+            geometry_type: cone
+            file_pattern: "output_<code>_masst.tar"
+            file_format: multi
+            file_type: masst
 
 
