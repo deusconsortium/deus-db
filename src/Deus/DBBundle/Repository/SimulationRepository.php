@@ -223,7 +223,7 @@ class SimulationRepository
     {
         $storagePathLen = strlen($Storage->getPath());
         if(substr($path,0,$storagePathLen) != $Storage->getPath()) {
-            $this->logger->error("Path doesn't match given Storage", ["path" => $path, "storage path" => $Storage->getPath]);
+            $this->logger->error("Path doesn't match given Storage", ["path" => $path, "storage path" => $Storage->getPath()]);
             return "";
         }
         $localPath = substr($path,$storagePathLen);

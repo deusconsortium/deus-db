@@ -42,7 +42,7 @@ class IndexDirectory
         $infos = [];
 
         foreach($lines as $oneLine) {
-            if(preg_match("/([^ ]+)[ ]+([^ ]+)[ ]+([^ ]+)[ ]+([^ ]+)([ ]+)([0-9]+)([ ]+)([^ ]+)([ ]+)([^ ]+)([ ]+)([0-9]{4})[ ]+(.+)/", $oneLine, $infos)) {
+            if(preg_match("/([^ ]+)[ ]+([^ ]+)[ ]+([^ ]+)[ ]+([^ ]+)([ ]+)([0-9]+)([ ]+)([^ ]+)([ ]+)([^ ]+)([ ]+)([^ ]+)[ ]+(.+)/", $oneLine, $infos)) {
                 $this->files[$infos[13]] = $infos[6];
             }
             elseif($oneLine) {

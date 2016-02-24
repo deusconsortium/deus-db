@@ -4,47 +4,106 @@
 
 parameters:
   deus_files:
-      snapshot_cubes:
-        path: ""
-        dir_pattern: "cube_<number>"
-        geometry_type: snapshot
-        file_pattern: "fof_boxlen<boxlen>_n<npart>_<cosmo>_cube_<number>"
-        file_type: cube
-        file_format: fof
-      snapshot_masst:
-        path: "post/fof/"
-        dir_pattern: "output_<number>"
-        geometry_type: snapshot
-        file_pattern: "fof_boxlen<boxlen>_n<npart>_<cosmo>_masst_<number>"
-        file_format: fof
-        file_type: masst
-      snapshot_strct:
-        path: "post/fof/"
-        dir_pattern: "output_<number>"
-        geometry_type: snapshot
-        file_pattern: "fof_boxlen<boxlen>_n<npart>_<cosmo>_strct_<number>"
-        file_format: fof
-        file_type: strct
-      cone_hdf5_strct:
-        path: "post/fof/"
-        dir_pattern: "cone_<name>"
-        geometry_type: cone
-        file_pattern: "boxlen<boxlen>_n<npart>_<cosmo>_fullsky_halo_<number>.h5"
-        file_format: hdf5
-        file_type: strct
-      cone_hdf5_masst:
-        path: "post/fof/"
-        dir_pattern: "cone_<name>"
-        geometry_type: cone
-        file_pattern: "boxlen<boxlen>_n<npart>_<cosmo>_fullsky_halomass.h5"
-        file_format: hdf5
-        file_type: masst
-      cone_fur_cubes:
-        path: "post/slicer_ncoarse"
-        dir_pattern: "output_<name>"
-        geometry_type: cone
-        file_pattern: "fof_cone<boxlen>_n<npart>_<cosmo>_dosamplecone_masst_<number>"
-        file_format: fof
-        file_type: masst
+      default:
+          snapshot_cubes:
+            path: ""
+            dir_pattern: "cube_<number>"
+            geometry_type: snapshot
+            file_pattern: "fof_boxlen<boxlen>_n<npart>_<cosmo>_cube_<number>"
+            file_type: cube
+            file_format: fof
+          snapshot_masst:
+            path: "post/fof/"
+            dir_pattern: "output_<number>"
+            geometry_type: snapshot
+            file_pattern: "fof_boxlen<boxlen>_n<npart>_<cosmo>_masst_<number>"
+            file_format: fof
+            file_type: masst
+          snapshot_strct:
+            path: "post/fof/"
+            dir_pattern: "output_<number>"
+            geometry_type: snapshot
+            file_pattern: "fof_boxlen<boxlen>_n<npart>_<cosmo>_strct_<number>"
+            file_format: fof
+            file_type: strct
+          cone_hdf5_strct:
+            path: "post/fof/"
+            dir_pattern: "cone_<name>"
+            geometry_type: cone
+            file_pattern: "boxlen<boxlen>_n<npart>_<cosmo>_fullsky_halo_<number>.h5"
+            file_format: hdf5
+            file_type: strct
+          cone_hdf5_masst:
+            path: "post/fof/"
+            dir_pattern: "cone_<name>"
+            geometry_type: cone
+            file_pattern: "boxlen<boxlen>_n<npart>_<cosmo>_fullsky_halomass.h5"
+            file_format: hdf5
+            file_type: masst
+          cone_fur_lcdm_masst:
+            path: "post/slicer_ncoarse"
+            dir_pattern: "output_<name>"
+            geometry_type: cone
+            file_pattern: "fof_cone<boxlen>_n<npart>_<cosmo>_dosamplecone_masst_<number>"
+            file_format: fof
+            file_type: masst
+          cone_fur_lcdm_strct:
+            path: "post/slicer_ncoarse"
+            dir_pattern: "output_<name>"
+            geometry_type: cone
+            file_pattern: "fof_cone<boxlen>_n<npart>_<cosmo>_dosamplecone_strct_<number>"
+            file_format: fof
+            file_type: strct
+          cone_fur_lcdm_cube:
+            path: "post/slicer_ncoarse"
+            dir_pattern: "output_<name>"
+            geometry_type: cone
+            file_pattern: "fof_cone<boxlen>_n<npart>_<cosmo>_dosamplecone_cube_<number>"
+            file_format: fof
+            file_type: cube
+          cone_fur_lcdm_grav:
+            path: "post/slicer_ncoarse"
+            dir_pattern: "output_<name>"
+            geometry_type: cone
+            file_pattern: "fof_conegrav<boxlen>_n<npart>_<cosmo>_dosamplecone_cube_<number>"
+            file_format: fof
+            file_type: grav
+          cone_fur_masst:
+            path: "post/slicer_ncoarse"
+            dir_pattern: "output_<name>"
+            geometry_type: cone
+            file_pattern: "fof_cone<boxlen>_n<npart>_<cosmo>_masst_<number>"
+            file_format: fof
+            file_type: masst
+          cone_fur_strct:
+            path: "post/slicer_ncoarse"
+            dir_pattern: "output_<name>"
+            geometry_type: cone
+            file_pattern: "fof_cone<boxlen>_n<npart>_<cosmo>_strct_<number>"
+            file_format: fof
+            file_type: strct
+          cone_fur_cube:
+            path: "post/slicer_ncoarse"
+            dir_pattern: "output_<name>"
+            geometry_type: cone
+            file_pattern: "fof_cone<boxlen>_n<npart>_<cosmo>_cube_<number>"
+            file_format: fof
+            file_type: cube
+          cone_fur_grav:
+            path: "post/slicer_ncoarse"
+            dir_pattern: "output_<name>"
+            geometry_type: cone
+            file_pattern: "fof_conegrav<boxlen>_n<npart>_<cosmo>_cube_<number>"
+            file_format: fof
+            file_type: grav
+      ergon:
+          ergon_cubes:
+            path: ""
+            dir_pattern: "output_<number>"
+            geometry_type: snapshot
+            file_pattern: "grouptar_<number>.tar"
+            file_format: ramses
+            file_type: cube
+
 
 

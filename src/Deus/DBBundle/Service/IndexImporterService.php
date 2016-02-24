@@ -50,10 +50,14 @@ class IndexImporterService
         $this->logger = $logger;
     }
 
-    public function importSimulationFromIndex($path)
+    public function importSimulationFromIndex($path, $rules)
     {
         $this->logger->notice("Import path", ["path" => $path]);
         $IndexSimulation = new IndexSimulation($path);
+
+        if(!isset($this->filesParameters[$rules])) {
+            throw new \Exception("Set of rules $rules doesn't exist");
+        }
 
         $IndexSimulation->setSimulation($this->repository->getSimulation(
             $IndexSimulation->getBoxlen(),
@@ -63,7 +67,7 @@ class IndexImporterService
         $Storage = $this->repository->getStorage($IndexSimulation->getStorage());
 
         // Import different possible files
-        foreach($this->filesParameters as $ruleName => $oneFileParameter) {
+        foreach($this->filesParameters[$rules] as $ruleName => $oneFileParameter) {
             $this->logger->info("import rule ", ["rule" => $ruleName]);
             $this->importOneConfigPattern($IndexSimulation, $oneFileParameter, $Storage);
         }
@@ -105,6 +109,29 @@ class IndexImporterService
                     ->setNbGroups($totalGroups)
                 ;
                 $Geometry->addObjectGroup($ObjectGroup);
+
+                // Get parameters from info_XXXXX.txt if needed
+                $infos = $this->retrieveSnapshotInfos($oneDir->getRealPath(), $code);
+
+                if(!$Geometry->getProperties() || $Geometry->getProperties() == []) {
+                    $Geometry->setProperties($infos["snapshot"]);
+                }
+
+                $Simulation = $IndexSimulation->getSimulation();
+                if(!$Simulation->getProperties() || $Simulation->getProperties() == []) {
+                    $Simulation->setProperties( $infos['simulation']);
+                }
+
+                if("snapshot" === $parameter['geometry_type'] && isset($infos["snapshot"]["Z"])) {
+                    $Geometry->setZ($infos["snapshot"]["Z"]);
+                }
+                elseif("cone" === $parameter['geometry_type'] && isset($this->conesParameters[$oneDir->getFilename()])) {
+                    $Geometry->setZ($this->conesParameters[$oneDir->getFilename()]["Z"]);
+                    $Geometry->setAngle($this->conesParameters[$oneDir->getFilename()]["angle"]);
+                }
+                else {
+                    $Geometry->setZ("?");
+                }
             }
             else {
                 $this->logger->debug("Directory found but files don't match", ["pattern" => $filePattern, "path" => $oneDir->getRealPath()]);
@@ -192,6 +219,56 @@ class IndexImporterService
         else {
             return DIRECTORY_SEPARATOR.implode(DIRECTORY_SEPARATOR, $absolutes).DIRECTORY_SEPARATOR;
         }
+    }
+
+    public function retrieveSnapshotInfos($path, $snapshot)
+    {
+        $file = $path.'/info_'.$snapshot.'.txt';
+        if(!file_exists($file)) {
+            $this->logger->warning("info_?????.txt not found", ['file' => $file]);
+            return [
+                'simulation' => [],
+                'snapshot' => [],
+            ];
+        }
+        $infos = $this->convertInfosFile(file_get_contents($file));
+
+        return $infos;
+    }
+
+    static public function convertInfosFile($data)
+    {
+        $lines = explode("\n", $data);
+
+        // Global parameters of simulation (others are snapshot parameters)
+        $simArg = [
+            'ncpu',
+            'ndim',
+            'levelmin',
+            'levelmax',
+            'H0',
+            'omega_m',
+            'omega_l',
+            'omega_k',
+            'omega_b',
+        ];
+
+        for($i=0; $i<18; $i++) {
+            if(strpos($lines[$i], "=") !== false) {
+                list($arg, $value) = explode("=", $lines[$i]);
+                if(trim($arg) && trim($value)) {
+                    if(in_array(trim($arg), $simArg)) {
+                        $res['simulation'][trim($arg)] = trim($value);
+                    }
+                    else {
+                        $res['snapshot'][trim($arg)] = trim($value);
+                    }
+                }
+            }
+        }
+
+        $res['snapshot']["Z"] = (1.0/$res['snapshot']["aexp"] - 1.0);
+        return $res;
     }
 
 }

@@ -224,11 +224,15 @@ class Simulation
     public function calculateParticleMass()
     {
         $properties = $this->getProperties();
-        $omegaM = $properties['omega_m'];
 
-        if(!$omegaM && $this->getCosmology()) {
+        if(isset($properties['omega_m'])) {
+            $omegaM = $properties['omega_m'];
+        }
+        elseif($this->getCosmology()) {
             $cosmoProperties = $this->getCosmology()->getProperties();
-            $omegaM = $cosmoProperties['omega_m'];
+            if(isset($cosmoProperties['omega_m'])) {
+                $omegaM = $cosmoProperties['omega_m'];
+            }
         }
 
         if(!isset($omegaM) || !$this->getBoxlen() || !$this->getResolution()) {
