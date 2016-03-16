@@ -23,6 +23,20 @@
                                 <th>{{ "admin.cosmology.name"|trans([], "admin") }}</th>
                                 <td>{{ entity.name }}</td>
                             </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.simulation.properties"|trans([], "admin") }}</th>
+                                <td>
+                                    {% for key,value in entity.properties %}
+                                        &nbsp;{{ key }} = {{ value }}<br/>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                            </tr>
                         </tbody>
                     </table>
                     <div class="text-center">

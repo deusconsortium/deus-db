@@ -28,7 +28,7 @@ class SimulationType extends AbstractType
                    'class'             => 'Deus\DBBundle\Entity\Cosmology',
                ])
             ->add('public', null)
-            ->add('properties', TextareaType::class)
+            ->add('properties', TextareaType::class, ['required' => false])
             ->get("properties")->addModelTransformer(new CallbackTransformer(
                 function ($originalProperties) {
                     $res = "";

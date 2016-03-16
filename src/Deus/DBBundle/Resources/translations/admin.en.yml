@@ -117,3 +117,7 @@ public:
   objecttype: 'Object<br/>Type'
   objectformat: 'File<br/>Format'
   location: 'Storage<br/>Location'
+  public: 'Published<br/>on web'
+  simulation_not_visible: 'Whole simulation is private'
+  object_not_visible: 'Object not visible but belongs to a public Simulation'
+  object_visible: 'Visible on public web site'

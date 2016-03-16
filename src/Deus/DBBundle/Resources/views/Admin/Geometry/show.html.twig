@@ -27,7 +27,7 @@
                         <tbody>
                             <tr>
                                 <th>{{ "admin.geometry.Z"|trans([], "admin") }}</th>
-                                <td>{{ entity.formattedZ }}</td>
+                                <td>{{ entity.formattedZ|formatZ }}</td>
                             </tr>
                             <tr>
                                 <th>{{ "admin.geometry.angle"|trans([], "admin") }}</th>
@@ -40,6 +40,20 @@
                             <tr>
                                 <th>{{ "admin.geometry.GeometryType"|trans([], "admin") }}</th>
                                 <td>{{ entity.GeometryType }}</td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                            </tr>
+                            <tr>
+                                <th>{{ "admin.simulation.properties"|trans([], "admin") }}</th>
+                                <td>
+                                    {% for key,value in entity.properties %}
+                                        &nbsp;{{ key }} = {{ value }}<br/>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
                             </tr>
                         </tbody>
                     </table>

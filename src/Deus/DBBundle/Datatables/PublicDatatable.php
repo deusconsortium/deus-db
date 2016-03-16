@@ -3,6 +3,7 @@
 namespace Deus\DBBundle\Datatables;
 
 use Deus\DBBundle\Entity\Geometry;
+use Deus\DBBundle\Entity\User;
 use JMS\DiExtraBundle\Annotation\Service;
 use JMS\DiExtraBundle\Annotation\Tag;
 use Sg\DatatablesBundle\Datatable\View\AbstractDatatableView;
@@ -68,6 +69,43 @@ class PublicDatatable extends AbstractCrudDatatableView
 
             $line['Geometry']['Simulation']['Boxlen']['value'] = $line['Geometry']['Simulation']['Boxlen']['value'].'<sup>3</sup>';
             $line['Geometry']['Simulation']['Resolution']['value'] = $line['Geometry']['Simulation']['Resolution']['value'].'<sup>3</sup>';
+
+            // Manage Public Column
+            $isPublicObject = $line['public'];
+            $isPublicSimulation = $line['Geometry']['Simulation']['public'];
+
+            if(($token = $this->securityToken->getToken()) && ($user = $token->getUser()) instanceof User && $user->hasRole("ROLE_CHANGE_VISIBILITY")) { // Connected
+                $checkValue = $this->router->generate("public_visibility_object", ["id" => $line['id']]);
+                $checkName = "geometry_".$line['id'];
+
+                $class = "jsVisibility";
+                $line['public'] = '<input type="checkbox"';
+                if($isPublicObject) {
+                    $line['public'] .= ' checked="checked"';
+                }
+                if(!$isPublicSimulation) {
+                    $line['public'] .= ' readonly="readonly" title="'.$this->getTranslator()->trans("public.simulation_not_visible", [], 'admin').'"';
+                    $checkValue = $this->router->generate("public_visibility_simulation", ["id" => $line['id']]);
+                    $checkName = "simulation_".$line['id'];
+                    $class = "jsSimulationVisibility jsSim_".$line['Geometry']['Simulation']['id'];
+                }
+                $line['public'] .= ' class="'.$class.'" name="'.$checkName.'" value="'.$checkValue.'"/>';
+            }
+            else { // Not Connected
+                if($isPublicSimulation) {
+                    if($isPublicObject) {
+                        $line['public'] = '<i class="fa fa-fw fa-check-square-o" style="color: green" title="'.$this->getTranslator()->trans("public.object_visible", [], 'admin').'"></i>';
+                    }
+                    else {
+                        $line['public'] = '<i class="fa fa-fw fa-square-o" style="color: orangered" title="'.$this->getTranslator()->trans("public.object_not_visible", [], 'admin').'"></i>';
+                    }
+                }
+                else {
+                    $line['public'] = '<i class="fa fa-fw fa-square" style="color: red" title="'.$this->getTranslator()->trans("public.simulation_not_visible", [], 'admin').'"></i>';
+                }
+
+            }
+
             return $line;
         });
     }
@@ -142,6 +180,7 @@ class PublicDatatable extends AbstractCrudDatatableView
                 "filter_type" => "select",
                 "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArrayForParticleMass($simulations, "particleMass", "particleMass"),
             ))
+
             ->add("Geometry.GeometryType.name", "column", array(
                 "title" => $this->getTranslator()->trans("public.geometrytype", [], 'admin'),
                 "searchable" => true,
@@ -175,6 +214,14 @@ class PublicDatatable extends AbstractCrudDatatableView
                 "filter_type" => "select",
                 "search_type" => "eq",
                 "filter_options" => ["" => "Any"] + $this->getCollectionAsOptionsArray($locations, "name", "name")
+            ))
+            ->add("public", "column", array(
+                "title" => $this->getTranslator()->trans("public.public", [], 'admin'),
+                "searchable" => false
+            ))
+            ->add("Geometry.Simulation.public", "column", array(
+                'visible' => false,
+                "searchable" => false,
             ))
         ;
     }

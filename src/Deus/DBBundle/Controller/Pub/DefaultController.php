@@ -3,29 +3,36 @@
 namespace Deus\DBBundle\Controller\Pub;
 
 use Deus\DBBundle\Entity\ObjectGroup;
+use Deus\DBBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DefaultController extends Controller
 {
     /**
      * @Route("/", name="public_home")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-
-//        $geometries = $this->getDoctrine()->getRepository("DeusDBBundle:Geometry")->findAll();
-//        foreach ($geometries as $geometry) {
-//            $geometry->setZ($geometry->getZ());
-//        }
-//        $this->getDoctrine()->getEntityManager()->flush();
-//        die("OK?");
-
-
         $postDatatable = $this->get('public_datatable');
-        //$postDatatable->buildDatatableView();
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        if($user instanceof User) {
+            if($request->query->get("edit_visibility_mode")) {
+                $user->addRole("ROLE_CHANGE_VISIBILITY");
+            }
+            else {
+                $user->removeRole("ROLE_CHANGE_VISIBILITY");
+            }
+            $this->get('doctrine.orm.entity_manager')->flush();
+        }
 
         return $this->render("@DeusDB/Pub/index.html.twig", array(
             "datatable" => $postDatatable
@@ -97,5 +104,45 @@ class DefaultController extends Controller
         ));
         $response->headers->set("Content-Type", "text/csv");
         return $response;
+    }
+
+    /**
+     * @Route("/toggleVisibility/object/{id}", name="public_visibility_object", options={"expose"=true})
+     * @Method("GET")
+     */
+    public function toggleObjectVisibility(ObjectGroup $object)
+    {
+        if(!$this->getUser() || !$this->getUser()->hasRole('ROLE_CHANGE_VISIBILITY')) {
+            throw new AccessDeniedException();
+        }
+
+        $object->setPublic(!$object->getPublic());
+        $this->get("doctrine.orm.entity_manager")->flush();
+
+        return new Response($object->getPublic() ? "checked" : "");
+    }
+
+    /**
+     * @Route("/toggleVisibility/simulation/{id}", name="public_visibility_simulation", options={"expose"=true})
+     * @Method("GET")
+     */
+    public function toggleObjectSimulationVisibility(ObjectGroup $object)
+    {
+        if(!$this->getUser() || !$this->getUser()->hasRole('ROLE_CHANGE_VISIBILITY')) {
+            throw new AccessDeniedException();
+        }
+
+        $Simulation = $object->getGeometry()->getSimulation();
+        if($Simulation->getPublic()) { // Simulation already public, toggle object
+            $object->setPublic(!$object->getPublic());
+        }
+        else { // Else
+            $object->setPublic(true);
+            $Simulation->setPublic(true);
+        }
+
+        $this->get("doctrine.orm.entity_manager")->flush();
+
+        return new Response($object->getPublic() ? "checked" : "");
     }
 }

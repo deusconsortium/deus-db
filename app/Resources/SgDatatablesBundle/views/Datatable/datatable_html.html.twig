@@ -6,6 +6,7 @@
             <thead>
                 <tr>
                     {% for column in view_columns %}
+                        {% if column.visible %}
                         <td>
                             {% if column.searchable %}
                                 {{ datatable_filter_render(datatable, column, loop.index0) }}
@@ -15,6 +16,7 @@
                                 <input type="hidden" />
                             {% endif %}
                         </td>
+                        {% endif %}
                     {% endfor %}
                 </tr>
             </thead>

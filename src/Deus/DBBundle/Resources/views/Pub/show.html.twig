@@ -40,7 +40,7 @@
                     </tr>
                     <tr>
                         <th>{{ "admin.objectgroup.filePattern"|trans([], "admin") }}</th>
-                        <td>{{ entity.filePattern }}</td>
+                        <td>{{ entity.filePattern|formatPattern }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -51,7 +51,10 @@
 
         <div class="fullpath">
             {% if app.user %}
-            <a href="{{ url("admin_objectgroup_edit", {"id": entity.id}) }}" target="_blank"><i class="fa fa-fw fa-edit"></i> Edit</a>
+            <a href="{{ url("admin_objectgroup_edit", {"id": entity.id}) }}" target="_blank"><i class="fa fa-fw fa-edit"></i> Edit Object</a>
+            <a href="{{ url("admin_geometry_edit", {"id": entity.geometry.id}) }}" target="_blank"><i class="fa fa-fw fa-edit"></i> Edit Geometry</a>
+            <a href="{{ url("admin_simulation_edit", {"id": entity.geometry.simulation.id}) }}" target="_blank"><i class="fa fa-fw fa-edit"></i> Edit Simulation</a>
+
             {% endif %}
             <a href="javascript: self.close()"><i class="fa fa-fw fa-close"></i> Close</a>
         </div>

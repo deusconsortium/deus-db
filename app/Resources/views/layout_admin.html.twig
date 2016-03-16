@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-    {% stylesheets '@data_tables_css' '@admin_lte_all_css' filter="cssrewrite" %}
+    {% stylesheets '@data_tables_css' '@admin_lte_all_css' '@DeusDBBundle/Resources/public/css/admin.css' filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 {% endblock %}

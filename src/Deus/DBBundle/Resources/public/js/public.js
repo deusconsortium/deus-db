@@ -50,4 +50,51 @@ $(document).ready(function() {
         });
     });
 
+    $(document).on('click','.jsVisibility', function(e) {
+        e.preventDefault();
+        var target = $(e.target);
+        target.parent().prepend('<i class="fa fa-fw fa-spinner"></i>');
+        target.css("display","none");
+        $.ajax(e.target.value,
+            {
+                success: function (data) {
+                    target.prop("checked",data == "checked");
+                    target.parent().children(".fa").remove();
+                    target.css("display","inline");
+                }
+            }
+        );
+    });
+
+    $(document).on('click','.jsSimulationVisibility', function(e) {
+        e.preventDefault();
+        if(confirm("This object belongs to a simulation that is not public, do you want to make it public? " +
+                "To make it private again, you'll have to edit the simulation parameters (Show / Edit Simulation)")) {
+            var target = $(e.target);
+            target.parent().prepend('<i class="fa fa-fw fa-spinner"></i>');
+            target.css("display","none");
+            $.ajax(e.target.value,
+                {
+                    success: function (data) {
+                        if("checked" == data) {
+
+                            var classNames = target.attr("class").toString().split(' ');
+                            $.each(classNames, function (i, className) {
+                                if("jsSim_" == className.substr(0,6)) {
+                                    var selector = $("."+className);
+                                    selector.prop("readonly",false);
+                                    selector.removeClass("jsSimulationVisibility");
+                                    selector.addClass("jsVisibility");
+                                }
+                            });
+                            target.prop("checked", true);
+                        }
+                        target.parent().children(".fa").remove();
+                        target.css("display","inline");
+                    }
+                }
+            );
+        }
+    });
+
 } );
