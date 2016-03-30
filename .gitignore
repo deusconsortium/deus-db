@@ -9,5 +9,9 @@
 /build/
 /vendor/
 /bin/
-/composer.phar
-.idea
+web/assetic/
+web/css/
+web/images/
+web/js/
+data/
+
