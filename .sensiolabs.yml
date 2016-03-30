@@ -1,3 +1,18 @@
 rules:
   twig.template_too_complex:
     enabled: false
+  symfony.controller.missing_redirect_after_post:
+    enabled: false
+
+global_exclude_dirs:
+    - vendor
+    - vendors
+    - test
+    - tests
+    - Tests
+    - spec
+    - features
+    - Fixtures
+    - DataFixtures
+    - var
+    - components
