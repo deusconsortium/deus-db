@@ -126,7 +126,7 @@ abstract class SourceBaseCrudController extends Controller
      * @param $action
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function crudAction($entity, $action)
+    protected function crudAction($entity, $action)
     {
         // Before, send preAction
         $event = $this->dispatchCrudEventPreAction($entity, $action);
@@ -171,7 +171,7 @@ abstract class SourceBaseCrudController extends Controller
      * @param $action
      * @return AdminCrudEvent
      */
-    public function dispatchCrudEventPreAction($entity, $action)
+    protected function dispatchCrudEventPreAction($entity, $action)
     {
         return $this->dispatchCrudEvent($entity, $action, "sbo.crud.preAction");
     }
@@ -182,7 +182,7 @@ abstract class SourceBaseCrudController extends Controller
      * @param $action
      * @return AdminCrudEvent
      */
-    public function dispatchCrudEventPostAction($entity, $action)
+    protected function dispatchCrudEventPostAction($entity, $action)
     {
         return $this->dispatchCrudEvent($entity, $action, "sbo.crud.postAction");
     }
@@ -194,7 +194,7 @@ abstract class SourceBaseCrudController extends Controller
      * @param $eventName
      * @return AdminCrudEvent
      */
-    public function dispatchCrudEvent($entity, $action, $eventName)
+    protected function dispatchCrudEvent($entity, $action, $eventName)
     {
         $event = new AdminCrudEvent($entity, $action, $this->getUser());
         $this->get("event_dispatcher")->dispatch($eventName, $event);
@@ -207,7 +207,7 @@ abstract class SourceBaseCrudController extends Controller
      * @param $action
      * @return AdminAssociationActionEvent
      */
-    public function dispatchAssociationActionEventPreAction($entity, $action, $target)
+    protected function dispatchAssociationActionEventPreAction($entity, $action, $target)
     {
         return $this->dispatchAssociationActionEvent($entity, $action, $target, "sbo.association.preAction");
     }
@@ -218,7 +218,7 @@ abstract class SourceBaseCrudController extends Controller
      * @param $action
      * @return AdminAssociationActionEvent
      */
-    public function dispatchAssociationActionEventPostAction($entity, $action, $target)
+    protected function dispatchAssociationActionEventPostAction($entity, $action, $target)
     {
         return $this->dispatchAssociationActionEvent($entity, $action, $target, "sbo.association.postAction");
     }
@@ -231,7 +231,7 @@ abstract class SourceBaseCrudController extends Controller
      * @param $eventName
      * @return AdminAssociationActionEvent
      */
-    public function dispatchAssociationActionEvent($entity, $action, $target, $eventName)
+    protected function dispatchAssociationActionEvent($entity, $action, $target, $eventName)
     {
         $event = new AdminAssociationActionEvent($entity, $action, $target, $this->getUser());
         $this->get("event_dispatcher")->dispatch($eventName, $event);
@@ -243,7 +243,7 @@ abstract class SourceBaseCrudController extends Controller
      * @param $entity
      * @return Response
      */
-    public function manageShow($entity)
+    protected function manageShow($entity)
     {
         return $this->render($this->getShowTemplate(), array(
             "entity" => $entity
@@ -254,7 +254,7 @@ abstract class SourceBaseCrudController extends Controller
      * Generic index controller helper
      * @return Response
      */
-    public function manageIndex()
+    protected function manageIndex()
     {
         $postDatatable = $this->get($this->route_name . '_datatable');
         $postDatatable->buildDatatableView();
@@ -271,7 +271,7 @@ abstract class SourceBaseCrudController extends Controller
      * @return Response
      * @throws \Exception
      */
-    public function manageFieldIndex($entity, $field)
+    protected function manageFieldIndex($entity, $field)
     {
         if ($entity == null || $field == null || $this->has($this->route_name.'_'.$field.'_datatable') == false) {
             throw new \Exception("All the parameters are not correctly set");
@@ -288,7 +288,7 @@ abstract class SourceBaseCrudController extends Controller
     /**
      * @return string
      */
-    public function getIndexTemplate($field = null)
+    protected function getIndexTemplate($field = null)
     {
         if ($field != null) {
             return $this->bundle_name.':Admin/'.$this->entity_name.'/'.$field.':'."index.html.twig";
@@ -299,7 +299,7 @@ abstract class SourceBaseCrudController extends Controller
     /**
      * @return Response
      */
-    public function manageDatatableJson()
+    protected function manageDatatableJson()
     {
         $postDatatable = $this->get($this->route_name . '_datatable');
         $datatable = $this->get("sg_datatables.datatable")->getDatatable($postDatatable);
@@ -314,7 +314,7 @@ abstract class SourceBaseCrudController extends Controller
      * @return Response
      * @throws \Exception
      */
-    public function manageFieldDatatableJson($entity, $field, $reversedField, $type = "one")
+    protected function manageFieldDatatableJson($entity, $field, $reversedField, $type = "one")
     {
         if ($entity == null || $field == null || $this->has($this->route_name.'_'.$field.'_datatable') == false) {
             throw new \Exception("All the parameters are not correctly set");
@@ -373,7 +373,7 @@ abstract class SourceBaseCrudController extends Controller
      * @param closure|null $renderResult
      * @return JsonResponse
      */
-    public function searchSelect2(Request $request, $class, $fieldSearchFunction = "title", $renderResult = null)
+    protected function searchSelect2(Request $request, $class, $fieldSearchFunction = "title", $renderResult = null)
     {
         // 3rd parameter: use the following code to have a more flexible search
         // $querySearch = function(\Doctrine\ORM\QueryBuilder $queryBuilder, $query) {

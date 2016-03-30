@@ -13,7 +13,7 @@ abstract class BaseCrudController extends SourceBaseCrudController
      * Generic index controller helper
      * @return Response
      */
-    public function manageIndex()
+    protected function manageIndex()
     {
         $postDatatable = $this->get($this->route_name . '_datatable');
         //$postDatatable->buildDatatableView();
@@ -30,7 +30,7 @@ abstract class BaseCrudController extends SourceBaseCrudController
      * @return Response
      * @throws \Exception
      */
-    public function manageFieldIndex($entity, $field)
+    protected function manageFieldIndex($entity, $field)
     {
         if ($entity == null || $field == null || $this->has($this->route_name.'_'.$field.'_datatable') == false) {
             throw new \Exception("All the parameters are not correctly set");

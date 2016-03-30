@@ -60,10 +60,8 @@ class ArchiveExplorerService extends FileExplorerService
             $simulationFiles = new DeusArchiveManager($path);
         }
         catch(ContextErrorException $error) {
-            die($error->getMessage());
-            $this->logger->error("DeusFileManager Error", (array) $error);
-            //dump($error);
-            throw new \Exception("DeusFileManager Error");
+            $this->logger->error("ArchiveExplorer Error", (array) $error);
+            throw new \Exception("ArchiveExplorer Error");
         }
 
         $this->objectFormat = $file_format_id;
