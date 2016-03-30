@@ -58,39 +58,6 @@ class SimulationController extends BaseCrudController
     }
 
     /**
-    * search Simulation.
-    *
-    * @Route("/searchBoxlen", name="admin_simulation_boxlen_search", options={"expose"=true})
-    *
-    * @return JsonResponse
-    */
-    public function searchBoxlenAction(Request $request)
-    {
-        return $this->searchSelect2($request, 'Deus\DBBundle\Entity\Boxlen', '');
-    }        
-    /**
-    * search Simulation.
-    *
-    * @Route("/searchResolution", name="admin_simulation_resolution_search", options={"expose"=true})
-    *
-    * @return JsonResponse
-    */
-    public function searchResolutionAction(Request $request)
-    {
-        return $this->searchSelect2($request, 'Deus\DBBundle\Entity\Resolution', '');
-    }        
-    /**
-    * search Simulation.
-    *
-    * @Route("/searchCosmology", name="admin_simulation_cosmology_search", options={"expose"=true})
-    *
-    * @return JsonResponse
-    */
-    public function searchCosmologyAction(Request $request)
-    {
-        return $this->searchSelect2($request, 'Deus\DBBundle\Entity\Cosmology', 'name');
-    }        
-    /**
     * Edit a Simulation.
     *
     * @Route("/{id}/edit", name="admin_simulation_edit", options={"expose"=true})

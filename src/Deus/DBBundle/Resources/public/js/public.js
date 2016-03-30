@@ -57,6 +57,7 @@ $(document).ready(function() {
         target.css("display","none");
         $.ajax(e.target.value,
             {
+                method: "POST",
                 success: function (data) {
                     target.prop("checked",data == "checked");
                     target.parent().children(".fa").remove();
@@ -75,6 +76,7 @@ $(document).ready(function() {
             target.css("display","none");
             $.ajax(e.target.value,
                 {
+                    method: "POST",
                     success: function (data) {
                         if("checked" == data) {
 

@@ -32,8 +32,10 @@ class SimulationType extends AbstractType
             ->get("properties")->addModelTransformer(new CallbackTransformer(
                 function ($originalProperties) {
                     $res = "";
-                    foreach($originalProperties as $key => $value) {
-                        $res .= "$key=$value\n";
+                    if($originalProperties) {
+                        foreach ($originalProperties as $key => $value) {
+                            $res .= "$key=$value\n";
+                        }
                     }
                     return $res;
                 },

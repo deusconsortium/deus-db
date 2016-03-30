@@ -70,28 +70,6 @@ class GeometryController extends BaseCrudController
     }
 
     /**
-    * search Geometry.
-    *
-    * @Route("/searchSimulation", name="admin_geometry_simulation_search", options={"expose"=true})
-    *
-    * @return JsonResponse
-    */
-    public function searchSimulationAction(Request $request)
-    {
-        return $this->searchSelect2($request, 'Deus\DBBundle\Entity\Simulation', '');
-    }        
-    /**
-    * search Geometry.
-    *
-    * @Route("/searchGeometrytype", name="admin_geometry_geometrytype_search", options={"expose"=true})
-    *
-    * @return JsonResponse
-    */
-    public function searchGeometrytypeAction(Request $request)
-    {
-        return $this->searchSelect2($request, 'Deus\DBBundle\Entity\GeometryType', 'name');
-    }        
-    /**
     * Edit a Geometry.
     *
     * @Route("/{id}/edit", name="admin_geometry_edit", options={"expose"=true})

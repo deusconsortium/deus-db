@@ -26,28 +26,24 @@ class ObjectGroupType extends AbstractType
             ->add('public', null)
             ->add("ObjectType", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Objecttype',
-//                   'searchRouteName'   => 'admin_objectgroup_objecttype_search',
                    'property'          => 'name',
                    'placeholder'       => 'search_placeholder',
                    'required'          => false
                ])
             ->add("ObjectFormat", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Objectformat',
-//                   'searchRouteName'   => 'admin_objectgroup_objectformat_search',
                    'property'          => 'name',
                    'placeholder'       => 'search_placeholder',
                    'required'          => false
                ])
-            ->add("Geometry", "entity_select2", [
+            ->add("Geometry", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Geometry',
-                   'searchRouteName'   => 'admin_objectgroup_geometry_search',
                    'property'          => '',
                    'placeholder'       => 'search_placeholder',
                    'required'          => false
                ])
             ->add("Storage", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Storage',
-//                   'searchRouteName'   => 'admin_objectgroup_storage_search',
                    'property'          => 'name',
                    'placeholder'       => 'search_placeholder',
                    'required'          => false

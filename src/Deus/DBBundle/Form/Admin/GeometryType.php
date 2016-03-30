@@ -20,16 +20,14 @@ class GeometryType extends AbstractType
         $builder
             ->add('Z', null, ['required' => false])
             ->add('angle', null, ['required' => false])
-            ->add("Simulation", "entity_select2", [
+            ->add("Simulation", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Simulation',
-                   'searchRouteName'   => 'admin_geometry_simulation_search',
                    'property'          => '',
                    'placeholder'       => 'search_placeholder',
                    'required'          => true
                ])
             ->add("GeometryType", "entity", [
                    'class'             => 'Deus\DBBundle\Entity\Geometrytype',
-//                   'searchRouteName'   => 'admin_geometry_geometrytype_search',
                    'property'          => 'name',
                    'placeholder'       => 'search_placeholder',
                    'required'          => true
@@ -38,8 +36,10 @@ class GeometryType extends AbstractType
             ->get("properties")->addModelTransformer(new CallbackTransformer(
                 function ($originalProperties) {
                     $res = "";
-                    foreach($originalProperties as $key => $value) {
-                        $res .= "$key=$value\n";
+                    if($originalProperties) {
+                        foreach($originalProperties as $key => $value) {
+                            $res .= "$key=$value\n";
+                        }
                     }
                     return $res;
                 },

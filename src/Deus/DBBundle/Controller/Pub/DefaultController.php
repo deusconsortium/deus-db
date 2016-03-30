@@ -108,7 +108,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/toggleVisibility/object/{id}", name="public_visibility_object", options={"expose"=true})
-     * @Method("GET")
+     * @Method("POST")
      */
     public function toggleObjectVisibilityAction(ObjectGroup $object)
     {
@@ -124,7 +124,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/toggleVisibility/simulation/{id}", name="public_visibility_simulation", options={"expose"=true})
-     * @Method("GET")
+     * @Method("POST")
      */
     public function toggleObjectSimulationVisibilityAction(ObjectGroup $object)
     {

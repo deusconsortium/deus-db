@@ -1,0 +1,3 @@
+rules:
+  twig.template_too_complex:
+    enabled: false
