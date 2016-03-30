@@ -1,0 +1,4 @@
+common_js:
+    inputs:
+        - '@SedonaSBOAdminThemeBundle/Resources/public/vendor/jquery/dist/jquery.js'
+        - '@SedonaSBOAdminThemeBundle/Resources/public/vendor/jquery-ui/ui/jquery-ui.js'

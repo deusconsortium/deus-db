@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eb442395d9ac80f4cbe8bbcf5d28d026",
-    "content-hash": "5f4e58862ec3f3f8a5f1de9c5bf48f68",
+    "hash": "f7ea75da5bd8eab295e44dfdad2ff22d",
+    "content-hash": "d14a4a2d7c5a6b23cf5c3e76771a6938",
     "packages": [
         {
             "name": "datatables/datatables",
@@ -668,7 +668,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/86d2b1c9c195c12175551d02a475067977c0afcf",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/c0a2f5d069e56e2ac7a42719dfda63fd996a39ed",
                 "reference": "86d2b1c9c195c12175551d02a475067977c0afcf",
                 "shasum": ""
             },
@@ -901,7 +901,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/360ad927e2593deca126379a330704605ad0eeac",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/5f9429e5e6dd31d0f36c8951daa184112a39e195",
                 "reference": "360ad927e2593deca126379a330704605ad0eeac",
                 "shasum": ""
             },
@@ -1037,50 +1037,6 @@
             "time": "2016-01-05 21:34:58"
         },
         {
-            "name": "ezyang/htmlpurifier",
-            "version": "v4.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/ae1828d955112356f7677c465f94f7deb7d27a40",
-                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "HTMLPurifier": "library/"
-                },
-                "files": [
-                    "library/HTMLPurifier.composer.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL"
-            ],
-            "authors": [
-                {
-                    "name": "Edward Z. Yang",
-                    "email": "admin@htmlpurifier.org",
-                    "homepage": "http://ezyang.com"
-                }
-            ],
-            "description": "Standards compliant HTML filter written in PHP",
-            "homepage": "http://htmlpurifier.org/",
-            "keywords": [
-                "html"
-            ],
-            "time": "2015-08-05 01:03:42"
-        },
-        {
             "name": "friendsofsymfony/jsrouting-bundle",
             "version": "1.5.4",
             "source": {
@@ -1148,7 +1104,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/8f1fc2273b37c61ddcc1620abf4500320a23763e",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/16b04c49af05dd3fb381e4abe04f0e5e231ac76d",
                 "reference": "8f1fc2273b37c61ddcc1620abf4500320a23763e",
                 "shasum": ""
             },
@@ -1206,118 +1162,6 @@
                 "User management"
             ],
             "time": "2016-01-27 09:36:48"
-        },
-        {
-            "name": "helios-ag/fm-elfinder-bundle",
-            "version": "3.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/helios-ag/FMElfinderBundle.git",
-                "reference": "d62b4b17d3efea72239f0a56d5b4c9c557292c09"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/helios-ag/FMElfinderBundle/zipball/d62b4b17d3efea72239f0a56d5b4c9c557292c09",
-                "reference": "d62b4b17d3efea72239f0a56d5b4c9c557292c09",
-                "shasum": ""
-            },
-            "require": {
-                "helios-ag/fm-elfinder-php-connector": "~2.0",
-                "php": ">=5.3.3",
-                "symfony/framework-bundle": "~2.4",
-                "symfony/twig-bundle": "~2.4"
-            },
-            "require-dev": {
-                "doctrine/doctrine-bundle": "~1.0",
-                "matthiasnoback/symfony-config-test": "0.*",
-                "matthiasnoback/symfony-dependency-injection-test": "0.*",
-                "symfony/form": "~2.1"
-            },
-            "suggest": {
-                "egeloen/ckeditor-bundle": "CKEditor Bundle by Egeloen",
-                "stfalcon/tinymce-bundle": "TinyMCE Bundle by Stfalcon",
-                "trsteel/ckeditor-bundle": "CKEditor Bundle by trsteel"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "FM\\ElfinderBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Al Ganiev",
-                    "email": "helios.ag@gmail.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://github.com/helios-ag/FMElfinderBundle/contributors"
-                }
-            ],
-            "description": "ElFinder bundle, adds ElFinder file manager to your Symfony2 project",
-            "homepage": "https://github.com/helios-ag/FMElfinderBundle",
-            "keywords": [
-                "elfinder",
-                "file manager"
-            ],
-            "time": "2015-01-20 02:53:32"
-        },
-        {
-            "name": "helios-ag/fm-elfinder-php-connector",
-            "version": "2.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/helios-ag/ElFinderPHP.git",
-                "reference": "ed896cc7f2a5ecb6c0009747927f40e36015ad9f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/helios-ag/ElFinderPHP/zipball/ed896cc7f2a5ecb6c0009747927f40e36015ad9f",
-                "reference": "ed896cc7f2a5ecb6c0009747927f40e36015ad9f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "suggest": {
-                "aws/aws-sdk-php": "Allows you to use AWS S3 storage",
-                "dropbox-php/dropbox-php": "Allows you to use Dropbox storage"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "FM\\ElFinderPHP\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3 Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Al Ganiev",
-                    "email": "helios.ag@gmail.com"
-                },
-                {
-                    "name": "ElFinder authors",
-                    "homepage": "https://github.com/Studio-42/elFinder"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://github.com/helios-ag/ElFinderPHP/contributors"
-                }
-            ],
-            "description": "ElFinder PHP backend, 5.3 compliant",
-            "homepage": "http://github.com/helios-ag/ElFinderPHP",
-            "keywords": [
-                "elfinder",
-                "filemanager"
-            ],
-            "time": "2015-11-16 04:03:08"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1567,7 +1411,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSDiExtraBundle/zipball/e2181b81c9f8ecdc1538404bb192e442d7469b3d",
+                "url": "https://api.github.com/repos/schmittjoh/JMSDiExtraBundle/zipball/fb2da6655761718bb61c1367ceafd9ff4f4bccc1",
                 "reference": "e2181b81c9f8ecdc1538404bb192e442d7469b3d",
                 "shasum": ""
             },
@@ -1672,258 +1516,6 @@
                 "yaml"
             ],
             "time": "2014-07-12 07:13:19"
-        },
-        {
-            "name": "knplabs/knp-components",
-            "version": "1.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/knp-components.git",
-                "reference": "4503275e4f1a0e9667aa65b0ebed842ef2d8d8ba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/knp-components/zipball/4503275e4f1a0e9667aa65b0ebed842ef2d8d8ba",
-                "reference": "4503275e4f1a0e9667aa65b0ebed842ef2d8d8ba",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "doctrine/mongodb-odm": "~1.0@beta",
-                "doctrine/orm": "~2.4",
-                "phpunit/phpunit": "~4.2",
-                "ruflin/elastica": "~1.0",
-                "symfony/event-dispatcher": "~2.5"
-            },
-            "suggest": {
-                "doctrine/common": "to allow usage pagination with Doctrine ArrayCollection",
-                "doctrine/mongodb-odm": "to allow usage pagination with Doctrine ODM MongoDB",
-                "doctrine/orm": "to allow usage pagination with Doctrine ORM",
-                "propel/propel1": "to allow usage pagination with Propel ORM",
-                "ruflin/Elastica": "to allow usage pagination with ElasticSearch Client",
-                "solarium/solarium": "to allow usage pagination with Solarium Client"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Knp\\Component": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "KnpLabs Team",
-                    "homepage": "http://knplabs.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://github.com/KnpLabs/knp-components/contributors"
-                }
-            ],
-            "description": "Knplabs component library",
-            "homepage": "http://github.com/KnpLabs/knp-components",
-            "keywords": [
-                "components",
-                "knp",
-                "knplabs",
-                "pager",
-                "paginator"
-            ],
-            "time": "2015-09-01 10:54:53"
-        },
-        {
-            "name": "knplabs/knp-menu",
-            "version": "v2.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/KnpMenu.git",
-                "reference": "9917b999a3c3d3901386d60c4888b07679291031"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpMenu/zipball/9917b999a3c3d3901386d60c4888b07679291031",
-                "reference": "9917b999a3c3d3901386d60c4888b07679291031",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "pimple/pimple": "~1.0",
-                "silex/silex": "~1.0",
-                "symfony/phpunit-bridge": "~2.7|~3.0",
-                "symfony/routing": "~2.3|~3.0",
-                "twig/twig": "~1.16|~2.0"
-            },
-            "suggest": {
-                "pimple/pimple": "for the built-in implementations of the menu provider and renderer provider",
-                "silex/silex": "for the integration with your silex application",
-                "twig/twig": "for the TwigRenderer and the integration with your templates"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Knp\\Menu\\": "src/Knp/Menu"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christophe Coevoet",
-                    "email": "stof@notk.org"
-                },
-                {
-                    "name": "KnpLabs",
-                    "homepage": "http://knplabs.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://github.com/KnpLabs/KnpMenu/contributors"
-                }
-            ],
-            "description": "An object oriented menu library",
-            "homepage": "http://knplabs.com",
-            "keywords": [
-                "menu",
-                "tree"
-            ],
-            "time": "2016-01-08 15:42:54"
-        },
-        {
-            "name": "knplabs/knp-menu-bundle",
-            "version": "v2.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/KnpMenuBundle.git",
-                "reference": "90aff8e39274d1225dfa3bb7b1dd4e47b7312dca"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/90aff8e39274d1225dfa3bb7b1dd4e47b7312dca",
-                "reference": "90aff8e39274d1225dfa3bb7b1dd4e47b7312dca",
-                "shasum": ""
-            },
-            "require": {
-                "knplabs/knp-menu": "~2.1",
-                "symfony/framework-bundle": "~2.3|~3.0"
-            },
-            "require-dev": {
-                "symfony/expression-language": "~2.4|~3.0",
-                "symfony/phpunit-bridge": "~2.7|~3.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Knp\\Bundle\\MenuBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christophe Coevoet",
-                    "email": "stof@notk.org"
-                },
-                {
-                    "name": "Knplabs",
-                    "homepage": "http://knplabs.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://github.com/KnpLabs/KnpMenuBundle/contributors"
-                }
-            ],
-            "description": "This bundle provides an integration of the KnpMenu library",
-            "keywords": [
-                "menu"
-            ],
-            "time": "2015-12-15 12:06:23"
-        },
-        {
-            "name": "knplabs/knp-paginator-bundle",
-            "version": "2.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "5147740faff4d32e6f42acf64475314c35320fa4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/5147740faff4d32e6f42acf64475314c35320fa4",
-                "reference": "5147740faff4d32e6f42acf64475314c35320fa4",
-                "shasum": ""
-            },
-            "require": {
-                "knplabs/knp-components": "~1.2",
-                "php": ">=5.3.3",
-                "symfony/framework-bundle": "~2.3|~3.0",
-                "twig/twig": "~1.12|~2"
-            },
-            "require-dev": {
-                "symfony/expression-language": "~2.4|~3.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Knp\\Bundle\\PaginatorBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "KnpLabs Team",
-                    "homepage": "http://knplabs.com"
-                },
-                {
-                    "name": "Symfony2 Community",
-                    "homepage": "http://github.com/KnpLabs/KnpPaginatorBundle/contributors"
-                }
-            ],
-            "description": "Paginator bundle for Symfony2 to automate pagination and simplify sorting and other features",
-            "homepage": "http://github.com/KnpLabs/KnpPaginatorBundle",
-            "keywords": [
-                "Symfony2",
-                "bundle",
-                "knp",
-                "knplabs",
-                "pager",
-                "pagination",
-                "paginator"
-            ],
-            "time": "2015-11-23 17:51:40"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -2329,82 +1921,6 @@
             ],
             "description": "Allows installation of Components via Composer.",
             "time": "2015-08-10 12:35:38"
-        },
-        {
-            "name": "sedona/sbo",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://git.sedona.fr/php/sedona-sbo.git",
-                "reference": "70be5e7aab1036f5eb475013853fa1c3aaeb28b8"
-            },
-            "require": {
-                "datatables/datatables": "1.10.4",
-                "doctrine/doctrine-bundle": "~1.2",
-                "doctrine/orm": "~2.2,>=2.2.3",
-                "friendsofsymfony/jsrouting-bundle": "@stable",
-                "friendsofsymfony/user-bundle": "~2.0@dev",
-                "helios-ag/fm-elfinder-bundle": "~3.2",
-                "incenteev/composer-parameter-handler": "~2.0",
-                "jms/di-extra-bundle": "dev-master",
-                "knplabs/knp-menu-bundle": "~2.0",
-                "knplabs/knp-paginator-bundle": "~2.4",
-                "moment/moment": "2.6.0",
-                "php": ">=5.3.3",
-                "sensio/distribution-bundle": "~3.0",
-                "sensio/framework-extra-bundle": "~3.0",
-                "sg/datatablesbundle": "0.6.*",
-                "symfony/assetic-bundle": "~2.3",
-                "symfony/monolog-bundle": "~2.4",
-                "symfony/swiftmailer-bundle": "~2.3",
-                "symfony/symfony": "~2.5",
-                "trsteel/ckeditor-bundle": "~1.6",
-                "twig/extensions": "~1.0"
-            },
-            "require-dev": {
-                "sensio/generator-bundle": "~2.3"
-            },
-            "type": "library",
-            "extra": {
-                "symfony-app-dir": "app",
-                "symfony-web-dir": "web",
-                "symfony-assets-install": "relative",
-                "incenteev-parameters": {
-                    "file": "app/config/parameters.yml"
-                },
-                "branch-alias": {
-                    "dev-master": "2.6-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "": "src/",
-                    "SymfonyStandard": "app/"
-                }
-            },
-            "scripts": {
-                "post-root-package-install": [
-                    "SymfonyStandard\\Composer::hookRootPackageInstall"
-                ],
-                "post-install-cmd": [
-                    "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-                    "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-                    "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-                    "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-                    "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-                    "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
-                ],
-                "post-update-cmd": [
-                    "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-                    "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-                    "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-                    "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-                    "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-                    "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
-                ]
-            },
-            "description": "Sedona Back-Office helper",
-            "time": "2015-05-13 13:05:07"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -3456,62 +2972,6 @@
             "time": "2016-01-14 12:01:11"
         },
         {
-            "name": "trsteel/ckeditor-bundle",
-            "version": "v1.10.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/trsteel88/TrsteelCkeditorBundle.git",
-                "reference": "a0dcded08e0c36f5b4bbd0dcb76b54f38632dcc6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/trsteel88/TrsteelCkeditorBundle/zipball/a0dcded08e0c36f5b4bbd0dcb76b54f38632dcc6",
-                "reference": "a0dcded08e0c36f5b4bbd0dcb76b54f38632dcc6",
-                "shasum": ""
-            },
-            "require": {
-                "ezyang/htmlpurifier": "~4.0",
-                "php": ">=5.3.0",
-                "symfony/form": "~2.1|~3.0",
-                "symfony/framework-bundle": "~2.1|~3.0",
-                "twig/twig": "~1.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0",
-                "symfony/phpunit-bridge": "~2.7",
-                "symfony/twig-bundle": "~2.1|~3.0",
-                "symfony/yaml": "~2.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.10.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Trsteel\\CkeditorBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Trent Steel",
-                    "email": "trsteel88@gmail.com"
-                }
-            ],
-            "description": "Symfony2 bundle for easy integration of the CKEditor WYSIWYG",
-            "keywords": [
-                "CKEditor",
-                "editor",
-                "wysiwyg"
-            ],
-            "time": "2016-01-05 02:39:25"
-        },
-        {
             "name": "twig/extensions",
             "version": "v1.3.0",
             "source": {
@@ -3773,6 +3233,414 @@
     ],
     "packages-dev": [
         {
+            "name": "ezyang/htmlpurifier",
+            "version": "v4.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezyang/htmlpurifier.git",
+                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/ae1828d955112356f7677c465f94f7deb7d27a40",
+                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HTMLPurifier": "library/"
+                },
+                "files": [
+                    "library/HTMLPurifier.composer.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Edward Z. Yang",
+                    "email": "admin@htmlpurifier.org",
+                    "homepage": "http://ezyang.com"
+                }
+            ],
+            "description": "Standards compliant HTML filter written in PHP",
+            "homepage": "http://htmlpurifier.org/",
+            "keywords": [
+                "html"
+            ],
+            "time": "2015-08-05 01:03:42"
+        },
+        {
+            "name": "helios-ag/fm-elfinder-bundle",
+            "version": "3.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helios-ag/FMElfinderBundle.git",
+                "reference": "d62b4b17d3efea72239f0a56d5b4c9c557292c09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helios-ag/FMElfinderBundle/zipball/d62b4b17d3efea72239f0a56d5b4c9c557292c09",
+                "reference": "d62b4b17d3efea72239f0a56d5b4c9c557292c09",
+                "shasum": ""
+            },
+            "require": {
+                "helios-ag/fm-elfinder-php-connector": "~2.0",
+                "php": ">=5.3.3",
+                "symfony/framework-bundle": "~2.4",
+                "symfony/twig-bundle": "~2.4"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "~1.0",
+                "matthiasnoback/symfony-config-test": "0.*",
+                "matthiasnoback/symfony-dependency-injection-test": "0.*",
+                "symfony/form": "~2.1"
+            },
+            "suggest": {
+                "egeloen/ckeditor-bundle": "CKEditor Bundle by Egeloen",
+                "stfalcon/tinymce-bundle": "TinyMCE Bundle by Stfalcon",
+                "trsteel/ckeditor-bundle": "CKEditor Bundle by trsteel"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "FM\\ElfinderBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Al Ganiev",
+                    "email": "helios.ag@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/helios-ag/FMElfinderBundle/contributors"
+                }
+            ],
+            "description": "ElFinder bundle, adds ElFinder file manager to your Symfony2 project",
+            "homepage": "https://github.com/helios-ag/FMElfinderBundle",
+            "keywords": [
+                "elfinder",
+                "file manager"
+            ],
+            "time": "2015-01-20 02:53:32"
+        },
+        {
+            "name": "helios-ag/fm-elfinder-php-connector",
+            "version": "2.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helios-ag/ElFinderPHP.git",
+                "reference": "ed896cc7f2a5ecb6c0009747927f40e36015ad9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helios-ag/ElFinderPHP/zipball/ed896cc7f2a5ecb6c0009747927f40e36015ad9f",
+                "reference": "ed896cc7f2a5ecb6c0009747927f40e36015ad9f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "aws/aws-sdk-php": "Allows you to use AWS S3 storage",
+                "dropbox-php/dropbox-php": "Allows you to use Dropbox storage"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FM\\ElFinderPHP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3 Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Al Ganiev",
+                    "email": "helios.ag@gmail.com"
+                },
+                {
+                    "name": "ElFinder authors",
+                    "homepage": "https://github.com/Studio-42/elFinder"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/helios-ag/ElFinderPHP/contributors"
+                }
+            ],
+            "description": "ElFinder PHP backend, 5.3 compliant",
+            "homepage": "http://github.com/helios-ag/ElFinderPHP",
+            "keywords": [
+                "elfinder",
+                "filemanager"
+            ],
+            "time": "2015-11-16 04:03:08"
+        },
+        {
+            "name": "knplabs/knp-components",
+            "version": "1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/knp-components.git",
+                "reference": "4503275e4f1a0e9667aa65b0ebed842ef2d8d8ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/knp-components/zipball/4503275e4f1a0e9667aa65b0ebed842ef2d8d8ba",
+                "reference": "4503275e4f1a0e9667aa65b0ebed842ef2d8d8ba",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "doctrine/mongodb-odm": "~1.0@beta",
+                "doctrine/orm": "~2.4",
+                "phpunit/phpunit": "~4.2",
+                "ruflin/elastica": "~1.0",
+                "symfony/event-dispatcher": "~2.5"
+            },
+            "suggest": {
+                "doctrine/common": "to allow usage pagination with Doctrine ArrayCollection",
+                "doctrine/mongodb-odm": "to allow usage pagination with Doctrine ODM MongoDB",
+                "doctrine/orm": "to allow usage pagination with Doctrine ORM",
+                "propel/propel1": "to allow usage pagination with Propel ORM",
+                "ruflin/Elastica": "to allow usage pagination with ElasticSearch Client",
+                "solarium/solarium": "to allow usage pagination with Solarium Client"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Knp\\Component": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KnpLabs Team",
+                    "homepage": "http://knplabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://github.com/KnpLabs/knp-components/contributors"
+                }
+            ],
+            "description": "Knplabs component library",
+            "homepage": "http://github.com/KnpLabs/knp-components",
+            "keywords": [
+                "components",
+                "knp",
+                "knplabs",
+                "pager",
+                "paginator"
+            ],
+            "time": "2015-09-01 10:54:53"
+        },
+        {
+            "name": "knplabs/knp-menu",
+            "version": "v2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/KnpMenu.git",
+                "reference": "9917b999a3c3d3901386d60c4888b07679291031"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenu/zipball/9917b999a3c3d3901386d60c4888b07679291031",
+                "reference": "9917b999a3c3d3901386d60c4888b07679291031",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "pimple/pimple": "~1.0",
+                "silex/silex": "~1.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0",
+                "symfony/routing": "~2.3|~3.0",
+                "twig/twig": "~1.16|~2.0"
+            },
+            "suggest": {
+                "pimple/pimple": "for the built-in implementations of the menu provider and renderer provider",
+                "silex/silex": "for the integration with your silex application",
+                "twig/twig": "for the TwigRenderer and the integration with your templates"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Knp\\Menu\\": "src/Knp/Menu"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                },
+                {
+                    "name": "KnpLabs",
+                    "homepage": "http://knplabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/KnpLabs/KnpMenu/contributors"
+                }
+            ],
+            "description": "An object oriented menu library",
+            "homepage": "http://knplabs.com",
+            "keywords": [
+                "menu",
+                "tree"
+            ],
+            "time": "2016-01-08 15:42:54"
+        },
+        {
+            "name": "knplabs/knp-menu-bundle",
+            "version": "v2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/KnpMenuBundle.git",
+                "reference": "90aff8e39274d1225dfa3bb7b1dd4e47b7312dca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/90aff8e39274d1225dfa3bb7b1dd4e47b7312dca",
+                "reference": "90aff8e39274d1225dfa3bb7b1dd4e47b7312dca",
+                "shasum": ""
+            },
+            "require": {
+                "knplabs/knp-menu": "~2.1",
+                "symfony/framework-bundle": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.4|~3.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Knp\\Bundle\\MenuBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                },
+                {
+                    "name": "Knplabs",
+                    "homepage": "http://knplabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/KnpLabs/KnpMenuBundle/contributors"
+                }
+            ],
+            "description": "This bundle provides an integration of the KnpMenu library",
+            "keywords": [
+                "menu"
+            ],
+            "time": "2015-12-15 12:06:23"
+        },
+        {
+            "name": "knplabs/knp-paginator-bundle",
+            "version": "2.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
+                "reference": "5147740faff4d32e6f42acf64475314c35320fa4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/5147740faff4d32e6f42acf64475314c35320fa4",
+                "reference": "5147740faff4d32e6f42acf64475314c35320fa4",
+                "shasum": ""
+            },
+            "require": {
+                "knplabs/knp-components": "~1.2",
+                "php": ">=5.3.3",
+                "symfony/framework-bundle": "~2.3|~3.0",
+                "twig/twig": "~1.12|~2"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.4|~3.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Knp\\Bundle\\PaginatorBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KnpLabs Team",
+                    "homepage": "http://knplabs.com"
+                },
+                {
+                    "name": "Symfony2 Community",
+                    "homepage": "http://github.com/KnpLabs/KnpPaginatorBundle/contributors"
+                }
+            ],
+            "description": "Paginator bundle for Symfony2 to automate pagination and simplify sorting and other features",
+            "homepage": "http://github.com/KnpLabs/KnpPaginatorBundle",
+            "keywords": [
+                "Symfony2",
+                "bundle",
+                "knp",
+                "knplabs",
+                "pager",
+                "pagination",
+                "paginator"
+            ],
+            "time": "2015-11-23 17:51:40"
+        },
+        {
             "name": "sensio/generator-bundle",
             "version": "v2.5.3",
             "target-dir": "Sensio/Bundle/GeneratorBundle",
@@ -3819,12 +3687,67 @@
             ],
             "description": "This bundle generates code for you",
             "time": "2015-03-17 06:36:52"
+        },
+        {
+            "name": "trsteel/ckeditor-bundle",
+            "version": "v1.10.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/trsteel88/TrsteelCkeditorBundle.git",
+                "reference": "a0dcded08e0c36f5b4bbd0dcb76b54f38632dcc6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/trsteel88/TrsteelCkeditorBundle/zipball/a0dcded08e0c36f5b4bbd0dcb76b54f38632dcc6",
+                "reference": "a0dcded08e0c36f5b4bbd0dcb76b54f38632dcc6",
+                "shasum": ""
+            },
+            "require": {
+                "ezyang/htmlpurifier": "~4.0",
+                "php": ">=5.3.0",
+                "symfony/form": "~2.1|~3.0",
+                "symfony/framework-bundle": "~2.1|~3.0",
+                "twig/twig": "~1.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "symfony/phpunit-bridge": "~2.7",
+                "symfony/twig-bundle": "~2.1|~3.0",
+                "symfony/yaml": "~2.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.10.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Trsteel\\CkeditorBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Trent Steel",
+                    "email": "trsteel88@gmail.com"
+                }
+            ],
+            "description": "Symfony2 bundle for easy integration of the CKEditor WYSIWYG",
+            "keywords": [
+                "CKEditor",
+                "editor",
+                "wysiwyg"
+            ],
+            "time": "2016-01-05 02:39:25"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "sedona/sbo": 20,
         "friendsofsymfony/jsrouting-bundle": 0,
         "friendsofsymfony/user-bundle": 20,
         "jms/di-extra-bundle": 20,

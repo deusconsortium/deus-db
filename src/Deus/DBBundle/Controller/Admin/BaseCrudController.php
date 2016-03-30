@@ -2,9 +2,6 @@
 
 namespace Deus\DBBundle\Controller\Admin;
 
-use Sedona\SBOGeneratorBundle\Controller\BaseCrudController as SourceBaseCrudController;
-
-
 /**
  * Base CRUD Controller
  */

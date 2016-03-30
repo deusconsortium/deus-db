@@ -26,7 +26,6 @@ class AppKernel extends Kernel
             new Sg\DatatablesBundle\SgDatatablesBundle(),
 
             new Sedona\SBOAdminThemeBundle\SedonaSBOAdminThemeBundle(),
-            new Sedona\SBOGeneratorBundle\SedonaSBOGeneratorBundle(),
             new Deus\DBBundle\DeusDBBundle(),
 
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),

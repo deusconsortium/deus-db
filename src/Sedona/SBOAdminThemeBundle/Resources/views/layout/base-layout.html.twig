@@ -1,0 +1,129 @@
+{% import "SedonaSBOAdminThemeBundle:layout:macros.html.twig" as macro %}
+<!doctype html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{% block title %}Sedona SBO Admin!{% endblock %}</title>
+
+    {# -------------------------------------------------------------------------------------------------- STYLESHEETS #}
+    {% block stylesheets %}
+    {% stylesheets '@admin_lte_all_css' filter="cssrewrite" %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    {% endblock %}
+
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    {# --------------------------------------------------------------------------------------------- JAVASCRIPTS_HEAD #}
+    {%  block javascripts_head %}
+    {% javascripts '@SedonaSBOAdminThemeBundle/Resources/public/vendor/modernizr/modernizr.js'%}
+        <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
+    {% endjavascripts %}
+        <!--[if lt IE 9]>
+
+        <![endif]-->
+
+    {% endblock %}
+
+</head>
+<body class="{{ admin_skin|default('skin-blue')}}">
+
+{% block avanzu_admin_header %}
+
+    <header class="header">
+        {% block avanzu_logo %}
+        <a href="#" class="logo">
+            <!-- Add the class icon to your logo image or logo icon to add the margining -->
+            {{ block('title') }}
+        </a>
+        {% endblock %}
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="navbar-right">
+                <ul class="nav navbar-nav">
+                    {% block avanzu_navbar %}
+                    {{ render(controller('SedonaSBOAdminThemeBundle:Navbar:messages')) }}
+                    {{ render(controller('SedonaSBOAdminThemeBundle:Navbar:notifications')) }}
+                    {{ render(controller('SedonaSBOAdminThemeBundle:Navbar:tasks')) }}
+                    {{ render(controller('SedonaSBOAdminThemeBundle:Navbar:user')) }}
+                    {% endblock %}
+                </ul>
+            </div>
+            {% endif %}
+        </nav>
+    </header>
+
+{% endblock %}
+
+<div class="wrapper row-offcanvas row-offcanvas-left">
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="left-side sidebar-offcanvas">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            {#{{ render(controller('SedonaSBOAdminThemeBundle:Sidebar:searchForm')) }}#}
+            {% block avanzu_sidebar %}
+                {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {{ render(controller('SedonaSBOAdminThemeBundle:Sidebar:userPanel')) }}
+                {% endif %}
+                {{ render(controller('SedonaSBOAdminThemeBundle:Sidebar:menu', {'request':app.request})) }}
+            {% endblock %}
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <aside class="right-side">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                {% block page_title %}Blank page{% endblock %}
+                <small>{% block page_subtitle %}Control panel{% endblock %}</small>
+            </h1>
+            {% block avanzu_breadcrumb %}
+            {{ render(controller('SedonaSBOAdminThemeBundle:Breadcrumb:breadcrumb', {'request':app.request, 'title' : block('page_title')})) }}
+            {% endblock %}
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            {% block page_content %}{% endblock %}
+        </section>
+        <!-- /.content -->
+    </aside>
+    <!-- /.right-side -->
+</div>
+<!-- ./wrapper -->
+
+{# ------------------------------------------------------------------------------------------------------ JAVASCRIPTS #}
+{% block javascripts %}
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+    {% javascripts '@admin_lte_all' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+
+{# ----------------------------------------------------------------------------------------------- JAVASCRIPTS_INLINE #}
+{% block javascripts_inline %}
+{% endblock %}
+</body>
+</html>

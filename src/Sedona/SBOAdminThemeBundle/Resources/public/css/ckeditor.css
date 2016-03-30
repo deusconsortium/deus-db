@@ -1,0 +1,26 @@
+/* Reset */
+/* *,html,body,img,ul,ol,li,em,strong { margin:0; padding:0; border:none; list-style:none; font-weight:normal; font-style:normal} */
+
+
+/* Font */
+body { color: #333333; font-family: 'Trebuchet MS Regular','Trebuchet MS'; font-size: 13px; line-height: 1.42857; }
+a:link,a:visited { text-decoration:none; color:#4c4c4e; }
+/* Icon Font Play/Pause */
+
+
+#body /* #wp */{text-align:left; }
+
+/*.content_reset*/ table { border-top: 1px solid #ccc; border-left: 1px solid #ccc; }
+/*.content_reset*/ td { padding:10px; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc;font-size:15px; line-height:23px; font-weight:300; color:#4c4c4c; padding:0 20px 20px 0; vertical-align: top; }
+/*.content_reset*/ td * {line-height:23px; font-weight:300; color:#4c4c4c; }
+/*.content_reset*/ p { margin: 0 0 9px; }
+/*.content_reset*/ strong { font-weight:600; }
+/*.content_reset*/ strong * { font-weight:600; }
+/*.content_reset*/ em { font-style: italic;}
+/*.content_reset*/ em * { font-style: italic;}
+/*.content_reset*/ ul { list-style: initial; margin: initial; padding: 0 0 0 40px; }
+/*.content_reset*/ ol { display: block; list-style-type: decimal; margin: 1em 0; }
+/*.content_reset*/ li { display: list-item; }
+
+/* - only for iframe CKEditor---------------------- */
+body { max-width: 1110px;margin: 10px;}

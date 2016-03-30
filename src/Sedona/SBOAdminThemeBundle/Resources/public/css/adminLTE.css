@@ -1,0 +1,52 @@
+table.record_properties {width: 100%;}
+table.record_properties th {vertical-align: top;}
+
+/* -- Tab ------------------------------------------------------------------------------------ */
+
+.tab-pane { position:relative; }
+
+.tab-pane > .overlay {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.7);
+    z-index: 1010;
+}
+.tab-pane > .overlay, .tab-pane  > .loading-img {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.tab-pane > .loading-img {
+    background: url("../vendor/adminlte/img/ajax-loader1.gif") no-repeat scroll 50% 50% transparent;
+    z-index: 1020;
+}
+
+/* --- DataTable.net ------------------------------------------------------------ */
+
+.table-responsive {
+    position:relative;
+}
+
+.table-responsive .dataTables_processing {
+    background: url("../vendor/adminlte/img/ajax-loader1.gif") no-repeat scroll 50% 50% rgba(255, 255, 255, 0.7);
+    z-index: 1020;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    color: transparent;
+}
+
+.table-responsive .dataTables_empty { text-align: center; }
+
+
+table > tbody > tr.loading {
+    opacity: 0.5;
+}
+
+
+
+/*.table-responsive ul.pagination  { visibility: hidden;  }*/
+/*.table-responsive ul.pagination:has(> .active) { visibility: visible;  }*/
