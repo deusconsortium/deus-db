@@ -459,56 +459,6 @@ abstract class SourceBaseCrudController extends Controller
     }
 
     /**
-     * Manage search to add in datatable
-     * @param Request $request
-     * @param $entity
-     * @param $fieldClass
-     * @param $field
-     * @param $fieldSearch
-     * @return JsonResponse
-     */
-    protected function manageSearchFieldMany(Request $request, $entity, $fieldClass, $field, $fieldSearch)
-    {
-        $twig = $this->get('twig');
-
-        $getTitle = $this->getGetter($fieldSearch);
-
-        $querySearch = function(\Doctrine\ORM\QueryBuilder $queryBuilder, $query) use ($entity, $field, $fieldSearch, $fieldClass) {
-
-            $queryBuilder
-                ->andWhere($queryBuilder->expr()->notIn("o.id",
-                    "SELECT field.id FROM ".get_class($entity)." entity JOIN entity.".$field." field WHERE entity.id = :entity_id"))
-                ->setParameter("entity_id", $entity->getId())
-                ->andWhere("o.".$fieldSearch." LIKE :".$fieldSearch)
-                ->setParameter($fieldSearch,"%$query%")
-                ->orderBy("o.".$fieldSearch)
-            ;
-        };
-
-        $fieldClassName = substr($fieldClass,strripos($fieldClass,'\\')+1);
-        if ($this->get('templating')->exists($this->bundle_name.':Admin/'.$fieldClassName.':'."renderResultSelect2.html.twig")) {
-            $appendResult = function($subentity, $query) use ($entity, $field, $twig, $getTitle, $fieldClassName) {
-                return [
-                    'renderValue'   => $twig->render($this->bundle_name.':Admin/'.$fieldClassName.':'."renderResultSelect2.html.twig",['entity' => $subentity, 'query' => $query]),
-                    'confirme'      => $this->generateUrl($this->route_name.'_'.strtolower($field).'_add',['id'=> $entity->getId(),strtolower($fieldClassName)."_id" => $subentity->getId() ]),
-                    'text'          => $subentity->$getTitle(),
-                    'id'            => $subentity->getId()
-                ];
-            };
-        } else {
-            $appendResult = function($subentity, $query) use ($entity, $field, $twig, $getTitle, $fieldClassName) {
-                return [
-                    'confirme'      => $this->generateUrl($this->route_name.'_'.strtolower($field).'_add',['id'=> $entity->getId(),strtolower($fieldClassName)."_id" => $subentity->getId() ]),
-                    'text'          => $subentity->$getTitle(),
-                    'id'            => $subentity->getId()
-                ];
-            };
-        }
-
-        return $this->searchSelect2($request, $fieldClass, $querySearch, $appendResult);
-    }
-
-    /**
      * @param $source
      * @param $target
      * @param $field

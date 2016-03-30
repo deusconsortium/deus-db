@@ -110,7 +110,7 @@ class DefaultController extends Controller
      * @Route("/toggleVisibility/object/{id}", name="public_visibility_object", options={"expose"=true})
      * @Method("GET")
      */
-    public function toggleObjectVisibility(ObjectGroup $object)
+    public function toggleObjectVisibilityAction(ObjectGroup $object)
     {
         if(!$this->getUser() || !$this->getUser()->hasRole('ROLE_CHANGE_VISIBILITY')) {
             throw new AccessDeniedException();
@@ -126,7 +126,7 @@ class DefaultController extends Controller
      * @Route("/toggleVisibility/simulation/{id}", name="public_visibility_simulation", options={"expose"=true})
      * @Method("GET")
      */
-    public function toggleObjectSimulationVisibility(ObjectGroup $object)
+    public function toggleObjectSimulationVisibilityAction(ObjectGroup $object)
     {
         if(!$this->getUser() || !$this->getUser()->hasRole('ROLE_CHANGE_VISIBILITY')) {
             throw new AccessDeniedException();

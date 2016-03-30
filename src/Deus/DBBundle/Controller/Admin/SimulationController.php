@@ -135,16 +135,6 @@ class SimulationController extends BaseCrudController
     }
 
     /**
-     * Search geometries for entity Simulation.
-     *
-     * @Route("/{id}/searchGeometries", name="admin_simulation_geometries_search", options={"expose"=true})
-     */
-    public function searchGeometriesAction(Request $request, Simulation $simulation)
-    {
-        return $this->manageSearchFieldMany($request, $simulation, 'Deus\DBBundle\Entity\Geometry', 'geometries', '');
-    }
-            
-    /**
      * Add relation Simulation to geometries.
      *
      * @Route("/{id}/addGeometries/{geometry_id}", name="admin_simulation_geometries_add", options={"expose"=true})

@@ -136,16 +136,6 @@ class GeometryController extends BaseCrudController
     }
 
     /**
-     * Search objectGroups for entity Geometry.
-     *
-     * @Route("/{id}/searchObjectgroups", name="admin_geometry_objectgroups_search", options={"expose"=true})
-     */
-    public function searchObjectgroupsAction(Request $request, Geometry $geometry)
-    {
-        return $this->manageSearchFieldMany($request, $geometry, 'Deus\DBBundle\Entity\ObjectGroup', 'objectGroups', 'name');
-    }
-            
-    /**
      * Add relation Geometry to objectGroups.
      *
      * @Route("/{id}/addObjectgroups/{objectgroup_id}", name="admin_geometry_objectgroups_add", options={"expose"=true})
