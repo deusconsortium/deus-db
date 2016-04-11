@@ -9,6 +9,7 @@
 namespace Deus\DBBundle\Command;
 
 
+use Deus\DBBundle\Entity\Location;
 use Deus\DBBundle\Model\IndexDirectory;
 use Deus\DBBundle\Model\IndexSimulation;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -56,7 +57,9 @@ class PublishSimulationCommand extends ContainerAwareCommand
             $simulation->setPublic(true);
             foreach($simulation->getGeometries() as $oneGeometry) {
                 foreach($oneGeometry->getObjectGroups() as $oneFile) {
-                    $oneFile->setPublic(true);
+                    if(Location::MEUDON === $oneFile->getStorage()->getLocation()) {
+                        $oneFile->setPublic(true);
+                    }
                 }
             }
             $em->flush();
