@@ -57,7 +57,7 @@ class PublishSimulationCommand extends ContainerAwareCommand
             $simulation->setPublic(true);
             foreach($simulation->getGeometries() as $oneGeometry) {
                 foreach($oneGeometry->getObjectGroups() as $oneFile) {
-                    if(Location::MEUDON === $oneFile->getStorage()->getLocation()) {
+                    if(Location::MEUDON === $oneFile->getStorage()->getLocation()->getId()) {
                         $oneFile->setPublic(true);
                     }
                 }
