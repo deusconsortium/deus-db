@@ -49,7 +49,7 @@ class SimulationRepository
         $this->logger = $logger;
     }
 
-    public function getSimulation($boxlen_name, $cosmo_value, $npart_value)
+    public function getSimulation($boxlen_name, $cosmo_value, $npart_value, $createIfNotFound = true)
     {
         $Boxlen = $this->getObject("Boxlen","value",$boxlen_name);
         $Cosmology = $this->getObject("Cosmology","name",$cosmo_value);
@@ -60,7 +60,7 @@ class SimulationRepository
             'Cosmology' => $Cosmology,
             'Resolution' => $Resolution,
         ]);
-        if(!$simulation) {
+        if(!$simulation && $createIfNotFound) {
             $simulation = new Simulation();
             $simulation
                 ->setBoxlen($Boxlen)
