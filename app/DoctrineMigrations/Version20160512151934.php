@@ -19,6 +19,10 @@ class Version20160512151934 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE Cosmology ADD url VARCHAR(255) DEFAULT NULL');
+
+        $this->addSql("UPDATE Cosmology SET url = 'http://www.deus-consortium.org/a-propos/cosmological-models/cosmological-models/' WHERE Cosmology.name LIKE '%5'");
+        $this->addSql("UPDATE Cosmology SET url = 'http://www.deus-consortium.org/a-propos/dark-energy-universe-simulation-full-universe-run/cosmological-models-2/' WHERE Cosmology.name LIKE '%7'");
+
     }
 
     /**
