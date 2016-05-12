@@ -19,6 +19,7 @@ class CosmologyType extends AbstractType
         /*  */
         $builder
             ->add('name', null, ['required' => false])
+            ->add('url', null, ['required' => false])
             ->add('properties', TextareaType::class, ['required' => false])
             ->get("properties")->addModelTransformer(new CallbackTransformer(
                 function ($originalProperties) {

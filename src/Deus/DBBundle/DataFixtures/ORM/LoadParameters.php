@@ -59,42 +59,42 @@ class LoadParameters implements FixtureInterface
             'omega_k' => 0.000000000000000E+00,
             'omega_b' => 0.000000000000000E+00,
             'H0' => 0.720000000000000E+02
-        ]);
+        ], 'http://www.deus-consortium.org/a-propos/cosmological-models/cosmological-models/');
         $this->createCosmology('rpcdmw5', [
             'omega_m' => 0.230000004172325E+00,
             'omega_l' => 0.769999980926514E+00,
             'omega_k' => 0.149011611938477E-07,
             'omega_b' => 0.0000000000000000E+00,
             'H0' => 0.720000000000000E+02
-        ]);
+        ], 'http://www.deus-consortium.org/a-propos/cosmological-models/cosmological-models/');
         $this->createCosmology('sucdmw5', [
             'omega_m' => 0.250000000000000E+00,
             'omega_l' => 0.750000000000000E+00,
             'omega_k' => 0.000000000000000E+00,
             'omega_b' => 0.000000000000000E+00,
             'H0' => 0.720000000000000E+02
-        ]);
+        ], 'http://www.deus-consortium.org/a-propos/cosmological-models/cosmological-models/');
         $this->createCosmology('lcdmw7', [
             'omega_m' => 0.257299989461899E+00,
             'omega_l' => 0.742699980735779E+00,
             'omega_k' => 0.298023223876953E-07,
             'omega_b' => 0.000000000000000E+00,
             'H0' => 0.720000000000000E+02
-        ]);
+        ], 'http://www.deus-consortium.org/a-propos/dark-energy-universe-simulation-full-universe-run/cosmological-models-2/');
         $this->createCosmology('rpcdmw7', [
             'omega_m' => 0.230000004172325E+00,
             'omega_l' => 0.769999980926514E+00,
             'omega_k' => 0.149011611938477E-07,
             'omega_b' => 0.000000000000000E+00,
             'H0' => 0.720000000000000E+02
-        ]);
+        ], 'http://www.deus-consortium.org/a-propos/dark-energy-universe-simulation-full-universe-run/cosmological-models-2/');
         $this->createCosmology('wcdmw7', [
             'omega_m' => 0.275000005960464E+00,
             'omega_l' => 0.725000023841858E+00,
             'omega_k' => -0.298023223876953E-07,
             'omega_b' => 0.000000000000000E+00,
             'H0' => 0.720000000000000+02
-        ]);
+        ], 'http://www.deus-consortium.org/a-propos/dark-energy-universe-simulation-full-universe-run/cosmological-models-2/');
 
         $manager->flush();
     }
@@ -140,12 +140,14 @@ class LoadParameters implements FixtureInterface
         return $item;
     }
 
-    protected function createCosmology($name, $properties)
+    protected function createCosmology($name, $properties, $url)
     {
         $item = new Cosmology();
         $item
             ->setName($name)
-            ->setProperties($properties);
+            ->setProperties($properties)
+            ->setUrl($url)
+        ;
 
         $this->manager->persist($item);
         return $item;

@@ -39,6 +39,7 @@ admin:
     cosmology:
         entity_name: Cosmology
         name: Name
+        url: URL Description
     geometry:
         entity_name: Geometry
         Z: Z

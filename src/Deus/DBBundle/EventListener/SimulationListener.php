@@ -2,7 +2,6 @@
 
 namespace Deus\DBBundle\EventListener;
 use Deus\DBBundle\Entity\Simulation;
-use Deus\DBBundle\Manager\DeusFileManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use JMS\DiExtraBundle\Annotation\DoctrineListener;
 

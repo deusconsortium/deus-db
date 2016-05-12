@@ -3,8 +3,8 @@
 namespace Deus\DBBundle\Controller\Admin;
 
 use Doctrine\ORM\QueryBuilder;
-use Sedona\SBOGeneratorBundle\Event\AdminAssociationActionEvent;
-use Sedona\SBOGeneratorBundle\Event\AdminCrudEvent;
+use Sedona\SBOAdminThemeBundle\Event\AdminAssociationActionEvent;
+use Sedona\SBOAdminThemeBundle\Event\AdminCrudEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
